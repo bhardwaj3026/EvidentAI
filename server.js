@@ -13,6 +13,7 @@ import { runMitigationPass } from './server/mitigation.js';
 import { chatRouter } from './server/chat.js';
 import { authRouter, extractAuthUser } from './server/auth.js';
 import { checkAndConsumeChatQuota } from './server/userStore.js';
+import { extractDocumentText, isDocumentType } from './server/documentParser.js';
 
 dotenv.config();
 
@@ -46,38 +47,65 @@ function validateUploadedImage(uploadedImage) {
   if (!uploadedImage || typeof uploadedImage !== 'object') {
     throw new Error("Invalid uploadedImage object.");
   }
-  const allowedMediaTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
-  const { mediaType, data } = uploadedImage;
+  const allowedMediaTypes = [
+    'image/png', 'image/jpeg', 'image/webp', 'image/gif',
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/msword'
+  ];
+  const { mediaType, data, name = '' } = uploadedImage;
 
-  if (!mediaType || !allowedMediaTypes.includes(mediaType.toLowerCase())) {
-    throw new Error(`Invalid image type '${mediaType}'. Only PNG, JPEG, WebP, and GIF images are allowed.`);
+  const isAllowed = mediaType && (
+    allowedMediaTypes.includes(mediaType.toLowerCase()) ||
+    mediaType.includes('pdf') ||
+    mediaType.includes('word') ||
+    mediaType.includes('officedocument') ||
+    name.toLowerCase().endsWith('.pdf') ||
+    name.toLowerCase().endsWith('.docx') ||
+    name.toLowerCase().endsWith('.doc')
+  );
+
+  if (!isAllowed) {
+    throw new Error(`Invalid file type '${mediaType}'. Allowed types: Images (PNG, JPEG, WebP, GIF), PDF, and Word documents (.docx, .doc).`);
   }
 
   if (!data || typeof data !== 'string') {
-    throw new Error("Missing image data.");
+    throw new Error("Missing file data.");
   }
 
-  const cleanBase64 = data.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+  const cleanBase64 = data.replace(/^data:[^;]+;base64,/, '');
   const buffer = Buffer.from(cleanBase64, 'base64');
 
-  if (buffer.length > 5 * 1024 * 1024) {
-    throw new Error("Uploaded image exceeds maximum size of 5 MB.");
+  if (buffer.length > 25 * 1024 * 1024) {
+    throw new Error("Uploaded file exceeds maximum size of 25 MB.");
   }
   if (buffer.length === 0) {
-    throw new Error("Uploaded image data is empty.");
+    throw new Error("Uploaded file data is empty.");
   }
 
   const isPng = buffer.length >= 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47;
   const isJpeg = buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
   const isGif = buffer.length >= 4 && buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x38;
   const isWebp = buffer.length >= 12 && buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50;
+  const isPdf = buffer.length >= 4 && buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46;
+  const isDocx = buffer.length >= 4 && buffer[0] === 0x50 && buffer[1] === 0x4b && buffer[2] === 0x03 && buffer[3] === 0x04;
+  const isDoc = buffer.length >= 4 && buffer[0] === 0xd0 && buffer[1] === 0xcf && buffer[2] === 0x11 && buffer[3] === 0xe0;
 
-  const realMediaType = isPng ? 'image/png' : isJpeg ? 'image/jpeg' : isGif ? 'image/gif' : isWebp ? 'image/webp' : null;
+  let realMediaType = isPng ? 'image/png' : isJpeg ? 'image/jpeg' : isGif ? 'image/gif' : isWebp ? 'image/webp' : isPdf ? 'application/pdf' : isDocx ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : isDoc ? 'application/msword' : null;
+
   if (!realMediaType) {
-    throw new Error("File magic bytes verification failed. The uploaded file is not a valid PNG, JPEG, WebP, or GIF image.");
+    if (name.toLowerCase().endsWith('.pdf') || (mediaType && mediaType.includes('pdf'))) {
+      realMediaType = 'application/pdf';
+    } else if (name.toLowerCase().endsWith('.docx') || (mediaType && (mediaType.includes('docx') || mediaType.includes('word')))) {
+      realMediaType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    } else if (name.toLowerCase().endsWith('.doc') || (mediaType && mediaType.includes('msword'))) {
+      realMediaType = 'application/msword';
+    } else {
+      throw new Error("File magic bytes verification failed. The uploaded file is not a valid Image, PDF, or Word document.");
+    }
   }
 
-  return { mediaType: realMediaType, cleanBase64 };
+  return { mediaType: realMediaType, cleanBase64, name };
 }
 
 // Main entrypoint: Serve Unified Multimodal Platform at root '/'
@@ -183,15 +211,24 @@ const handlePipelineQuery = async (req, res) => {
       };
       timelineTrace.push(stage2);
 
-      // Stage 3: Evidence Construction (Vision Call for Evidence Extraction)
+      // Stage 3: Evidence Construction (Vision Call or Document Parser)
       let extractedEvidence = '';
+      const isDoc = isDocumentType(mediaType, uploadedImage.name);
       try {
-        extractedEvidence = await extractEvidenceFromImage(provider, mediaType, cleanBase64);
+        if (isDoc) {
+          extractedEvidence = await extractDocumentText(Buffer.from(cleanBase64, 'base64'), mediaType, uploadedImage.name);
+          if (!extractedEvidence && mediaType === 'application/pdf') {
+            extractedEvidence = await extractEvidenceFromImage(provider, mediaType, cleanBase64);
+          }
+        } else {
+          extractedEvidence = await extractEvidenceFromImage(provider, mediaType, cleanBase64);
+        }
       } catch (extErr) {
         return res.status(400).json({ success: false, error: extErr.message });
       }
 
-      const formattedEvidence = `[EXTRACTED EVIDENCE FROM IMAGE]\n${extractedEvidence}${userContext ? `\n\n[USER CONTEXT]\n${userContext}` : ''}`;
+      const docLabel = mediaType === 'application/pdf' ? 'PDF DOCUMENT' : (isDoc ? 'WORD DOCUMENT' : 'IMAGE');
+      const formattedEvidence = `[EXTRACTED EVIDENCE FROM ${docLabel}]\n${extractedEvidence}${userContext ? `\n\n[USER CONTEXT]\n${userContext}` : ''}`;
 
       const constructedEvidenceBlock = {
         sample: null,

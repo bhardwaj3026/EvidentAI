@@ -12,7 +12,7 @@
     scroll: $('chatScroll'), log: $('chatLog'), empty: $('emptyState'),
     form: $('composerForm'), input: $('messageInput'), send: $('sendBtn'),
     fileInput: $('fileInput'), attachBtn: $('attachBtn'), emptyAttachBtn: $('emptyAttachBtn'),
-    chip: $('attachChip'), thumb: $('attachThumb'), chipName: $('attachName'), chipSize: $('attachSize'), chipRemove: $('attachRemove'),
+    chip: $('attachChip'), thumb: $('attachThumb'), docIcon: $('attachDocIcon'), chipName: $('attachName'), chipSize: $('attachSize'), chipRemove: $('attachRemove'),
     error: $('composerError'), provider: $('providerSelect'), strict: $('strictToggle'),
     newChat: $('chatNewChatBtn'), theme: $('themeToggleBtn'), banner: $('keyBanner'), drop: $('dropOverlay'),
 
@@ -263,72 +263,149 @@
     }
   }
 
-  /* ------------------------------------------------------------ image encode */
-  function encodeImage(file) {
+  /* ------------------------------------------------------------ file processing (images, PDF, Word) */
+  function processFile(file) {
     return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        try {
-          let { naturalWidth: w, naturalHeight: h } = img;
-          if (!w || !h) throw new Error('empty image');
-          const scale = Math.min(1, MAX_DIMENSION / Math.max(w, h));
-          w = Math.max(1, Math.round(w * scale));
-          h = Math.max(1, Math.round(h * scale));
+      const name = file.name || 'attachment';
+      const ext = name.split('.').pop().toLowerCase();
+      const isPdf = file.type === 'application/pdf' || ext === 'pdf';
+      const isWord = file.type.includes('word') || file.type.includes('officedocument') || file.type === 'application/msword' || ext === 'docx' || ext === 'doc';
+      const isImage = file.type.startsWith('image/');
 
-          const canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, w, h);
-          ctx.drawImage(img, 0, 0, w, h);
+      if (isPdf || isWord) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const dataUrl = reader.result;
+            const m = /^data:([^;]+);base64,(.+)$/.exec(dataUrl);
+            if (!m) throw new Error('Failed to read file data.');
+            const mediaType = isPdf ? 'application/pdf' : (ext === 'doc' ? 'application/msword' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            const data = m[2];
+            const bytes = Math.round(data.length * 0.75);
+            resolve({
+              mediaType,
+              data,
+              previewUrl: null,
+              bytes,
+              name,
+              isDoc: true,
+              docType: isPdf ? 'pdf' : 'word',
+              docIcon: isPdf ? '📄' : '📝'
+            });
+          } catch (e) {
+            reject(e);
+          }
+        };
+        reader.onerror = () => reject(new Error('Failed reading document.'));
+        reader.readAsDataURL(file);
+        return;
+      }
 
-          let dataUrl = file.type === 'image/png' ? canvas.toDataURL('image/png') : '';
-          if (!dataUrl || dataUrl.length * 0.75 > MAX_SEND_BYTES) dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-          const m = /^data:(image\/[a-z]+);base64,(.+)$/i.exec(dataUrl);
-          if (!m) throw new Error('encode failed');
-          const bytes = Math.round(m[2].length * 0.75);
-          if (bytes > MAX_SEND_BYTES) throw new Error('too large');
-          resolve({ mediaType: m[1].toLowerCase(), data: m[2], previewUrl: dataUrl, bytes, name: file.name || 'image.png' });
-        } catch (e) {
-          reject(e);
-        } finally {
-          URL.revokeObjectURL(url);
-        }
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode failed')); };
-      img.src = url;
+      if (isImage) {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+          try {
+            let { naturalWidth: w, naturalHeight: h } = img;
+            if (!w || !h) throw new Error('empty image');
+            const scale = Math.min(1, MAX_DIMENSION / Math.max(w, h));
+            w = Math.max(1, Math.round(w * scale));
+            h = Math.max(1, Math.round(h * scale));
+
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+
+            let dataUrl = file.type === 'image/png' ? canvas.toDataURL('image/png') : '';
+            if (!dataUrl || dataUrl.length * 0.75 > MAX_SEND_BYTES) dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            const m = /^data:(image\/[a-z]+);base64,(.+)$/i.exec(dataUrl);
+            if (!m) throw new Error('encode failed');
+            const bytes = Math.round(m[2].length * 0.75);
+            if (bytes > MAX_SEND_BYTES) throw new Error('too large');
+            resolve({
+              mediaType: m[1].toLowerCase(),
+              data: m[2],
+              previewUrl: dataUrl,
+              bytes,
+              name,
+              isDoc: false
+            });
+          } catch (e) {
+            reject(e);
+          } finally {
+            URL.revokeObjectURL(url);
+          }
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode failed')); };
+        img.src = url;
+        return;
+      }
+
+      reject(new Error('Unsupported file format. Please upload PNG, JPEG, WebP, GIF, PDF, or Word document (.docx, .doc).'));
     });
   }
 
-  async function handleImageFile(file) {
+  async function handleAttachedFile(file) {
     clearComposerError();
     if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      showComposerError('Invalid file type. Please upload a PNG, JPEG, WebP, or GIF image.');
+
+    const name = file.name || '';
+    const ext = name.split('.').pop().toLowerCase();
+    const isSupported = file.type.startsWith('image/') ||
+                        file.type === 'application/pdf' ||
+                        file.type.includes('word') ||
+                        file.type.includes('officedocument') ||
+                        file.type === 'application/msword' ||
+                        ['png', 'jpg', 'jpeg', 'webp', 'gif', 'pdf', 'docx', 'doc'].includes(ext);
+
+    if (!isSupported) {
+      showComposerError('Invalid file type. Please upload a PNG, JPEG, WebP, GIF, PDF, or Word document (.docx, .doc).');
       return;
     }
     if (file.size > MAX_ORIGINAL_BYTES) {
-      showComposerError(`Image size is ${formatBytes(file.size)}. Max size is ${formatBytes(MAX_ORIGINAL_BYTES)}.`);
+      showComposerError(`File size is ${formatBytes(file.size)}. Max size is ${formatBytes(MAX_ORIGINAL_BYTES)}.`);
       return;
     }
+
     try {
-      const enc = await encodeImage(file);
+      const enc = await processFile(file);
       state.pending = enc;
-      if (el.thumb) el.thumb.src = enc.previewUrl;
+
+      if (enc.isDoc) {
+        if (el.thumb) el.thumb.classList.add('hidden');
+        if (el.docIcon) {
+          el.docIcon.textContent = enc.docIcon || '📄';
+          el.docIcon.classList.remove('hidden');
+        }
+      } else {
+        if (el.docIcon) el.docIcon.classList.add('hidden');
+        if (el.thumb) {
+          el.thumb.src = enc.previewUrl;
+          el.thumb.classList.remove('hidden');
+        }
+      }
+
       if (el.chipName) el.chipName.textContent = enc.name;
       if (el.chipSize) el.chipSize.textContent = formatBytes(enc.bytes);
       if (el.chip) el.chip.classList.remove('hidden');
       updateSendState();
       if (el.input) el.input.focus();
-    } catch {
-      showComposerError('Could not process this image.');
+    } catch (e) {
+      showComposerError('Could not process this file: ' + (e.message || 'Error'));
     }
   }
 
   function removePending() {
     state.pending = null;
     if (el.chip) el.chip.classList.add('hidden');
+    if (el.thumb) {
+      el.thumb.src = '';
+      el.thumb.classList.remove('hidden');
+    }
+    if (el.docIcon) el.docIcon.classList.add('hidden');
     if (el.fileInput) el.fileInput.value = '';
     clearComposerError();
     updateSendState();
@@ -337,16 +414,16 @@
   /* ------------------------------------------------------------ composer events */
   if (el.attachBtn && el.fileInput) el.attachBtn.addEventListener('click', () => el.fileInput.click());
   if (el.emptyAttachBtn && el.fileInput) el.emptyAttachBtn.addEventListener('click', () => el.fileInput.click());
-  if (el.fileInput) el.fileInput.addEventListener('change', () => { if (el.fileInput.files[0]) handleImageFile(el.fileInput.files[0]); });
+  if (el.fileInput) el.fileInput.addEventListener('change', () => { if (el.fileInput.files[0]) handleAttachedFile(el.fileInput.files[0]); });
   if (el.chipRemove) el.chipRemove.addEventListener('click', removePending);
 
-  // Paste image from clipboard
+  // Paste image or document from clipboard
   document.addEventListener('paste', (e) => {
     const items = e.clipboardData && e.clipboardData.items ? Array.from(e.clipboardData.items) : [];
-    const imageItem = items.find((it) => it.kind === 'file' && it.type.startsWith('image/'));
-    if (imageItem) {
+    const fileItem = items.find((it) => it.kind === 'file');
+    if (fileItem) {
       e.preventDefault();
-      handleImageFile(imageItem.getAsFile());
+      handleAttachedFile(fileItem.getAsFile());
     }
   });
 
@@ -373,8 +450,9 @@
     e.preventDefault();
     dragDepth = 0;
     if (el.drop) el.drop.classList.add('hidden');
-    const file = Array.from(e.dataTransfer.files).find((f) => f.type.startsWith('image/')) || e.dataTransfer.files[0];
-    handleImageFile(file);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleAttachedFile(e.dataTransfer.files[0]);
+    }
   });
 
   /* ------------------------------------------------------------ VOICE INPUT CONTROLLER */
@@ -562,8 +640,16 @@
       const img = document.createElement('img');
       img.className = 'msg-image';
       img.src = previewUrl;
-      img.alt = 'Attached image';
+      img.alt = 'Attached visual';
       wrap.appendChild(img);
+    } else if (msg.image && (msg.image.isDoc || msg.image.mediaType === 'application/pdf' || msg.image.mediaType.includes('word') || msg.image.name?.match(/\.(pdf|docx|doc)$/i))) {
+      const docCard = document.createElement('div');
+      docCard.className = 'msg-doc-badge';
+      const isPdf = msg.image.mediaType === 'application/pdf' || msg.image.name?.toLowerCase().endsWith('.pdf');
+      const docIcon = isPdf ? '📄' : '📝';
+      const docLabel = isPdf ? 'PDF Document' : 'Word Document';
+      docCard.innerHTML = `<span class="doc-icon">${docIcon}</span><div class="doc-details"><span class="doc-name">${escapeHtml(msg.image.name || 'Document')}</span><span class="doc-meta">${docLabel}</span></div>`;
+      wrap.appendChild(docCard);
     }
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
@@ -758,16 +844,22 @@
       authState.currentSessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
     }
 
-    const userText = text || 'What is shown in this image?';
+    const userText = text || (state.pending?.isDoc ? 'Please analyze this attached document and provide a clear, comprehensive summary.' : 'What is shown in this image?');
     const msg = { role: 'user', content: userText };
     const previewUrl = state.pending?.previewUrl || null;
 
     if (state.pending?.data) {
-      msg.image = { mediaType: state.pending.mediaType, data: state.pending.data };
+      msg.image = {
+        mediaType: state.pending.mediaType,
+        data: state.pending.data,
+        name: state.pending.name,
+        isDoc: !!state.pending.isDoc
+      };
     }
 
     state.messages.push(msg);
     addUserBubble(msg, previewUrl);
+    removePending();
 
     el.input.value = '';
     autoGrow();

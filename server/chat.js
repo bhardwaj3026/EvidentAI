@@ -5,10 +5,11 @@ import { extractEvidenceFromImage, callGeminiApi } from './llm/provider.js';
 import { detectHallucinations } from './detection.js';
 import { extractAuthUser } from './auth.js';
 import { checkAndConsumeChatQuota, saveUserSession } from './userStore.js';
+import { extractDocumentText, isDocumentType } from './documentParser.js';
 
 export const chatRouter = express.Router();
 
-function detectRealImageType(buffer) {
+function detectRealImageType(buffer, declaredType = '', name = '') {
   if (!buffer || buffer.length < 4) return null;
   if (buffer.length >= 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47) {
     return 'image/png';
@@ -23,6 +24,20 @@ function detectRealImageType(buffer) {
       buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) {
     return 'image/webp';
   }
+  if (buffer.length >= 4 && buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46) {
+    return 'application/pdf';
+  }
+  if (buffer.length >= 4 && buffer[0] === 0x50 && buffer[1] === 0x4b && buffer[2] === 0x03 && buffer[3] === 0x04) {
+    return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  }
+  if (buffer.length >= 4 && buffer[0] === 0xd0 && buffer[1] === 0xcf && buffer[2] === 0x11 && buffer[3] === 0xe0) {
+    return 'application/msword';
+  }
+  const dt = (declaredType || '').toLowerCase();
+  const nm = (name || '').toLowerCase();
+  if (dt.includes('pdf') || nm.endsWith('.pdf')) return 'application/pdf';
+  if (dt.includes('word') || dt.includes('docx') || nm.endsWith('.docx')) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  if (dt.includes('msword') || nm.endsWith('.doc')) return 'application/msword';
   return null;
 }
 
@@ -99,13 +114,18 @@ chatRouter.post('/', async (req, res) => {
 
       const item = { role, content };
       if (m.image && m.image.data) {
-        item.image = { data: m.image.data, mediaType: m.image.mediaType };
+        item.image = {
+          data: m.image.data,
+          mediaType: m.image.mediaType,
+          name: m.image.name || 'attachment',
+          isDoc: !!m.image.isDoc
+        };
         imageIndices.push(i);
       }
       processedMessages.push(item);
     }
 
-    // Keep only the 4 most recent images
+    // Keep only the 4 most recent attachments
     if (imageIndices.length > 4) {
       const dropIndices = new Set(imageIndices.slice(0, imageIndices.length - 4));
       dropIndices.forEach(idx => {
@@ -113,22 +133,34 @@ chatRouter.post('/', async (req, res) => {
       });
     }
 
-    // Validate remaining images via real magic bytes
+    // Validate remaining attachments and extract text if document
     for (const msg of processedMessages) {
       if (msg.image && msg.image.data) {
-        const cleanBase64 = msg.image.data.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+        const cleanBase64 = msg.image.data.replace(/^data:[^;]+;base64,/, '');
         const buffer = Buffer.from(cleanBase64, 'base64');
 
-        if (buffer.length > 5 * 1024 * 1024) {
-          return res.status(400).json({ success: false, error: "Uploaded image exceeds 5 MB size limit." });
+        if (buffer.length > 25 * 1024 * 1024) {
+          return res.status(400).json({ success: false, error: "Uploaded file exceeds 25 MB size limit." });
         }
 
-        const realType = detectRealImageType(buffer);
+        const realType = detectRealImageType(buffer, msg.image.mediaType, msg.image.name);
         if (!realType) {
-          return res.status(400).json({ success: false, error: "The attached image format is invalid or unreadable." });
+          return res.status(400).json({ success: false, error: "The attached file format is invalid or unreadable." });
         }
         msg.image.mediaType = realType;
         msg.image.data = cleanBase64;
+
+        if (isDocumentType(realType, msg.image.name)) {
+          msg.image.isDoc = true;
+          try {
+            const extractedDocText = await extractDocumentText(buffer, realType, msg.image.name);
+            if (extractedDocText) {
+              msg.documentText = extractedDocText;
+            }
+          } catch (docErr) {
+            console.warn("Document text extraction warning:", docErr.message);
+          }
+        }
       }
     }
 
@@ -237,9 +269,20 @@ Rules:
       const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
       try {
         const lastMsg = processedMessages[processedMessages.length - 1];
-        const userText = lastMsg.content || '';
-        const mediaType = lastMsg.image?.mediaType;
-        const base64Data = lastMsg.image?.data;
+        let userText = lastMsg.content || '';
+        let mediaType = lastMsg.image?.mediaType;
+        let base64Data = lastMsg.image?.data;
+
+        // If a Word document or extracted text exists, prepend document text to user prompt
+        if (lastMsg.documentText) {
+          const docHeading = lastMsg.image?.name ? `[Attached Document: ${lastMsg.image.name}]` : '[Attached Document Content]';
+          userText = `${docHeading}\n${lastMsg.documentText}\n\n${userText}`;
+          // For Word docs, omit inline binary since Gemini inline_data only accepts image/* and application/pdf
+          if (mediaType !== 'application/pdf') {
+            mediaType = null;
+            base64Data = null;
+          }
+        }
 
         const answerText = await callGeminiApi(
           process.env.GEMINI_API_KEY,
@@ -288,19 +331,37 @@ Rules:
 
       const formattedMessages = processedMessages.map(msg => {
         if (msg.role === 'user' && msg.image) {
+          const contentParts = [];
+          let userText = msg.content || 'Please analyze this attached file in detail.';
+          if (msg.documentText) {
+            const docName = msg.image.name || 'document';
+            userText = `[Attached Document Content: ${docName}]\n${msg.documentText}\n\n${userText}`;
+          }
+
+          if (msg.image.mediaType === 'application/pdf') {
+            contentParts.push({
+              type: 'document',
+              source: {
+                type: 'base64',
+                media_type: 'application/pdf',
+                data: msg.image.data
+              }
+            });
+          } else if (msg.image.mediaType && msg.image.mediaType.startsWith('image/')) {
+            contentParts.push({
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: msg.image.mediaType,
+                data: msg.image.data
+              }
+            });
+          }
+          contentParts.push({ type: 'text', text: userText });
+
           return {
             role: 'user',
-            content: [
-              {
-                type: 'image',
-                source: {
-                  type: 'base64',
-                  media_type: msg.image.mediaType,
-                  data: msg.image.data
-                }
-              },
-              { type: 'text', text: msg.content || 'Describe this image in detail.' }
-            ]
+            content: contentParts
           };
         }
         return {
@@ -342,15 +403,24 @@ Rules:
         { role: 'system', content: systemPrompt },
         ...processedMessages.map(msg => {
           if (msg.role === 'user' && msg.image) {
+            const contentParts = [];
+            let userText = msg.content || 'Please analyze this attached file in detail.';
+            if (msg.documentText) {
+              const docName = msg.image.name || 'document';
+              userText = `[Attached Document Content: ${docName}]\n${msg.documentText}\n\n${userText}`;
+            }
+            contentParts.push({ type: 'text', text: userText });
+
+            if (msg.image.mediaType && msg.image.mediaType.startsWith('image/')) {
+              contentParts.push({
+                type: 'image_url',
+                image_url: { url: `data:${msg.image.mediaType};base64,${msg.image.data}` }
+              });
+            }
+
             return {
               role: 'user',
-              content: [
-                { type: 'text', text: msg.content || 'Describe this image in detail.' },
-                {
-                  type: 'image_url',
-                  image_url: { url: `data:${msg.image.mediaType};base64,${msg.image.data}` }
-                }
-              ]
+              content: contentParts
             };
           }
           return {
@@ -401,12 +471,12 @@ chatRouter.post('/check', async (req, res) => {
       return res.status(400).json({ success: false, error: "An image is required to run hallucination check." });
     }
 
-    const cleanBase64 = image.data.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+    const cleanBase64 = image.data.replace(/^data:[^;]+;base64,/, '');
     const buffer = Buffer.from(cleanBase64, 'base64');
-    const realType = detectRealImageType(buffer);
+    const realType = detectRealImageType(buffer, image.mediaType, image.name);
 
     if (!realType) {
-      return res.status(400).json({ success: false, error: "The attached image format is invalid or unreadable." });
+      return res.status(400).json({ success: false, error: "The attached file format is invalid or unreadable." });
     }
 
     const hasClaude = !!process.env.ANTHROPIC_API_KEY;
@@ -426,10 +496,18 @@ chatRouter.post('/check', async (req, res) => {
       targetProvider = hasGemini ? 'gemini' : (hasClaude ? 'claude' : 'openai');
     }
 
-    // Step 1: Transcribe image
+    // Step 1: Transcribe / extract evidence
     let extractedEvidence = '';
+    const isDoc = isDocumentType(realType, image.name);
     try {
-      extractedEvidence = await extractEvidenceFromImage(targetProvider, realType, cleanBase64);
+      if (isDoc) {
+        extractedEvidence = await extractDocumentText(buffer, realType, image.name);
+        if (!extractedEvidence && realType === 'application/pdf') {
+          extractedEvidence = await extractEvidenceFromImage(targetProvider, realType, cleanBase64);
+        }
+      } else {
+        extractedEvidence = await extractEvidenceFromImage(targetProvider, realType, cleanBase64);
+      }
     } catch (extErr) {
       return res.status(400).json({ success: false, error: extErr.message });
     }

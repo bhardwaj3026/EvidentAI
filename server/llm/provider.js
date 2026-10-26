@@ -3,6 +3,7 @@ import path from 'path';
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { formatEvidenceForPrompt, getNormalizedSampleType } from '../dataLoader.js';
+import { extractDocumentText, isDocumentType } from '../documentParser.js';
 
 /**
  * Reads image file from disk and encodes as base64 string.
@@ -100,10 +101,20 @@ export async function callGeminiApi(apiKey, model, systemPrompt, userText, media
 }
 
 /**
- * Transcribes text, numbers, and tables from an uploaded image via Vision model.
+ * Transcribes text, numbers, and tables from an uploaded document or image via parser or Vision model.
  */
-export async function extractEvidenceFromImage(provider, mediaType, base64Data) {
-  const promptText = "Transcribe everything visible in this image: all text, labels, axis titles, legends, numbers, and any data table, as plain structured text.";
+export async function extractEvidenceFromImage(provider, mediaType, base64Data, fileName = '') {
+  if (isDocumentType(mediaType, fileName)) {
+    try {
+      const buffer = Buffer.from(base64Data, 'base64');
+      const docText = await extractDocumentText(buffer, mediaType, fileName);
+      if (docText) return docText;
+    } catch (e) {
+      console.warn('Document text extraction fallback:', e.message);
+    }
+  }
+
+  const promptText = "Transcribe everything visible in this document or image: all text, labels, axis titles, legends, numbers, and any data table, as plain structured text.";
   const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5-5';
   const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o';
   const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
@@ -117,23 +128,20 @@ export async function extractEvidenceFromImage(provider, mediaType, base64Data) 
 
   if (provider === 'claude') {
     if (!process.env.ANTHROPIC_API_KEY) {
-      throw new Error("Image upload requires a live API key for the selected provider.");
+      throw new Error("Document upload requires a live API key for the selected provider.");
     }
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const contentBlock = mediaType === 'application/pdf'
+      ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: base64Data } }
+      : { type: 'image', source: { type: 'base64', media_type: mediaType || 'image/png', data: base64Data } };
+
     const response = await anthropic.messages.create({
       model: ANTHROPIC_MODEL,
       max_tokens: 1000,
       messages: [{
         role: 'user',
         content: [
-          {
-            type: 'image',
-            source: {
-              type: 'base64',
-              media_type: mediaType || 'image/png',
-              data: base64Data
-            }
-          },
+          contentBlock,
           { type: 'text', text: promptText }
         ]
       }]
@@ -141,7 +149,7 @@ export async function extractEvidenceFromImage(provider, mediaType, base64Data) 
     return response.content.map(c => c.text).join('\n');
   } else {
     if (!process.env.OPENAI_API_KEY) {
-      throw new Error("Image upload requires a live API key for the selected provider.");
+      throw new Error("Document upload requires a live API key for the selected provider.");
     }
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const response = await openai.chat.completions.create({
@@ -152,10 +160,10 @@ export async function extractEvidenceFromImage(provider, mediaType, base64Data) 
           role: 'user',
           content: [
             { type: 'text', text: promptText },
-            {
+            ...(mediaType && mediaType.startsWith('image/') ? [{
               type: 'image_url',
               image_url: { url: `data:${mediaType || 'image/png'};base64,${base64Data}` }
-            }
+            }] : [])
           ]
         }
       ]

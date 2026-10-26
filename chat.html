@@ -116,9 +116,9 @@
           <h2>Ask anything about your visual evidence</h2>
           <p>Attach any photo, screenshot, chart, or scientific diagram to analyze details, extract numbers, or detect hallucinations.</p>
           <button type="button" id="emptyAttachBtn" class="empty-attach">
-            <span>📷 Attach Image</span>
+            <span>📎 Attach Image or Document (PDF / Word)</span>
           </button>
-          <p class="empty-hint">Or drag and drop an image anywhere on this page, or paste from clipboard (Ctrl+V).</p>
+          <p class="empty-hint">Or drag and drop an image, PDF, or Word document anywhere on this page, or paste from clipboard (Ctrl+V).</p>
         </div>
       </div>
     </main>
@@ -129,11 +129,12 @@
         <!-- ATTACHMENT PREVIEW CHIP -->
         <div id="attachChip" class="attach-chip hidden">
           <img id="attachThumb" src="" alt="Attached image preview">
+          <div id="attachDocIcon" class="attach-doc-icon hidden">📄</div>
           <div class="attach-meta">
-            <span id="attachName" class="attach-name">image.png</span>
+            <span id="attachName" class="attach-name">document.pdf</span>
             <span id="attachSize" class="attach-size">1.2 MB</span>
           </div>
-          <button type="button" id="attachRemove" class="attach-remove" aria-label="Remove image" title="Remove attached image">&times;</button>
+          <button type="button" id="attachRemove" class="attach-remove" aria-label="Remove attachment" title="Remove attachment">&times;</button>
         </div>
 
         <!-- VOICE STATUS BAR (Active while listening) -->
@@ -177,9 +178,9 @@
 
         <!-- COMPOSER FORM -->
         <form id="composerForm" class="composer">
-          <input type="file" id="fileInput" accept="image/*" class="hidden">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
           
-          <button type="button" id="attachBtn" class="composer-icon" aria-label="Attach Image" title="Attach Image (PNG, JPEG, WebP, GIF &le; 25MB)">
+          <button type="button" id="attachBtn" class="composer-icon" aria-label="Attach File" title="Attach Image, PDF, or Word document (PNG, JPEG, WebP, GIF, PDF, DOCX &le; 25MB)">
             <span>📎</span>
           </button>
 
@@ -204,7 +205,7 @@
 
   <!-- 1. Drag & Drop Overlay -->
   <div id="dropOverlay" class="drop-overlay hidden">
-    <div>📷 Drop image here to attach</div>
+    <div>📄 Drop image, PDF, or Word document here to attach</div>
   </div>
 
   <!-- 2. Authentication & Account Switcher Modal -->

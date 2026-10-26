@@ -129,6 +129,16 @@ body.chat-body {
 
 .msg-image { max-width: min(320px, 70vw); max-height: 260px; border-radius: 12px; border: 1px solid var(--border-subtle); object-fit: contain; background: var(--bg-surface); }
 
+.msg-doc-badge {
+  display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px;
+  background: var(--bg-surface); border: 1px solid var(--border-strong);
+  border-radius: 12px; box-shadow: var(--shadow-sm); max-width: min(380px, 85vw);
+}
+.msg-doc-badge .doc-icon { font-size: 1.4rem; line-height: 1; flex: none; }
+.msg-doc-badge .doc-details { display: flex; flex-direction: column; min-width: 0; }
+.msg-doc-badge .doc-name { font-size: 0.84rem; font-weight: 600; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 280px; }
+.msg-doc-badge .doc-meta { font-size: 0.72rem; color: var(--text-tertiary); }
+
 .msg-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .msg-action {
   font: inherit; font-size: 0.78rem; color: var(--text-secondary); background: transparent;
@@ -168,6 +178,12 @@ body.chat-body {
   background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 12px; max-width: 100%;
 }
 .attach-chip img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; flex: none; }
+.attach-doc-icon {
+  width: 44px; height: 44px; border-radius: 8px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+}
 .attach-meta { display: flex; flex-direction: column; min-width: 0; }
 .attach-name { font-size: 0.82rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
 .attach-size { font-size: 0.72rem; color: var(--text-tertiary); }
