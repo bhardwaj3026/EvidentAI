@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimodal AI Image Chat | Visual Reasoning & Hallucination Verification</title>
+  <meta name="description" content="Interactive Multimodal AI Image Chat with visual reasoning, voice dictation, strict evidence mode, and on-demand hallucination verification.">
+  <meta name="keywords" content="Multimodal AI, Image Chat, Visual Reasoning, Hallucination Detection, RAG, Gemini, Claude, GPT-4o">
+
+  <!-- Google Fonts: Serif for manuscript headings, Sans for crisp UI, Mono for technical metrics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body class="chat-body">
+
+  <!-- =========================================================================
+       GLOBAL PLATFORM HEADER
+       ========================================================================= -->
+  <header class="chat-header">
+    <div class="chat-header-inner">
+      <!-- Brand & Badge -->
+      <div class="chat-brand">
+        <span class="brand-icon">🖼️</span>
+        <div class="brand-text-col">
+          <h1 class="chat-title">Multimodal Image Chat</h1>
+          <span class="brand-thesis-badge">Visual Reasoning &amp; Grounding</span>
+        </div>
+      </div>
+
+      <!-- Controls & Actions -->
+      <div class="chat-controls">
+        <label for="providerSelect" class="visually-hidden">AI Provider</label>
+        <select id="providerSelect" class="chat-select" title="AI Provider: Google Gemini">
+          <option value="gemini" selected>Google Gemini (Gemini 1.5 Flash)</option>
+          <option value="claude">Anthropic Claude 3.5 Sonnet</option>
+          <option value="openai">OpenAI GPT-4o</option>
+        </select>
+
+        <label class="chat-toggle" title="Require answer to rely strictly on extracted evidence">
+          <input type="checkbox" id="strictToggle"> Strict Evidence
+        </label>
+
+        <button id="toggleSidebarBtn" class="chat-btn" title="Open Conversation History">💬 History</button>
+
+        <!-- User Account Widget -->
+        <div class="user-account-widget" id="userAccountWidget">
+          <button type="button" id="userAccountBtn" class="account-pill-btn" aria-haspopup="true" aria-expanded="false" title="Account details & chat quota">
+            <span class="user-avatar" id="userAvatar">A</span>
+            <span class="user-name" id="userName">alice</span>
+            <span class="quota-badge" id="quotaBadge">⚡ 8/10</span>
+            <span class="caret">▾</span>
+          </button>
+          
+          <div id="accountDropdown" class="account-dropdown hidden" role="menu">
+            <div class="account-dropdown-header">
+              <strong id="dropdownUserName">Alice Smith</strong>
+              <span id="dropdownUserRole" class="account-role-tag">Student Plan</span>
+              <span id="dropdownUserEmail" class="account-email">alice@student.demo</span>
+            </div>
+            <div class="account-dropdown-quota">
+              <div class="quota-progress-label">
+                <span>Chat Limit Quota</span>
+                <strong id="dropdownQuotaText">2 / 10 used (8 left)</strong>
+              </div>
+              <div class="quota-progress-bar">
+                <div id="dropdownQuotaProgress" class="quota-progress-fill" style="width: 20%;"></div>
+              </div>
+            </div>
+            <div class="account-dropdown-actions">
+              <button type="button" id="resetQuotaBtn" class="account-menu-item">
+                <span>🔄</span> Reset Quota (10 Chats)
+              </button>
+              <button type="button" id="switchAccountBtn" class="account-menu-item">
+                <span>👥</span> Switch / Demo Accounts
+              </button>
+              <button type="button" id="logoutBtn" class="account-menu-item text-danger">
+                <span>🚪</span> Log Out
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button id="themeToggleBtn" class="chat-btn chat-btn-icon" aria-label="Toggle dark/light theme" title="Toggle Theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- KEY BANNER (Shown if API keys missing) -->
+  <div id="keyBanner" class="key-banner hidden" role="alert"></div>
+
+  <!-- =========================================================================
+       MAIN CHAT APPLICATION CONTAINER
+       ========================================================================= -->
+  <div class="chat-main-container">
+    <!-- Chat Action Sub-Toolbar -->
+    <div class="chat-sub-toolbar">
+      <span class="chat-sub-status">Continuous Multimodal Conversation</span>
+      <div style="display: flex; gap: 8px;">
+        <button id="chatNewChatBtn" class="chat-btn" title="Start a fresh conversation">+ New chat</button>
+      </div>
+    </div>
+
+    <!-- MAIN SCROLLABLE LOG -->
+    <main id="chatScroll" class="chat-scroll" aria-live="polite">
+      <!-- CHAT LOG -->
+      <div id="chatLog" class="chat-log">
+        <!-- EMPTY STATE -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-state-icon">🖼️</div>
+          <h2>Ask anything about your visual evidence</h2>
+          <p>Attach any photo, screenshot, chart, or scientific diagram to analyze details, extract numbers, or detect hallucinations.</p>
+          <button type="button" id="emptyAttachBtn" class="empty-attach">
+            <span>📷 Attach Image</span>
+          </button>
+          <p class="empty-hint">Or drag and drop an image anywhere on this page, or paste from clipboard (Ctrl+V).</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- COMPOSER FOOTER -->
+    <div class="composer-wrap">
+      <div class="composer-inner">
+        <!-- ATTACHMENT PREVIEW CHIP -->
+        <div id="attachChip" class="attach-chip hidden">
+          <img id="attachThumb" src="" alt="Attached image preview">
+          <div class="attach-meta">
+            <span id="attachName" class="attach-name">image.png</span>
+            <span id="attachSize" class="attach-size">1.2 MB</span>
+          </div>
+          <button type="button" id="attachRemove" class="attach-remove" aria-label="Remove image" title="Remove attached image">&times;</button>
+        </div>
+
+        <!-- VOICE STATUS BAR (Active while listening) -->
+        <div id="voiceStatusBar" class="voice-status-bar hidden" role="status" aria-live="polite">
+          <div class="voice-status-left">
+            <span class="voice-pulse-indicator"></span>
+            <span class="voice-mic-badge">🎙️</span>
+            <span class="voice-status-title">Listening:</span>
+            <div class="voice-soundwaves" aria-hidden="true">
+              <span class="soundwave-bar bar-1"></span>
+              <span class="soundwave-bar bar-2"></span>
+              <span class="soundwave-bar bar-3"></span>
+              <span class="soundwave-bar bar-4"></span>
+              <span class="soundwave-bar bar-5"></span>
+            </div>
+            <span id="voiceLiveTranscript" class="voice-live-transcript">Speak into your microphone...</span>
+          </div>
+          <div class="voice-status-actions">
+            <button type="button" id="voiceDoneBtn" class="voice-pill-btn voice-done" title="Finish and keep recognized text">Done ✓</button>
+            <button type="button" id="voiceCancelBtn" class="voice-pill-btn voice-cancel" title="Cancel voice input">Cancel</button>
+          </div>
+        </div>
+
+        <!-- QUOTA EXCEEDED BANNER -->
+        <div id="quotaBanner" class="quota-banner hidden" role="alert">
+          <div class="quota-banner-left">
+            <span class="quota-banner-icon">⚠️</span>
+            <div>
+              <strong>Chat Limit Reached:</strong>
+              <span id="quotaBannerText">You have used all 10 messages allocated to this account.</span>
+            </div>
+          </div>
+          <div class="quota-banner-actions">
+            <button type="button" id="bannerResetBtn" class="btn-quota-action reset">Reset Quota (10 Chats)</button>
+            <button type="button" id="bannerSwitchBtn" class="btn-quota-action switch">Switch Account</button>
+          </div>
+        </div>
+
+        <!-- INLINE ERROR -->
+        <div id="composerError" class="composer-error hidden" role="alert"></div>
+
+        <!-- COMPOSER FORM -->
+        <form id="composerForm" class="composer">
+          <input type="file" id="fileInput" accept="image/*" class="hidden">
+          
+          <button type="button" id="attachBtn" class="composer-icon" aria-label="Attach Image" title="Attach Image (PNG, JPEG, WebP, GIF &le; 25MB)">
+            <span>📎</span>
+          </button>
+
+          <textarea id="messageInput" class="composer-input" rows="1" placeholder="Type a message or click the mic to speak..."></textarea>
+
+          <button type="button" id="voiceInputBtn" class="composer-icon voice-btn voice-btn-composer" aria-label="Voice input (dictate message)" title="Voice input (Click to speak)">
+            <span class="mic-icon">🎙️</span>
+          </button>
+
+          <button type="submit" id="sendBtn" class="composer-send" aria-label="Send Message" title="Send Message" disabled>
+            <span>➔</span>
+          </button>
+        </form>
+        <div class="composer-note">Enter sends, Shift+Enter adds a new line. Click 🎙️ for voice input. Click 🔊 on assistant replies to read aloud.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODALS & OVERLAYS
+       ========================================================================= -->
+
+  <!-- 1. Drag & Drop Overlay -->
+  <div id="dropOverlay" class="drop-overlay hidden">
+    <div>📷 Drop image here to attach</div>
+  </div>
+
+  <!-- 2. Authentication & Account Switcher Modal -->
+  <div id="authModal" class="modal-overlay hidden" aria-hidden="true" role="dialog">
+    <div class="modal-content auth-modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">Account Access &amp; Chat Limit</h2>
+          <p class="modal-subtitle">Log in to track your 10-message chat limit and keep your conversation history separate.</p>
+        </div>
+        <button id="closeAuthModalBtn" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Fast 1-Click Demo Accounts -->
+      <div class="auth-demo-section">
+        <div class="auth-section-label">⚡ 1-Click Fast Log In (Separate Accounts &amp; History):</div>
+        <div class="demo-accounts-grid">
+          <button type="button" class="demo-account-card" data-username="alice">
+            <div class="demo-avatar avatar-alice">A</div>
+            <div class="demo-details">
+              <strong>Alice Smith</strong>
+              <span>@alice · Student Plan (10 Chats)</span>
+            </div>
+            <span class="demo-action-tag">Log In →</span>
+          </button>
+          <button type="button" class="demo-account-card" data-username="bob">
+            <div class="demo-avatar avatar-bob">B</div>
+            <div class="demo-details">
+              <strong>Bob Johnson</strong>
+              <span>@bob · Researcher Plan (10 Chats)</span>
+            </div>
+            <span class="demo-action-tag">Log In →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs: Sign In vs Register -->
+      <div class="auth-tabs-nav">
+        <button type="button" id="authTabLoginBtn" class="auth-nav-btn active">Sign In</button>
+        <button type="button" id="authTabRegisterBtn" class="auth-nav-btn">Create New Account</button>
+      </div>
+
+      <div id="authErrorMsg" class="upload-error hidden" role="alert" style="margin-bottom: 1rem;"></div>
+
+      <!-- Login Form -->
+      <form id="authLoginForm" class="auth-form-card">
+        <div class="form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" class="text-input" placeholder="e.g. alice or bob" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="text-input" placeholder="Password (default: password123)" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+          Sign In to Account →
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="authRegisterForm" class="auth-form-card hidden">
+        <div class="form-group">
+          <label for="registerUsername">Username</label>
+          <input type="text" id="registerUsername" class="text-input" placeholder="Choose a unique username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="registerName">Full Name</label>
+          <input type="text" id="registerName" class="text-input" placeholder="e.g. Jane Doe">
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" id="registerPassword" class="text-input" placeholder="Create password (min 4 chars)" required autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+          Create Account (10 Chat Quota) →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. History Sidebar Drawer -->
+  <aside id="chatSidebar" class="chat-sidebar collapsed" aria-label="Conversation History">
+    <div class="sidebar-header">
+      <div class="sidebar-title-row">
+        <span class="sidebar-title">💬 Chat History</span>
+        <button type="button" id="closeSidebarBtn" class="sidebar-close-btn" aria-label="Close history sidebar">&times;</button>
+      </div>
+      <button type="button" id="sidebarNewChatBtn" class="btn-sidebar-new">+ New Conversation</button>
+    </div>
+
+    <div class="sidebar-account-box" id="sidebarAccountBox">
+      <div class="sidebar-user-pill">
+        <span class="sidebar-avatar" id="sidebarAvatar">A</span>
+        <div class="sidebar-user-meta">
+          <strong id="sidebarUsername">alice</strong>
+          <span id="sidebarQuotaSummary">8 chats remaining</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section-title">Saved Chats for this Account:</div>
+    <div class="sidebar-sessions-list" id="sidebarSessionsList"></div>
+
+    <div class="sidebar-footer">
+      <button type="button" id="sidebarSwitchBtn" class="btn-sidebar-footer">
+        <span>👥</span> Switch Account / Log In
+      </button>
+    </div>
+  </aside>
+  <div id="sidebarBackdrop" class="sidebar-backdrop hidden"></div>
+
+  <!-- Application Logic -->
+  <script src="chat.js"></script>
+</body>
+</html>

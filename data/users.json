@@ -1,0 +1,76 @@
+{
+  "usr_alice": {
+    "id": "usr_alice",
+    "username": "alice",
+    "name": "Alice Smith",
+    "email": "alice@student.demo",
+    "passwordHash": "c535e2ee0606515260f422ba5e2d1a3693f74865163cdf454107def7b1f669a5",
+    "role": "Student",
+    "chatLimit": 10,
+    "chatsUsed": 4,
+    "createdAt": "2026-10-15T16:49:25.283Z",
+    "sessions": [
+      {
+        "id": "session_1792258185122_bpxo",
+        "title": "what is the capital of india",
+        "createdAt": 1792258225384,
+        "updatedAt": 1792258225384,
+        "messages": [
+          {
+            "role": "user",
+            "content": "what is the capital of india"
+          },
+          {
+            "role": "assistant",
+            "content": "**Correct Answer:** New Delhi\n\n**Notes:**\nNew Delhi serves as the seat of all three branches of the Government of India: executive, legislative, and judicial. It was officially inaugurated as the capital in 1931, replacing Calcutta (now Kolkata)."
+          }
+        ]
+      },
+      {
+        "id": "session_alice_demo_1",
+        "title": "ScienceQA Photosynthesis Diagram",
+        "createdAt": 1792079365284,
+        "updatedAt": 1792079365284,
+        "messages": [
+          {
+            "role": "user",
+            "content": "What process is illustrated in this plant biology diagram?"
+          },
+          {
+            "role": "assistant",
+            "content": "**Correct Answer:** Photosynthesis\n\n**Notes:** The diagram depicts light energy, carbon dioxide, and water being converted into glucose and oxygen in the chloroplasts."
+          }
+        ]
+      }
+    ]
+  },
+  "usr_bob": {
+    "id": "usr_bob",
+    "username": "bob",
+    "name": "Bob Johnson",
+    "email": "bob@researcher.demo",
+    "passwordHash": "c535e2ee0606515260f422ba5e2d1a3693f74865163cdf454107def7b1f669a5",
+    "role": "Researcher",
+    "chatLimit": 10,
+    "chatsUsed": 0,
+    "createdAt": "2026-10-15T16:49:25.284Z",
+    "sessions": [
+      {
+        "id": "session_bob_demo_1",
+        "title": "ChartQA Revenue Comparison Q3",
+        "createdAt": 1792075765284,
+        "updatedAt": 1792075765284,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Compare the revenue figures between North America and Europe in 2023."
+          },
+          {
+            "role": "assistant",
+            "content": "**Correct Answer:** North America exceeded Europe by $14.2M.\n\n**Step-by-Step Calculation:**\n1. North America: $58.4M\n2. Europe: $44.2M\n3. Difference: $58.4M - $44.2M = $14.2M."
+          }
+        ]
+      }
+    ]
+  }
+}

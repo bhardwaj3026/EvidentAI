@@ -1,0 +1,222 @@
+[
+  {
+    "id": "spiqa_real_000",
+    "title": "Paper 1611.04684v1",
+    "type": "paper_figure",
+    "question": "What are the main differences between the educational philosophies of the Bonaparte and Voltaire schools?",
+    "answer": "The Bonaparte school focuses on outdoor physical activities, maneuvers, and strategies, with a specialization in horse riding, lances, and swords. They aim to develop students into good leaders. The Voltaire school, on the other hand, encourages independent thinking and focuses on indoor activities. They aim to instill good moral values and develop students into philosophical thinkers.",
+    "figureCaption": "A difficult example from QA",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_000.png"
+  },
+  {
+    "id": "spiqa_real_001",
+    "title": "Paper 1611.05742v3",
+    "type": "paper_figure",
+    "question": "What is the function of the ReOrth Layer in the Projection Block of the Grassmann Network architecture?",
+    "answer": "The ReOrth Layer re-orthogonalizes the output of the FRMap Layer.",
+    "figureCaption": "Conceptual illustration of the proposed Grassmann Network (GrNet) architecture. The rectangles in blue represent three basic blocks, i.e., Projection, Pooling and Output blocks, respectively.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_001.png"
+  },
+  {
+    "id": "spiqa_real_002",
+    "title": "Paper 1611.07718v2",
+    "type": "paper_figure",
+    "question": "Which network architecture has the highest accuracy on the CIFAR-10 dataset?",
+    "answer": "DMRNet-Wide",
+    "figureCaption": "Classification error comparison with state-of-the-arts. The results of DenseNets are based on the networks without bottlenecks. The DMRNet-Wide is the wide version of a DMRNet, 4\u00d7 wider, i.e., the widths of the threes stages are 64, 128, and 256, respectively.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_002.png"
+  },
+  {
+    "id": "spiqa_real_003",
+    "title": "Paper 1611.03780v2",
+    "type": "paper_figure",
+    "question": "How does GeoCUTS perform compared to other clusterings for highly active users?",
+    "answer": "GeoCUTS performs comparably to other clusterings for highly active users.",
+    "figureCaption": "B-metrics across clusterings, reported with a multiplicative constant of 100. We see that GeoCUTS performs comparably to other clusterings for highly active users, and somewhat better for highly mobile users.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_003.png"
+  },
+  {
+    "id": "spiqa_real_004",
+    "title": "Paper 1611.04363v2",
+    "type": "paper_figure",
+    "question": "Which method performed best according to the P@1 metric for the QA-Expert task, and how much better did it perform compared to the average P@1 score of the D2V method? ",
+    "answer": "The WeakFG method achieved the highest P@1 score for the QA-Expert task with a score of 52.8. This is 23.2% higher than the average P@1 score of the D2V method, which was 29.6. ",
+    "figureCaption": "Table 1: Performance comparison of different methods.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_004.png"
+  },
+  {
+    "id": "spiqa_real_005",
+    "title": "Paper 1608.02784v2",
+    "type": "paper_figure",
+    "question": "Which system from Ortiz et al. achieved the highest BLEU and METEOR scores, and how does it compare to the CCA inference algorithm in terms of performance?",
+    "answer": "The SMT system from Ortiz et al. achieved the highest BLEU score (43.7) and METEOR score (35.6) among their tested systems. While the SMT system outperforms the CCA inference algorithm in terms of BLEU score, the CCA algorithm achieves a slightly higher METEOR score (25.6 vs 25.5).",
+    "figureCaption": "Table 2: Scene description evaluation results on the test set, comparing the systems from Ortiz et al. to our CCA inference algorithm (the first six results are reported from the Ortiz et al. paper). The CCA result uses m = 120 and \u03b7 = 0.05, tuned on the development set. See text for details about each of the first six baselines.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_005.png"
+  },
+  {
+    "id": "spiqa_real_006",
+    "title": "Paper 1611.02654v2",
+    "type": "paper_figure",
+    "question": "Which model performed the best on the SICK dataset according to the MSE metric?",
+    "answer": "The supervised model performed the best on the SICK dataset according to the MSE metric.",
+    "figureCaption": "Performance comparison for semantic similarity and paraphrase detection. The first row shows the best performing purely supervised methods. The last section shows our models.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_006.png"
+  },
+  {
+    "id": "spiqa_real_007",
+    "title": "Paper 1701.03077v10",
+    "type": "paper_figure",
+    "question": "How does the shape of the IRLS weight function change as the shape parameter \u03b1 increases?",
+    "answer": "The IRLS weight function becomes more peaked and concentrated around zero as the shape parameter \u03b1 increases.",
+    "figureCaption": "Our general loss\u2019s IRLS weight function (left) and \u03a8function (right) for different values of the shape parameter \u03b1.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_007.png"
+  },
+  {
+    "id": "spiqa_real_008",
+    "title": "Paper 1802.07222v1",
+    "type": "paper_figure",
+    "question": "During which hours of the day did the most network-related reboots occur?",
+    "answer": "The most network-related reboots occurred between 18:00 and 20:00.",
+    "figureCaption": "Number of network related reboots in a day.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_008.png"
+  },
+  {
+    "id": "spiqa_real_009",
+    "title": "Paper 1603.00286v5",
+    "type": "paper_figure",
+    "question": "Which agent values the entire share $Z_j$?",
+    "answer": "Agent $j$.",
+    "figureCaption": "Fig. 3 Solid boxes represent the value-density of agent j within Zj ; each dotted box represents a value-density of some other agent in the same group as agent j. In this example, dn d e = 5.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_009.png"
+  },
+  {
+    "id": "spiqa_real_010",
+    "title": "Paper 1603.03833v4",
+    "type": "paper_figure",
+    "question": "What is the role of the LSTM-MDN network in the training phase?",
+    "answer": "The LSTM-MDN network is used to learn the relationship between the gripper pose and status, the pose of relevant objects, and the joint angles of the robot arm.",
+    "figureCaption": "Figure 3: The training and evaluation phase. During the training the LSTM network is unrolled for 50 time-steps. The gripper pose and status (open/close) et and the pose of relevant objects qt at time-step t is used as input and output of the network to calculate and backpropagate the error to update the weights. During the evaluation phase, the mixture density parameters are used to form a mixture of Gaussians and draw a sample from it. The sample is used to control the robot arm.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_010.png"
+  },
+  {
+    "id": "spiqa_real_011",
+    "title": "Paper 1605.07496v3",
+    "type": "paper_figure",
+    "question": "Which policy resulted in the highest average cost?",
+    "answer": "MAP Policy",
+    "figureCaption": "Comparison of the performance of ALOQ, MAP and RQ-ALOQ policies when p(\u03b8) must be estimated",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_011.png"
+  },
+  {
+    "id": "spiqa_real_012",
+    "title": "Paper 1612.02803v5",
+    "type": "paper_figure",
+    "question": "What is the equation that describes the motion of a mass attached to a spring?",
+    "answer": "The equation that describes the motion of a mass attached to a spring is:\n```\nm d^2 X / dt^2 + kX = 0\n```\nwhere:\n* m is the mass of the object\n* X is the displacement of the object from its equilibrium position\n* k is the spring constant\n* t is time",
+    "figureCaption": "An illustration of the harmonic oscillators: A massive particle connects to a massless spring. (Top) Undamped harmonic oscillator; (Bottom) Damped harmonic oscillator.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_012.png"
+  },
+  {
+    "id": "spiqa_real_013",
+    "title": "Paper 1606.07384v2",
+    "type": "paper_figure",
+    "question": "How does the performance of the Filtering algorithm compare to the performance of MLE with noise?",
+    "answer": "The Filtering algorithm performs better than MLE with noise in both the random tree and random graph settings.",
+    "figureCaption": "Experiments with synthetic data: error is reported against the size of the conditional probability table (lower is better). The error is the estimated total variation distance to the ground truth Bayes net. We use the error of MLE without noise as our benchmark. We plot the performance of our algorithm (Filtering), empirical mean with noise (MLE), and RANSAC. We report two settings: the underlying structure of the Bayes net is a random tree (left) or a random graph (right).",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_013.png"
+  },
+  {
+    "id": "spiqa_real_014",
+    "title": "Paper 1803.01128v3",
+    "type": "paper_figure",
+    "question": "What are the key differences between Seq2Sick and existing attack methods on RNN-based models?",
+    "answer": "Seq2Sick differs from existing attack methods in two key aspects:\n\n1. Search Strategy: While previous methods primarily rely on greedy search, which becomes increasingly inefficient for longer sequences, Seq2Sick employs group lasso regularization and projected gradient descent with gradient regularization. This allows for simultaneous searching of all replacement positions, leading to improved efficiency.\n\n2. Targeted Attack Type: Existing methods focus on targeting specific classes or binary classifications, while Seq2Sick introduces a novel \"keyword\" target type, allowing attacks to be directed towards specific keywords within the generated sequence.",
+    "figureCaption": "Table 1: Summary of existing works that are designed to attack RNN models. \u201cBINARY\u201d indicates the attack is for binary classifications, and there is no difference between untargeted and targeted attack in this case. \u201cCLASS\u201d means targeted attack to a specific class. \u201cKEYWORD\u201d means targeted attack to a specific keyword. Here we omit follow-up works based on Seq2Sick.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_014.png"
+  },
+  {
+    "id": "spiqa_real_015",
+    "title": "Paper 1703.00899v2",
+    "type": "paper_figure",
+    "question": "What is the relationship between the true market state qt and the noisy version q\u0302t at time t?",
+    "answer": "The noisy version q\u0302t at time t is equal to the true market state qt plus a sum of Laplace noise vectors obtained by following the arrows all the way back to 0.",
+    "figureCaption": "Picturing the continual observation technique for preserving privacy [7, 10]. Each dqt is a trade. The true market state at t is qt = \u2211t j=1 dq j and the goal is to release a noisy version q\u0302t Each arrow originates at t, points backwards to s(t), and is labeled with independent Laplace noise vector zt. Now q\u0302t = qt + zt + zs(t) + zs(s(t)) + \u00b7 \u00b7 \u00b7 . In other words, the noise added at t is a sum of noises obtained by following the arrows all the way back to 0. There are two key properties: Each t has only log T arrows passing above it, and each path backwards takes only log T jumps.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_015.png"
+  },
+  {
+    "id": "spiqa_real_016",
+    "title": "Paper 1703.02507v3",
+    "type": "paper_figure",
+    "question": "Which model performed the best on the MSRP task for the Ordered Sentences dataset?",
+    "answer": "SkipThought",
+    "figureCaption": "Comparison of the performance of different models on different supervised evaluation tasks. An underline indicates the best performance for the dataset. Top 3 performances in each data category are shown in bold. The average is calculated as the average of accuracy for each category (For MSRP, we take the accuracy). )",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_016.png"
+  },
+  {
+    "id": "spiqa_real_017",
+    "title": "Paper 1802.07351v2",
+    "type": "paper_figure",
+    "question": "What is the purpose of the residual connection in the decoding module?",
+    "answer": "The residual connection allows the output of a layer to be added to the output of another layer, which helps to improve the flow of information through the network.",
+    "figureCaption": "Decoding module g. The residual connection denotes the output of a layer is added to the output of another layer.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_017.png"
+  },
+  {
+    "id": "spiqa_real_018",
+    "title": "Paper 1702.03584v3",
+    "type": "paper_figure",
+    "question": "How does the observed error compare to the underlying true error as CPU time increases?",
+    "answer": "The observed error is initially higher than the underlying true error, but it quickly decreases and converges to the true error as CPU time increases.",
+    "figureCaption": "Figure 1: Two error rates as a function of CPU time on UCR Non-Invasive Fetal ECG Thorax1 dataset",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_018.png"
+  },
+  {
+    "id": "spiqa_real_019",
+    "title": "Paper 1802.07459v2",
+    "type": "paper_figure",
+    "question": " How many negative samples are there in the training set of the CNSE dataset?",
+    "answer": "There are approximately 9,719 negative samples in the training set of the CNSE dataset.",
+    "figureCaption": "Table 1: Description of evaluation datasets.",
+    "table": [],
+    "source": "SPIQA (Pramanick et al., NeurIPS 2024, test-A) \u2014 real sample",
+    "imagePath": "/data/spiqa/images/spiqa_real_019.png"
+  }
+]

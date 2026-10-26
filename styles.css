@@ -1,0 +1,1144 @@
+/* ==========================================================================
+   CAPSTONE RESEARCH SHOWCASE - SYSTEM DESIGN & TYPOGRAPHY STYLES
+   Project: Quantifying & Mitigating Hallucinations in Multimodal RAG
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. COLOR SYSTEM & DESIGN TOKENS (Light / Paper & Dark / Slate Modes)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Font Families */
+  --font-serif: "Newsreader", "Source Serif 4", "Georgia", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Paper / Ink Base Colors (Light Mode) */
+  --bg-main: #FAF8F5;            /* Warm off-white research paper background */
+  --bg-surface: #FFFFFF;         /* Pure white surface cards */
+  --bg-surface-elevated: #F5F2EB;/* Slightly darker tint for subtle containers */
+  --border-subtle: #E8E3D9;      /* Delicate paper dividers */
+  --border-strong: #D1C9B8;      /* Strong structural borders */
+
+  /* Text & Ink Tokens */
+  --text-primary: #1C1917;       /* Deep warm dark ink */
+  --text-secondary: #57534E;     /* Muted body text */
+  --text-tertiary: #78716C;      /* Meta & caption text */
+
+  /* SEMANTIC ACCENT COLORS - Critical Distinction */
+  /* 1-4: Grounded-Process Errors (Academic Cobalt Blue) */
+  --accent-grounded: #1E3A8A;         /* Deep sapphire primary */
+  --accent-grounded-light: #2563EB;   /* Bright indigo highlight */
+  --accent-grounded-bg: #F0F5FF;      /* Very soft blue surface tint */
+  --accent-grounded-border: #BFDBFE;  /* Light blue border */
+  --accent-grounded-badge: #DBEAFE;
+
+  /* 5: Hallucination Error (Categorically Different - Deep Crimson/Vermilion) */
+  --accent-hallucination: #991B1B;        /* Deep crimson primary */
+  --accent-hallucination-light: #DC2626;  /* Vivid red highlight */
+  --accent-hallucination-bg: #FFF1F2;     /* Very soft crimson surface tint */
+  --accent-hallucination-border: #FECDD3; /* Soft red border */
+  --accent-hallucination-badge: #FFE4E6;
+
+  /* Status Colors */
+  --status-complete-bg: #ECFDF5;
+  --status-complete-text: #065F46;
+  --status-complete-border: #A7F3D0;
+  --status-upcoming-bg: #F3F4F6;
+  --status-upcoming-text: #4B5563;
+  --status-upcoming-border: #E5E7EB;
+
+  /* Layout Constrains */
+  --max-width-content: 940px;
+  --max-width-container: 1080px;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(28, 25, 23, 0.06), 0 2px 6px -2px rgba(28, 25, 23, 0.04);
+  --shadow-highlight: 0 0 0 2px var(--accent-hallucination);
+
+  /* Micro Transitions */
+  --transition-theme: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --bg-main: #0B0E14;            /* Obsidian lab night background */
+  --bg-surface: #121722;         /* Dark navy slate surface */
+  --bg-surface-elevated: #1A2130;/* Elevated slate container */
+  --border-subtle: #232B3C;      /* Subtle slate divider */
+  --border-strong: #333E54;      /* Strong slate border */
+
+  --text-primary: #F3F4F6;       /* Clean crisp light text */
+  --text-secondary: #9CA3AF;     /* Slate body text */
+  --text-tertiary: #6B7280;      /* Muted slate text */
+
+  /* Semantic Accent Colors in Dark Mode */
+  --accent-grounded: #3B82F6;
+  --accent-grounded-light: #60A5FA;
+  --accent-grounded-bg: #15233D;
+  --accent-grounded-border: #1E3A8A;
+  --accent-grounded-badge: #1E293B;
+
+  --accent-hallucination: #EF4444;
+  --accent-hallucination-light: #F87171;
+  --accent-hallucination-bg: #341418;
+  --accent-hallucination-border: #7F1D1D;
+  --accent-hallucination-badge: #451215;
+
+  --status-complete-bg: #064E3B;
+  --status-complete-text: #A7F3D0;
+  --status-complete-border: #047857;
+  --status-upcoming-bg: #1F2937;
+  --status-upcoming-text: #9CA3AF;
+  --status-upcoming-border: #374151;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESETS & BASE TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.65;
+  transition: var(--transition-theme);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 72px; /* Space for fixed nav */
+}
+
+/* Accessible focus outlines */
+:focus-visible {
+  outline: 2px solid var(--accent-grounded-light);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a {
+  color: var(--accent-grounded-light);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Print Friendly Styles */
+@media print {
+  body {
+    background: #FFF !important;
+    color: #000 !important;
+    padding-top: 0;
+  }
+  .sticky-nav, .theme-toggle, .print-btn, .non-printable {
+    display: none !important;
+  }
+  .section-divider {
+    border-color: #000 !important;
+  }
+  .taxonomy-card, .dataset-card, .stage-node {
+    break-inside: avoid;
+    border: 1px solid #999 !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT & CONTAINERS
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-padding {
+  padding: 64px 0;
+}
+
+.section-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  border: none;
+  margin: 0;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   4. STICKY TOP NAVIGATION & HEADER
+   -------------------------------------------------------------------------- */
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 1000;
+  transition: var(--transition-theme);
+}
+
+[data-theme="dark"] .sticky-nav {
+  background-color: rgba(11, 14, 20, 0.92);
+}
+
+.nav-inner {
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.nav-brand {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand-tag {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links a {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 6px 0;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-grounded-light);
+  border-radius: 1px;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle, .btn-action {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.theme-toggle:hover, .btn-action:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-strong);
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO SECTION (Academic Manuscript Style)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding: 56px 0 48px 0;
+}
+
+.meta-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.institution-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  background-color: var(--status-complete-bg);
+  color: var(--status-complete-text);
+  border: 1px solid var(--status-complete-border);
+}
+
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.project-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-grounded-light);
+  line-height: 1.4;
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 3px solid var(--accent-grounded-light);
+}
+
+.hero-subhead {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 820px;
+}
+
+.authors-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 16px 20px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 32px;
+}
+
+.author-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-label {
+  font-size: 0.725rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.author-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.metric-num {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   6. ABSTRACT & CONTEXT SECTION
+   -------------------------------------------------------------------------- */
+.section-header {
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.abstract-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 840px) {
+  .abstract-grid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+.abstract-text-body {
+  font-size: 1.025rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.abstract-text-body p {
+  margin-bottom: 16px;
+}
+
+.abstract-text-body p:last-child {
+  margin-bottom: 0;
+}
+
+.abstract-highlight-callout {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-grounded-light);
+  padding: 20px;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.callout-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.callout-body {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cite-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+.hero-image-wrapper {
+  margin-top: 32px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-image-caption {
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+}
+
+/* --------------------------------------------------------------------------
+   7. CONCEPTUAL CORE: ERROR TAXONOMY ("Why a wrong answer isn't always...")
+   -------------------------------------------------------------------------- */
+.taxonomy-intro {
+  margin-bottom: 32px;
+  font-size: 1.025rem;
+  color: var(--text-secondary);
+  max-width: 820px;
+}
+
+.taxonomy-legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.swatch-grounded {
+  background-color: var(--accent-grounded-light);
+}
+
+.swatch-hallucination {
+  background-color: var(--accent-hallucination-light);
+}
+
+.taxonomy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual Taxonomy Card Base */
+.taxonomy-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+
+@media (min-width: 680px) {
+  .taxonomy-card {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+}
+
+/* Style for Grounded-Process Errors 1–4 (Blue / Indigo Theme) */
+.taxonomy-card.type-grounded {
+  border-left: 5px solid var(--accent-grounded-light);
+}
+
+.taxonomy-card.type-grounded:hover {
+  border-color: var(--accent-grounded-border);
+  box-shadow: var(--shadow-md);
+}
+
+/* Style for Hallucination Error 5 (Categorically Distinct Red/Crimson Theme) */
+.taxonomy-card.type-hallucination {
+  border-left: 5px solid var(--accent-hallucination-light);
+  background-color: var(--accent-hallucination-bg);
+  border-color: var(--accent-hallucination-border);
+}
+
+.taxonomy-card.type-hallucination:hover {
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.15);
+}
+
+.taxonomy-num-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.type-grounded .taxonomy-num-box {
+  background-color: var(--accent-grounded-badge);
+  color: var(--accent-grounded-light);
+}
+
+.type-hallucination .taxonomy-num-box {
+  background-color: var(--accent-hallucination-badge);
+  color: var(--accent-hallucination-light);
+}
+
+.taxonomy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taxonomy-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.taxonomy-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.taxonomy-category-badge {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.type-grounded .taxonomy-category-badge {
+  background: var(--accent-grounded-badge);
+  color: var(--accent-grounded-light);
+}
+
+.type-hallucination .taxonomy-category-badge {
+  background: var(--accent-hallucination-badge);
+  color: var(--accent-hallucination-light);
+}
+
+.taxonomy-desc {
+  font-size: 0.975rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Interactive Case Study Drawer */
+.taxonomy-example-btn {
+  margin-top: 8px;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-grounded-light);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+}
+
+.type-hallucination .taxonomy-example-btn {
+  color: var(--accent-hallucination-light);
+}
+
+.taxonomy-example-btn:hover {
+  text-decoration: underline;
+}
+
+.taxonomy-example-box {
+  display: none;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 6px;
+  background: var(--bg-surface-elevated);
+  border: 1px dashed var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.taxonomy-example-box.open {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   8. DATASETS SECTION (ScienceQA, ChartQA, SPIQA)
+   -------------------------------------------------------------------------- */
+.datasets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.dataset-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dataset-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.dataset-header {
+  margin-bottom: 16px;
+}
+
+.dataset-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dataset-name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dataset-count-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.dataset-type {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.dataset-body {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.dataset-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.dataset-tag {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   9. PROPOSED METHODOLOGY: 8-STAGE PIPELINE
+   -------------------------------------------------------------------------- */
+.pipeline-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 28px 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow-x: auto;
+}
+
+.pipeline-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  position: relative;
+}
+
+@media (min-width: 900px) {
+  .pipeline-flow {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stage-node {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage-node:hover, .stage-node.active {
+  border-color: var(--accent-grounded-light);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.stage-node.stage-detection {
+  border-left: 3px solid var(--accent-hallucination-light);
+}
+
+.stage-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stage-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  background: var(--bg-main);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.stage-node:hover .stage-num, .stage-node.active .stage-num {
+  color: var(--accent-grounded-light);
+}
+
+.stage-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.stage-summary {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Pipeline Details Drawer */
+.pipeline-inspector-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+  display: none;
+}
+
+.pipeline-inspector-card.open {
+  display: block;
+}
+
+.inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.inspector-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.inspector-close {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-tertiary);
+  cursor: pointer;
+}
+
+.inspector-content {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   10. PROGRESS TIMELINE (12 Weeks)
+   -------------------------------------------------------------------------- */
+.timeline-list {
+  position: relative;
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 10px;
+  width: 2px;
+  background: var(--border-subtle);
+}
+
+.timeline-item {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -28px;
+  top: 18px;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-main);
+  border: 2px solid var(--border-strong);
+  z-index: 2;
+}
+
+.timeline-item.done .timeline-marker {
+  background: #10B981;
+  border-color: #059669;
+}
+
+.timeline-item.done {
+  border-left: 3px solid #10B981;
+}
+
+.timeline-item.upcoming {
+  border-left: 3px solid var(--border-strong);
+  opacity: 0.85;
+}
+
+.timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.timeline-week-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.week-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.week-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.week-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.timeline-item.done .week-status-badge {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-text);
+  border: 1px solid var(--status-complete-border);
+}
+
+.timeline-item.upcoming .week-status-badge {
+  background: var(--status-upcoming-bg);
+  color: var(--status-upcoming-text);
+  border: 1px solid var(--status-upcoming-border);
+}
+
+.week-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   11. FOOTER & BIBLIOGRAPHY
+   -------------------------------------------------------------------------- */
+.footer-section {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  padding: 48px 0 32px 0;
+  margin-top: 64px;
+}
+
+.footer-credit-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.footer-credit-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.footer-credit-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.footer-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.825rem;
+  color: var(--text-tertiary);
+}
+
+/* Modal formatting for citation copy */
+.citation-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.citation-modal.open {
+  display: flex;
+}
+
+.citation-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  padding: 24px;
+}
+
+.citation-pre {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 12px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  margin: 16px 0;
+  color: var(--text-primary);
+}
+
+/* Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

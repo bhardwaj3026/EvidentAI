@@ -1,0 +1,953 @@
+[
+  {
+    "id": "scienceqa_real_000",
+    "title": "natural science / science-and-engineering-practices (grade grade8)",
+    "type": "science_mc",
+    "question": "Which of the following could Gordon's test show?",
+    "choices": [
+      "if the spacecraft was damaged when using a parachute with a 1 m vent going 200 km per hour",
+      "how steady a parachute with a 1 m vent was at 200 km per hour",
+      "whether a parachute with a 1 m vent would swing too much at 400 km per hour"
+    ],
+    "answerIndex": 1,
+    "answer": "how steady a parachute with a 1 m vent was at 200 km per hour",
+    "hint": "People can use the engineering-design process to develop solutions to problems. One step in the process is testing if a potential solution meets the requirements of the design.\nThe passage below describes how the engineering-design process was used to test a solution to a problem. Read the passage. Then answer the question below.\n\nGordon was an aerospace engineer who was developing a parachute for a spacecraft that would land on Mars. He needed to add a vent at the center of the parachute so the spacecraft would land smoothly. However, the spacecraft would have to travel at a high speed before landing. If the vent was too big or too small, the parachute might swing wildly at this speed. The movement could damage the spacecraft.\nSo, to help decide how big the vent should be, Gordon put a parachute with a 1 m vent in a wind tunnel. The wind tunnel made it seem like the parachute was moving at 200 km per hour. He observed the parachute to see how much it swung.\nFigure: a spacecraft's parachute in a wind tunnel.",
+    "lecture": "People can use the engineering-design process to develop solutions to problems. One step in the process is testing if a potential solution meets the requirements of the design. How can you determine what a test can show? You need to figure out what was tested and what was measured.\nImagine an engineer needs to design a bridge for a windy location. She wants to make sure the bridge will not move too much in high wind. So, she builds a smaller prototype, or model, of a bridge. Then, she exposes the prototype to high winds and measures how much the bridge moves.\nFirst, identify what was tested. A test can examine one design, or it may compare multiple prototypes to each other. In the test described above, the engineer tested a prototype of a bridge in high wind.\nThen, identify what the test measured. One of the criteria for the bridge was that it not move too much in high winds. The test measured how much the prototype bridge moved.\nTests can show how well one or more designs meet the criteria. The test described above can show whether the bridge would move too much in high winds.",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_000.png"
+  },
+  {
+    "id": "scienceqa_real_001",
+    "title": "social science / us-history (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the name of the colony shown?",
+    "choices": [
+      "Maryland",
+      "New Hampshire",
+      "Rhode Island",
+      "Vermont"
+    ],
+    "answerIndex": 1,
+    "answer": "New Hampshire",
+    "hint": "",
+    "lecture": "",
+    "solution": "The colony is New Hampshire.\nDuring the colonial era, New Hampshire and New York both claimed the territory that would later become the state of Vermont. Vermont was never its own colony.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_001.png"
+  },
+  {
+    "id": "scienceqa_real_002",
+    "title": "natural science / biology (grade grade5)",
+    "type": "science_mc",
+    "question": "Which of these organisms contains matter that was once part of the lichen?",
+    "choices": [
+      "bilberry",
+      "mushroom"
+    ],
+    "answerIndex": 1,
+    "answer": "mushroom",
+    "hint": "Below is a food web from a tundra ecosystem in Nunavut, a territory in Northern Canada.\nA food web models how the matter eaten by organisms moves through an ecosystem. The arrows in a food web represent how matter moves between organisms in an ecosystem.",
+    "lecture": "A food web is a model.\nA food web shows where organisms in an ecosystem get their food. Models can make things in nature easier to understand because models can represent complex things in a simpler way. If a food web showed every organism in an ecosystem, the food web would be hard to understand. So, each food web shows how some organisms in an ecosystem can get their food.\nArrows show how matter moves.\nA food web has arrows that point from one organism to another. Each arrow shows the direction that matter moves when one organism eats another organism. An arrow starts from the organism that is eaten. The arrow points to the organism that is doing the eating.\nAn organism in a food web can have more than one arrow pointing from it. This shows that the organism is eaten by more than one other organism in the food web.\nAn organism in a food web can also have more than one arrow pointing to it. This shows that the organism eats more than one other organism in the food web.",
+    "solution": "Use the arrows to follow how matter moves through this food web. For each answer choice, try to find a path of arrows that starts from the lichen.\nNo arrow points to the bilberry. So, in this food web, matter does not move from the lichen to the bilberry.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_002.png"
+  },
+  {
+    "id": "scienceqa_real_003",
+    "title": "natural science / biology (grade grade8)",
+    "type": "science_mc",
+    "question": "What is the expected ratio of offspring with a woolly fleece to offspring with a hairy fleece? Choose the most likely ratio.",
+    "choices": [
+      "0:4",
+      "4:0",
+      "2:2",
+      "1:3",
+      "3:1"
+    ],
+    "answerIndex": 1,
+    "answer": "4:0",
+    "hint": "This passage describes the fleece type trait in sheep:\nThe fleece, or outer coat, of a sheep is often cut off and used to make yarn for fabrics and other textiles. Woolly fleeces, which have shorter hairs, are usually used for clothing and blankets. Hairy fleeces, which have longer hairs, are usually used for carpets.\nIn a group of sheep, some individuals have a hairy fleece and others have a woolly fleece. In this group, the gene for the fleece type trait has two alleles. The allele for a hairy fleece (F) is dominant over the allele for a woolly fleece (f).\nThis Punnett square shows a cross between two sheep.",
+    "lecture": "Offspring phenotypes: dominant or recessive?\nHow do you determine an organism's phenotype for a trait? Look at the combination of alleles in the organism's genotype for the gene that affects that trait. Some alleles have types called dominant and recessive. These two types can cause different versions of the trait to appear as the organism's phenotype.\nIf an organism's genotype has at least one dominant allele for a gene, the organism's phenotype will be the dominant allele's version of the gene's trait.\nIf an organism's genotype has only recessive alleles for a gene, the organism's phenotype will be the recessive allele's version of the gene's trait.\nA Punnett square shows what types of offspring a cross can produce. The expected ratio of offspring types compares how often the cross produces each type of offspring, on average. To write this ratio, count the number of boxes in the Punnett square representing each type.\nFor example, consider the Punnett square below.\n | F | f\nF | FF | Ff\nf | Ff | ff\nThere is 1 box with the genotype FF and 2 boxes with the genotype Ff. So, the expected ratio of offspring with the genotype FF to those with Ff is 1:2.\n",
+    "solution": "To determine how many boxes in the Punnett square represent offspring with a woolly fleece or a hairy fleece, consider whether each phenotype is the dominant or recessive allele's version of the fleece type trait. The question tells you that the F allele, which is for a hairy fleece, is dominant over the f allele, which is for a woolly fleece.\nA woolly fleece is the recessive allele's version of the fleece type trait. A sheep with the recessive version of the fleece type trait must have only recessive alleles for the fleece type gene. So, offspring with a woolly fleece must have the genotype ff.\nAll 4 boxes in the Punnett square have the genotype ff.\nA hairy fleece is the dominant allele's version of the fleece type trait. A sheep with the dominant version of the fleece type trait must have at least one dominant allele for the fleece type gene. So, offspring with a hairy fleece must have the genotype FF or Ff.\nThere are 0 boxes in the Punnett square with the genotype FF or Ff.\nSo, the expected ratio of offspring with a woolly fleece to offspring with a hairy fleece is 4:0. This means that, based on the Punnett square, this cross will always produce offspring with a woolly fleece. This cross is expected to never produce offspring with a hairy fleece.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_003.png"
+  },
+  {
+    "id": "scienceqa_real_004",
+    "title": "natural science / physics (grade grade4)",
+    "type": "science_mc",
+    "question": "Which property do these three objects have in common?",
+    "choices": [
+      "shiny",
+      "slippery",
+      "opaque"
+    ],
+    "answerIndex": 2,
+    "answer": "opaque",
+    "hint": "Select the best answer.",
+    "lecture": "An object has different properties. A property of an object can tell you how it looks, feels, tastes, or smells. Properties can also tell you how an object will behave when something happens to it.\nDifferent objects can have properties in common. You can use these properties to put objects into groups. Grouping objects by their properties is called classification.",
+    "solution": "Look at each object.\nFor each object, decide if it has that property.\nAn opaque object does not let light through. All three objects are opaque.\nA slippery object is hard to hold onto or stand on. The tortoise shell and the basketball are not slippery.\nA shiny object reflects a lot of light. You can usually see your reflection in a shiny object. The crown is shiny, but the basketball is not.\nThe property that all three objects have in common is opaque.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_004.png"
+  },
+  {
+    "id": "scienceqa_real_005",
+    "title": "natural science / physics (grade grade8)",
+    "type": "science_mc",
+    "question": "Think about the magnetic force between the magnets in each pair. Which of the following statements is true?",
+    "choices": [
+      "The magnitude of the magnetic force is the same in both pairs.",
+      "The magnitude of the magnetic force is smaller in Pair 1.",
+      "The magnitude of the magnetic force is smaller in Pair 2."
+    ],
+    "answerIndex": 2,
+    "answer": "The magnitude of the magnetic force is smaller in Pair 2.",
+    "hint": "The images below show two pairs of magnets. The magnets in different pairs do not affect each other. All the magnets shown are made of the same material, but some of them are different sizes and shapes.",
+    "lecture": "Magnets can pull or push on each other without touching. When magnets attract, they pull together. When magnets repel, they push apart. These pulls and pushes between magnets are called magnetic forces.\nThe strength of a force is called its magnitude. The greater the magnitude of the magnetic force between two magnets, the more strongly the magnets attract or repel each other.\nYou can change the magnitude of a magnetic force between two magnets by using magnets of different sizes. The magnitude of the magnetic force is smaller when the magnets are smaller.",
+    "solution": "Magnet sizes affect the magnitude of the magnetic force. Imagine magnets that are the same shape and made of the same material. The smaller the magnets, the smaller the magnitude of the magnetic force between them.\nMagnet A is the same size in both pairs. But Magnet B is smaller in Pair 2 than in Pair 1. So, the magnitude of the magnetic force is smaller in Pair 2 than in Pair 1.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_005.png"
+  },
+  {
+    "id": "scienceqa_real_006",
+    "title": "social science / geography (grade grade4)",
+    "type": "science_mc",
+    "question": "What is the capital of Wyoming?",
+    "choices": [
+      "Phoenix",
+      "Baton Rouge",
+      "Honolulu",
+      "Cheyenne"
+    ],
+    "answerIndex": 3,
+    "answer": "Cheyenne",
+    "hint": "",
+    "lecture": "",
+    "solution": "Cheyenne is the capital of Wyoming.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_006.png"
+  },
+  {
+    "id": "scienceqa_real_007",
+    "title": "natural science / earth-science (grade grade6)",
+    "type": "science_mc",
+    "question": "Is the following statement about our solar system true or false?\nThe largest planet is made mainly of ice.",
+    "choices": [
+      "true",
+      "false"
+    ],
+    "answerIndex": 1,
+    "answer": "false",
+    "hint": "Use the data to answer the question below.",
+    "lecture": "A planet's volume tells you the size of the planet.\nThe primary composition of a planet is what the planet is made mainly of. In our solar system, planets are made mainly of rock, gas, or ice.",
+    "solution": "The table tells you that Jupiter is the largest planet and that Jupiter is made mainly of gas. So, the largest planet is made mainly of gas.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_007.png"
+  },
+  {
+    "id": "scienceqa_real_008",
+    "title": "natural science / biology (grade grade5)",
+    "type": "science_mc",
+    "question": "Which of the following organisms is the primary consumer in this food web?",
+    "choices": [
+      "copepod",
+      "black crappie",
+      "bacteria"
+    ],
+    "answerIndex": 0,
+    "answer": "copepod",
+    "hint": "Below is a food web from Little Rock Lake, a freshwater lake ecosystem in Wisconsin.\nA food web models how the matter eaten by organisms moves through an ecosystem. The arrows in a food web represent how matter moves between organisms in an ecosystem.",
+    "lecture": "A food web is a model.\nA food web shows where organisms in an ecosystem get their food. Models can make things in nature easier to understand because models can represent complex things in a simpler way. If a food web showed every organism in an ecosystem, the food web would be hard to understand. So, each food web shows how some organisms in an ecosystem can get their food.\nArrows show how matter moves.\nA food web has arrows that point from one organism to another. Each arrow shows the direction that matter moves when one organism eats another organism. An arrow starts from the organism that is eaten. The arrow points to the organism that is doing the eating.\nAn organism in a food web can have more than one arrow pointing from it. This shows that the organism is eaten by more than one other organism in the food web.\nAn organism in a food web can also have more than one arrow pointing to it. This shows that the organism eats more than one other organism in the food web.",
+    "solution": "Primary consumers eat producers. So, in a food web, primary consumers have arrows pointing to them from producers.\nThe rotifer has an arrow pointing to it from the green algae. The green algae is a producer, so the rotifer is a primary consumer.\nThe copepod has an arrow pointing to it from the golden algae. The golden algae is a producer, so the copepod is a primary consumer.\nThe black crappie has arrows pointing to it from the water flea, the rotifer, and the shiner. None of these organisms is a produce, so the black crappie is not a primary consumer.\nThe bacteria have arrows pointing to them from the copepod and the shiner. Neither the copepod nor the shiner is a producer, so the bacteria are not primary consumers.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_008.png"
+  },
+  {
+    "id": "scienceqa_real_009",
+    "title": "natural science / physics (grade grade4)",
+    "type": "science_mc",
+    "question": "Think about the magnetic force between the magnets in each pair. Which of the following statements is true?",
+    "choices": [
+      "The magnetic force is stronger in Pair 2.",
+      "The magnetic force is stronger in Pair 1.",
+      "The strength of the magnetic force is the same in both pairs."
+    ],
+    "answerIndex": 1,
+    "answer": "The magnetic force is stronger in Pair 1.",
+    "hint": "The images below show two pairs of magnets. The magnets in different pairs do not affect each other. All the magnets shown are made of the same material.",
+    "lecture": "Magnets can pull or push on each other without touching. When magnets attract, they pull together. When magnets repel, they push apart.\nThese pulls and pushes between magnets are called magnetic forces. The stronger the magnetic force between two magnets, the more strongly the magnets attract or repel each other.\nYou can change the strength of a magnetic force between two magnets by changing the distance between them. The magnetic force is stronger when the magnets are closer together.",
+    "solution": "Distance affects the strength of the magnetic force. When magnets are closer together, the magnetic force between them is stronger.\nThe magnets in Pair 1 are closer together than the magnets in Pair 2. So, the magnetic force is stronger in Pair 1 than in Pair 2.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_009.png"
+  },
+  {
+    "id": "scienceqa_real_010",
+    "title": "natural science / biology (grade grade3)",
+    "type": "science_mc",
+    "question": "Which better describes the Daintree rain forest ecosystem?",
+    "choices": [
+      "It has year-round rain. It also has soil that is poor in nutrients.",
+      "It has cold winters. It also has many different types of organisms."
+    ],
+    "answerIndex": 0,
+    "answer": "It has year-round rain. It also has soil that is poor in nutrients.",
+    "hint": "Figure: Daintree rain forest.\nThe Daintree rain forest is a tropical rain forest ecosystem in northeastern Australia.",
+    "lecture": "An ecosystem is formed when living and nonliving things interact in an environment. There are many types of ecosystems. Here are some ways in which ecosystems can differ from each other:\nthe pattern of weather, or climate\nthe type of soil or water\nthe organisms that live there",
+    "solution": "A tropical rain forest is a type of ecosystem. Tropical rain forests have the following features: year-round rain and warm temperatures, soil that is poor in nutrients, and many different types of organisms. So, the Daintree rain forest has year-round rain. It also has soil that is poor in nutrients.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_010.png"
+  },
+  {
+    "id": "scienceqa_real_011",
+    "title": "social science / geography (grade grade3)",
+    "type": "science_mc",
+    "question": "What is the capital of Delaware?",
+    "choices": [
+      "Montpelier",
+      "Trenton",
+      "Dover",
+      "Georgetown"
+    ],
+    "answerIndex": 2,
+    "answer": "Dover",
+    "hint": "",
+    "lecture": "",
+    "solution": "Dover is the capital of Delaware.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_011.png"
+  },
+  {
+    "id": "scienceqa_real_012",
+    "title": "social science / geography (grade grade3)",
+    "type": "science_mc",
+    "question": "Which of these states is farthest north?",
+    "choices": [
+      "Maine",
+      "South Carolina",
+      "Kansas",
+      "Delaware"
+    ],
+    "answerIndex": 0,
+    "answer": "Maine",
+    "hint": "",
+    "lecture": "Maps have four cardinal directions, or main directions. Those directions are north, south, east, and west.\nA compass rose is a set of arrows that point to the cardinal directions. A compass rose usually shows only the first letter of each cardinal direction.\nThe north arrow points to the North Pole. On most maps, north is at the top of the map.",
+    "solution": "To find the answer, look at the compass rose. Look at which way the north arrow is pointing. Maine is farthest north.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_012.png"
+  },
+  {
+    "id": "scienceqa_real_013",
+    "title": "social science / economics (grade grade6)",
+    "type": "science_mc",
+    "question": "What can Greta and Allie trade to each get what they want?",
+    "choices": [
+      "Greta can trade her tomatoes for Allie's sandwich.",
+      "Allie can trade her broccoli for Greta's oranges.",
+      "Allie can trade her almonds for Greta's tomatoes.",
+      "Greta can trade her tomatoes for Allie's broccoli."
+    ],
+    "answerIndex": 3,
+    "answer": "Greta can trade her tomatoes for Allie's broccoli.",
+    "hint": "Trade happens when people agree to exchange goods and services. People give up something to get something else. Sometimes people barter, or directly exchange one good or service for another.\nGreta and Allie open their lunch boxes in the school cafeteria. Both of them could be happier with their lunches. Greta wanted broccoli in her lunch and Allie was hoping for tomatoes. Look at the images of their lunches. Then answer the question below.",
+    "lecture": "",
+    "solution": "Greta wanted broccoli in her lunch and Allie was hoping for tomatoes. Look at the labeled part of the images.\nGreta has tomatoes. Allie has broccoli. They can trade tomatoes for broccoli to both be happier. Trading other things would not help either person get more items they want.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_013.png"
+  },
+  {
+    "id": "scienceqa_real_014",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the capital of Colorado?",
+    "choices": [
+      "Boulder",
+      "Phoenix",
+      "Colorado Springs",
+      "Denver"
+    ],
+    "answerIndex": 3,
+    "answer": "Denver",
+    "hint": "",
+    "lecture": "",
+    "solution": "Denver is the capital of Colorado.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_014.png"
+  },
+  {
+    "id": "scienceqa_real_015",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "Which continent is highlighted?",
+    "choices": [
+      "Africa",
+      "North America",
+      "South America",
+      "Asia"
+    ],
+    "answerIndex": 3,
+    "answer": "Asia",
+    "hint": "",
+    "lecture": "A continent is one of the major land masses on the earth. Most people say there are seven continents.",
+    "solution": "This continent is Asia.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_015.png"
+  },
+  {
+    "id": "scienceqa_real_016",
+    "title": "natural science / science-and-engineering-practices (grade grade8)",
+    "type": "science_mc",
+    "question": "Identify the question that Chase's experiment can best answer.",
+    "choices": [
+      "Do cardinals eat more seeds per visit from feeders containing sunflower seeds compared to feeders containing flax seeds?",
+      "Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?"
+    ],
+    "answerIndex": 1,
+    "answer": "Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?",
+    "hint": "The passage below describes an experiment. Read the passage and then follow the instructions below.\n\nChase set up five pairs of platform bird feeders around his yard. He filled one feeder in each pair with sunflower seeds and the other feeder with flax seeds. For one week, Chase watched cardinals visiting the feeders during the same hour each morning. During his observations, Chase counted the number of visits by cardinals to feeders with sunflower seeds and the number of visits by cardinals to feeders with flax seeds.\nFigure: a cardinal visiting a platform feeder with sunflower seeds.",
+    "lecture": "Experiments can be designed to answer specific questions. How can you identify the questions that a certain experiment can answer? In order to do this, you need to figure out what was tested and what was measured during the experiment.\nImagine an experiment with two groups of daffodil plants. One group of plants was grown in sandy soil, and the other was grown in clay soil. Then, the height of each plant was measured.\nFirst, identify the part of the experiment that was tested. The part of an experiment that is tested usually involves the part of the experimental setup that is different or changed. In the experiment described above, each group of plants was grown in a different type of soil. So, the effect of growing plants in different soil types was tested.\nThen, identify the part of the experiment that was measured. The part of the experiment that is measured may include measurements and calculations. In the experiment described above, the heights of the plants in each group were measured.\nExperiments can answer questions about how the part of the experiment that is tested affects the part that is measured. So, the experiment described above can answer questions about how soil type affects plant height.\nExamples of questions that this experiment can answer include:\nDoes soil type affect the height of daffodil plants?\nDo daffodil plants in sandy soil grow taller than daffodil plants in clay soil?\nAre daffodil plants grown in sandy soil shorter than daffodil plants grown in clay soil?",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_016.png"
+  },
+  {
+    "id": "scienceqa_real_017",
+    "title": "natural science / physics (grade grade2)",
+    "type": "science_mc",
+    "question": "Which material is this path made of?",
+    "choices": [
+      "plastic",
+      "brick"
+    ],
+    "answerIndex": 1,
+    "answer": "brick",
+    "hint": "",
+    "lecture": "A material is a type of matter. Wood, glass, metal, and plastic are common materials.",
+    "solution": "Look at the picture of the path.\nThe path is made of bricks.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_017.png"
+  },
+  {
+    "id": "scienceqa_real_018",
+    "title": "natural science / biology (grade grade3)",
+    "type": "science_mc",
+    "question": "Select the bird below.",
+    "choices": [
+      "cane toad",
+      "ostrich"
+    ],
+    "answerIndex": 1,
+    "answer": "ostrich",
+    "hint": "Birds have feathers, two wings, and a beak. A robin is an example of a bird.",
+    "lecture": "Birds, mammals, fish, reptiles, and amphibians are groups of animals. The animals in each group have traits in common.\nScientists sort animals into groups based on traits they have in common. This process is called classification.",
+    "solution": "An ostrich is a bird. It has feathers, two wings, and a beak.\nThe ostrich is the largest bird alive today. Ostriches cannot fly, but they can run very fast.\nA cane toad is an amphibian. It has moist skin and begins its life in water.\nToads do not have teeth! They swallow their food whole.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_018.png"
+  },
+  {
+    "id": "scienceqa_real_019",
+    "title": "natural science / physics (grade grade3)",
+    "type": "science_mc",
+    "question": "Which property do these three objects have in common?",
+    "choices": [
+      "blue",
+      "hard",
+      "sticky"
+    ],
+    "answerIndex": 0,
+    "answer": "blue",
+    "hint": "Select the best answer.",
+    "lecture": "An object has different properties. A property of an object can tell you how it looks, feels, tastes, or smells. Properties can also tell you how an object will behave when something happens to it.\nDifferent objects can have properties in common. You can use these properties to put objects into groups.",
+    "solution": "Look at each object.\nFor each object, decide if it has that property.\nA sticky object can attach or stick to other things. The toothpaste is sticky, but the soccer shorts and the water slide are not.\nBlue is a color.\nThis color is blue. All three objects are blue.\nA hard object does not change shape when pressed or squeezed. The water slide is hard, but the toothpaste and the soccer shorts are not.\nThe property that all three objects have in common is blue.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_019.png"
+  },
+  {
+    "id": "scienceqa_real_020",
+    "title": "natural science / science-and-engineering-practices (grade grade6)",
+    "type": "science_mc",
+    "question": "Which of the following was a dependent variable in this experiment?",
+    "choices": [
+      "the temperature of the heating pad",
+      "the number of days until a seed germinated"
+    ],
+    "answerIndex": 1,
+    "answer": "the number of days until a seed germinated",
+    "hint": "The passage below describes an experiment. Read the passage and think about the variables that are described.\n\nKenneth wanted to grow cucumbers from seeds. He read that using a heating pad to heat up potting soil could help make seeds germinate, or sprout, faster. Kenneth wondered whether the temperature of the heating pad would affect how quickly the seeds germinated.\nKenneth prepared two potting trays, each made up of ten small pots of soil. He planted one cucumber seed in each small pot and arranged the potting trays near a sunny window. He set an electric heating pad to 75\u00b0F and placed it under one potting tray. He set a second heating pad to 85\u00b0F and placed it under the other potting tray. Kenneth observed the pots daily, and he counted the number of days it took until a seed germinated in each pot.\nHint: An independent variable is a variable whose effect you are investigating. A dependent variable is a variable that you measure.\nFigure: germinating plants in a potting tray.",
+    "lecture": "Experiments have variables, or parts that change. You can design an experiment to find out how one variable affects another variable. For example, imagine that you want to find out if fertilizer affects the number of tomatoes a tomato plant grows. To answer this question, you decide to set up two equal groups of tomato plants. Then, you add fertilizer to the soil of the plants in one group but not in the other group. Later, you measure the effect of the fertilizer by counting the number of tomatoes on each plant.\nIn this experiment, the amount of fertilizer added to the soil and the number of tomatoes were both variables.\nThe amount of fertilizer added to the soil was an independent variable because it was the variable whose effect you were investigating. This type of variable is called independent because its value does not depend on what happens after the experiment begins. Instead, you decided to give fertilizer to some plants and not to others.\nThe number of tomatoes was a dependent variable because it was the variable you were measuring. This type of variable is called dependent because its value can depend on what happens in the experiment.",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_020.png"
+  },
+  {
+    "id": "scienceqa_real_021",
+    "title": "social science / geography (grade grade4)",
+    "type": "science_mc",
+    "question": "What is the capital of Mississippi?",
+    "choices": [
+      "Detroit",
+      "Jackson",
+      "Biloxi",
+      "Topeka"
+    ],
+    "answerIndex": 1,
+    "answer": "Jackson",
+    "hint": "",
+    "lecture": "",
+    "solution": "Jackson is the capital of Mississippi.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_021.png"
+  },
+  {
+    "id": "scienceqa_real_022",
+    "title": "natural science / physics (grade grade2)",
+    "type": "science_mc",
+    "question": "Which property matches this object?",
+    "choices": [
+      "stretchy",
+      "blue"
+    ],
+    "answerIndex": 0,
+    "answer": "stretchy",
+    "hint": "Select the better answer.",
+    "lecture": "An object has different properties. A property of an object can tell you how it looks, feels, tastes, or smells.",
+    "solution": "Look at the object.\nThink about each property.\nBlue is a color.\nThis color is blue. The melted marshmallow is not blue.\nA stretchy object gets longer when you pull on it. The melted marshmallow is stretchy.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_022.png"
+  },
+  {
+    "id": "scienceqa_real_023",
+    "title": "natural science / biology (grade grade4)",
+    "type": "science_mc",
+    "question": "Is Rafflesia arnoldii made up of many cells?",
+    "choices": [
+      "yes",
+      "no"
+    ],
+    "answerIndex": 0,
+    "answer": "yes",
+    "hint": "This organism is Rafflesia arnoldii. It is a member of the plant kingdom.\nRafflesia arnoldii has the largest flowers in the world. A single flower can be three feet wide! R. arnoldii is commonly called a corpse flower because the flower smells like rotting meat.",
+    "lecture": "In the past, scientists classified living organisms into two groups: plants and animals. Over the past 300 years, scientists have discovered many more types of organisms. Today, many scientists classify organisms into six broad groups, called kingdoms.\nOrganisms in each kingdom have specific traits. The table below shows some traits used to describe each kingdom.\n | Bacteria | Archaea | Protists | Fungi | Animals | Plants\nHow many cells do they have? | one | one | one or many | one or many | many | many\nDo their cells have a nucleus? | no | no | yes | yes | yes | yes\nCan their cells make food? | some species can | some species can | some species can | no | no | yes",
+    "solution": "Rafflesia arnoldii is a plant. Plants are made up of many cells.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_023.png"
+  },
+  {
+    "id": "scienceqa_real_024",
+    "title": "natural science / biology (grade grade8)",
+    "type": "science_mc",
+    "question": "What is the expected ratio of offspring with smooth fruit to offspring with fuzzy fruit? Choose the most likely ratio.",
+    "choices": [
+      "3:1",
+      "2:2",
+      "1:3",
+      "4:0",
+      "0:4"
+    ],
+    "answerIndex": 3,
+    "answer": "4:0",
+    "hint": "In a group of tomato plants, some individuals have smooth fruit and others have fuzzy fruit. In this group, the gene for the fruit texture trait has two alleles. The allele for smooth fruit (F) is dominant over the allele for fuzzy fruit (f).\nThis Punnett square shows a cross between two tomato plants.",
+    "lecture": "Offspring phenotypes: dominant or recessive?\nHow do you determine an organism's phenotype for a trait? Look at the combination of alleles in the organism's genotype for the gene that affects that trait. Some alleles have types called dominant and recessive. These two types can cause different versions of the trait to appear as the organism's phenotype.\nIf an organism's genotype has at least one dominant allele for a gene, the organism's phenotype will be the dominant allele's version of the gene's trait.\nIf an organism's genotype has only recessive alleles for a gene, the organism's phenotype will be the recessive allele's version of the gene's trait.\nA Punnett square shows what types of offspring a cross can produce. The expected ratio of offspring types compares how often the cross produces each type of offspring, on average. To write this ratio, count the number of boxes in the Punnett square representing each type.\nFor example, consider the Punnett square below.\n | F | f\nF | FF | Ff\nf | Ff | ff\nThere is 1 box with the genotype FF and 2 boxes with the genotype Ff. So, the expected ratio of offspring with the genotype FF to those with Ff is 1:2.\n",
+    "solution": "To determine how many boxes in the Punnett square represent offspring with smooth fruit or fuzzy fruit, consider whether each phenotype is the dominant or recessive allele's version of the fruit texture trait. The question tells you that the F allele, which is for smooth fruit, is dominant over the f allele, which is for fuzzy fruit.\nSmooth fruit is the dominant allele's version of the fruit texture trait. A tomato plant with the dominant version of the fruit texture trait must have at least one dominant allele for the fruit texture gene. So, offspring with smooth fruit must have the genotype FF or Ff.\nAll 4 boxes in the Punnett square have the genotype FF or Ff.\nFuzzy fruit is the recessive allele's version of the fruit texture trait. A tomato plant with the recessive version of the fruit texture trait must have only recessive alleles for the fruit texture gene. So, offspring with fuzzy fruit must have the genotype ff.\nThere are 0 boxes in the Punnett square with the genotype ff.\nSo, the expected ratio of offspring with smooth fruit to offspring with fuzzy fruit is 4:0. This means that, based on the Punnett square, this cross will always produce offspring with smooth fruit. This cross is expected to never produce offspring with fuzzy fruit.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_024.png"
+  },
+  {
+    "id": "scienceqa_real_025",
+    "title": "natural science / science-and-engineering-practices (grade grade8)",
+    "type": "science_mc",
+    "question": "Which of the following could Cooper's test show?",
+    "choices": [
+      "if at least 20% of the park would be shaded by trees in each design",
+      "which design would have the least traffic noise in the concert area",
+      "which design would have the greatest distance between the concert area and the road"
+    ],
+    "answerIndex": 2,
+    "answer": "which design would have the greatest distance between the concert area and the road",
+    "hint": "People can use the engineering-design process to develop solutions to problems. One step in the process is testing if a potential solution meets the requirements of the design.\nThe passage below describes how the engineering-design process was used to test a solution to a problem. Read the passage. Then answer the question below.\n\nCooper was a landscape architect who was hired to design a new city park. The city council wanted the park to have space for outdoor concerts and to have at least 20% of the park shaded by trees. Cooper thought the concert area should be at least 150 meters from the road so traffic noise didn't interrupt the music. He developed three possible designs for the park with the concert area in a different location in each design. Then, he tested each design by measuring the distance between the road and the concert area.\nFigure: studying an architect's design.",
+    "lecture": "People can use the engineering-design process to develop solutions to problems. One step in the process is testing if a potential solution meets the requirements of the design. How can you determine what a test can show? You need to figure out what was tested and what was measured.\nImagine an engineer needs to design a bridge for a windy location. She wants to make sure the bridge will not move too much in high wind. So, she builds a smaller prototype, or model, of a bridge. Then, she exposes the prototype to high winds and measures how much the bridge moves.\nFirst, identify what was tested. A test can examine one design, or it may compare multiple prototypes to each other. In the test described above, the engineer tested a prototype of a bridge in high wind.\nThen, identify what the test measured. One of the criteria for the bridge was that it not move too much in high winds. The test measured how much the prototype bridge moved.\nTests can show how well one or more designs meet the criteria. The test described above can show whether the bridge would move too much in high winds.",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_025.png"
+  },
+  {
+    "id": "scienceqa_real_026",
+    "title": "natural science / physics (grade grade5)",
+    "type": "science_mc",
+    "question": "Will these magnets attract or repel each other?",
+    "choices": [
+      "repel",
+      "attract"
+    ],
+    "answerIndex": 0,
+    "answer": "repel",
+    "hint": "Two magnets are placed as shown.",
+    "lecture": "Magnets can pull or push on other magnets without touching them. When magnets attract, they pull together. When magnets repel, they push apart. These pulls and pushes are called magnetic forces.\nMagnetic forces are strongest at the magnets' poles, or ends. Every magnet has two poles: a north pole (N) and a south pole (S).\nHere are some examples of magnets. Their poles are shown in different colors and labeled.\nWhether a magnet attracts or repels other magnets depends on the positions of its poles.\nIf opposite poles are closest to each other, the magnets attract. The magnets in the pair below attract.\nIf the same, or like, poles are closest to each other, the magnets repel. The magnets in both pairs below repel.",
+    "solution": "To predict if these magnets will attract or repel, look at which poles are closest to each other.\nThe south pole of one magnet is closest to the south pole of the other magnet. Like poles repel. So, these magnets will repel each other.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_026.png"
+  },
+  {
+    "id": "scienceqa_real_027",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the capital of Connecticut?",
+    "choices": [
+      "Hartford",
+      "Annapolis",
+      "New Haven",
+      "Dover"
+    ],
+    "answerIndex": 0,
+    "answer": "Hartford",
+    "hint": "",
+    "lecture": "",
+    "solution": "Hartford is the capital of Connecticut.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_027.png"
+  },
+  {
+    "id": "scienceqa_real_028",
+    "title": "social science / geography (grade grade8)",
+    "type": "science_mc",
+    "question": "Which ocean is highlighted?",
+    "choices": [
+      "the Indian Ocean",
+      "the Atlantic Ocean",
+      "the Pacific Ocean",
+      "the Southern Ocean"
+    ],
+    "answerIndex": 0,
+    "answer": "the Indian Ocean",
+    "hint": "",
+    "lecture": "Oceans are huge bodies of salt water. The world has five oceans. All of the oceans are connected, making one world ocean.",
+    "solution": "This is the Indian Ocean.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_028.png"
+  },
+  {
+    "id": "scienceqa_real_029",
+    "title": "natural science / biology (grade grade8)",
+    "type": "science_mc",
+    "question": "Which statement describes the Yasuni National Park ecosystem?",
+    "choices": [
+      "It has mostly small plants.",
+      "It has many different types of organisms.",
+      "It has soil that is rich in nutrients."
+    ],
+    "answerIndex": 1,
+    "answer": "It has many different types of organisms.",
+    "hint": "Figure: Yasuni National Park.\nThe Amazon rain forest in South America is the largest rain forest ecosystem in the world. Ecuador's Yasuni National Park, which is in the Amazon rain forest, has many different species of plants, birds, and mammals.",
+    "lecture": "An environment includes all of the biotic, or living, and abiotic, or nonliving, things in an area. An ecosystem is created by the relationships that form among the biotic and abiotic parts of an environment.\nThere are many different types of terrestrial, or land-based, ecosystems. Here are some ways in which terrestrial ecosystems can differ from each other:\nthe pattern of weather, or climate\nthe type of soil\nthe organisms that live there",
+    "solution": "A tropical rain forest is a type of ecosystem. Tropical rain forests have the following features: year-round rain and warm temperatures, soil that is poor in nutrients, and many different types of organisms. So, the following statement describes the Yasuni National Park ecosystem: year-round rain and warm temperatures, soil that is poor in nutrients, and many different types of organisms. It has many different types of organisms. The following statements do not describe Yasuni National Park: year-round rain and warm temperatures, soil that is poor in nutrients, and many different types of organisms. It has mostly small plants. It has soil that is rich in nutrients.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_029.png"
+  },
+  {
+    "id": "scienceqa_real_030",
+    "title": "natural science / physics (grade grade4)",
+    "type": "science_mc",
+    "question": "Which property do these three objects have in common?",
+    "choices": [
+      "fragile",
+      "bouncy",
+      "yellow"
+    ],
+    "answerIndex": 0,
+    "answer": "fragile",
+    "hint": "Select the best answer.",
+    "lecture": "An object has different properties. A property of an object can tell you how it looks, feels, tastes, or smells. Properties can also tell you how an object will behave when something happens to it.\nDifferent objects can have properties in common. You can use these properties to put objects into groups. Grouping objects by their properties is called classification.",
+    "solution": "Look at each object.\nFor each object, decide if it has that property.\nA fragile object will break into pieces if you drop it. All three objects are fragile.\nYellow is a color.\nThis color is yellow. None of the objects are yellow.\nA bouncy object will bounce back from the floor if you drop it. None of the objects are bouncy.\nThe property that all three objects have in common is fragile.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_030.png"
+  },
+  {
+    "id": "scienceqa_real_031",
+    "title": "natural science / chemistry (grade grade6)",
+    "type": "science_mc",
+    "question": "Look at the models of molecules below. Select the elementary substance.",
+    "choices": [
+      "carbon tetrachloride",
+      "acetaldehyde",
+      "bromine"
+    ],
+    "answerIndex": 2,
+    "answer": "bromine",
+    "hint": "",
+    "lecture": "There are more than 100 different chemical elements, or types of atoms. Chemical elements make up all of the substances around you.\nA substance may be composed of one chemical element or multiple chemical elements. Substances that are composed of only one chemical element are elementary substances. Substances that are composed of multiple chemical elements bonded together are compounds.\nEvery chemical element is represented by its own atomic symbol. An atomic symbol may consist of one capital letter, or it may consist of a capital letter followed by a lowercase letter. For example, the atomic symbol for the chemical element boron is B, and the atomic symbol for the chemical element chlorine is Cl.\nScientists use different types of models to represent substances whose atoms are bonded in different ways. One type of model is a ball-and-stick model. The ball-and-stick model below represents a molecule of the compound boron trichloride.\nIn a ball-and-stick model, the balls represent atoms, and the sticks represent bonds. Notice that the balls in the model above are not all the same color. Each color represents a different chemical element. The legend shows the color and the atomic symbol for each chemical element in the substance.",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_031.png"
+  },
+  {
+    "id": "scienceqa_real_032",
+    "title": "natural science / biology (grade grade7)",
+    "type": "science_mc",
+    "question": "Select the organism in the same species as the pink-backed pelican.",
+    "choices": [
+      "Balearica pavonina",
+      "Tyto alba",
+      "Pelecanus rufescens"
+    ],
+    "answerIndex": 2,
+    "answer": "Pelecanus rufescens",
+    "hint": "This organism is a pink-backed pelican. Its scientific name is Pelecanus rufescens.",
+    "lecture": "Scientists use scientific names to identify organisms. Scientific names are made of two words.\nThe first word in an organism's scientific name tells you the organism's genus. A genus is a group of organisms that share many traits.\nA genus is made up of one or more species. A species is a group of very similar organisms. The second word in an organism's scientific name tells you its species within its genus.\nTogether, the two parts of an organism's scientific name identify its species. For example Ursus maritimus and Ursus americanus are two species of bears. They are part of the same genus, Ursus. But they are different species within the genus. Ursus maritimus has the species name maritimus. Ursus americanus has the species name americanus.\nBoth bears have small round ears and sharp claws. But Ursus maritimus has white fur and Ursus americanus has black fur.\n",
+    "solution": "A pink-backed pelican's scientific name is Pelecanus rufescens.\nPelecanus rufescens has the same scientific name as a pink-backed pelican. So, these organisms are in the same species.\nBalearica pavonina does not have the same scientific name as a pink-backed pelican. So, Pelecanus rufescens and Balearica pavonina are not in the same species.\nTyto alba does not have the same scientific name as a pink-backed pelican. So, Pelecanus rufescens and Tyto alba are not in the same species.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_032.png"
+  },
+  {
+    "id": "scienceqa_real_033",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the capital of North Dakota?",
+    "choices": [
+      "Des Moines",
+      "Bismarck",
+      "Madison",
+      "Fargo"
+    ],
+    "answerIndex": 1,
+    "answer": "Bismarck",
+    "hint": "",
+    "lecture": "",
+    "solution": "Bismarck is the capital of North Dakota.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_033.png"
+  },
+  {
+    "id": "scienceqa_real_034",
+    "title": "natural science / science-and-engineering-practices (grade grade7)",
+    "type": "science_mc",
+    "question": "Identify the question that Jeremiah's experiment can best answer.",
+    "choices": [
+      "Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?",
+      "Do cardinals eat more seeds per visit from feeders containing sunflower seeds compared to feeders containing flax seeds?"
+    ],
+    "answerIndex": 0,
+    "answer": "Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?",
+    "hint": "The passage below describes an experiment. Read the passage and then follow the instructions below.\n\nJeremiah set up five pairs of platform bird feeders around his yard. He filled one feeder in each pair with sunflower seeds and the other feeder with flax seeds. For one week, Jeremiah watched cardinals visiting the feeders during the same hour each morning. During his observations, Jeremiah counted the number of visits by cardinals to feeders with sunflower seeds and the number of visits by cardinals to feeders with flax seeds.\nFigure: a cardinal visiting a platform feeder with sunflower seeds.",
+    "lecture": "Experiments can be designed to answer specific questions. How can you identify the questions that a certain experiment can answer? In order to do this, you need to figure out what was tested and what was measured during the experiment.\nImagine an experiment with two groups of daffodil plants. One group of plants was grown in sandy soil, and the other was grown in clay soil. Then, the height of each plant was measured.\nFirst, identify the part of the experiment that was tested. The part of an experiment that is tested usually involves the part of the experimental setup that is different or changed. In the experiment described above, each group of plants was grown in a different type of soil. So, the effect of growing plants in different soil types was tested.\nThen, identify the part of the experiment that was measured. The part of the experiment that is measured may include measurements and calculations. In the experiment described above, the heights of the plants in each group were measured.\nExperiments can answer questions about how the part of the experiment that is tested affects the part that is measured. So, the experiment described above can answer questions about how soil type affects plant height.\nExamples of questions that this experiment can answer include:\nDoes soil type affect the height of daffodil plants?\nDo daffodil plants in sandy soil grow taller than daffodil plants in clay soil?\nAre daffodil plants grown in sandy soil shorter than daffodil plants grown in clay soil?",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_034.png"
+  },
+  {
+    "id": "scienceqa_real_035",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the capital of Massachusetts?",
+    "choices": [
+      "Cambridge",
+      "Plymouth",
+      "Boston",
+      "Dover"
+    ],
+    "answerIndex": 2,
+    "answer": "Boston",
+    "hint": "",
+    "lecture": "",
+    "solution": "Boston is the capital of Massachusetts.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_035.png"
+  },
+  {
+    "id": "scienceqa_real_036",
+    "title": "natural science / biology (grade grade3)",
+    "type": "science_mc",
+    "question": "Which animal is also adapted to be camouflaged in the snow?",
+    "choices": [
+      "short-tailed weasel",
+      "common hawk-cuckoo"
+    ],
+    "answerIndex": 0,
+    "answer": "short-tailed weasel",
+    "hint": "Arctic wolves live in the Canadian Arctic and Greenland. The  is adapted to be camouflaged in the snow.\nFigure: Arctic wolf.",
+    "lecture": "An adaptation is an inherited trait that helps an organism survive or reproduce. Adaptations can include both body parts and behaviors.\nThe color, texture, and covering of an animal's skin are examples of adaptations. Animals' skins can be adapted in different ways. For example, skin with thick fur might help an animal stay warm. Skin with sharp spines might help an animal defend itself against predators.",
+    "solution": "Look at the picture of the Arctic wolf.\nThis Arctic wolf has white fur covering its body. It is adapted to be camouflaged in the snow. The word camouflage means to blend in.\nNow look at each animal. Figure out which animal has a similar adaptation.\nDuring the winter, the short-tailed weasel has white fur covering its body. It is adapted to be camouflaged in the snow.\nThe common hawk-cuckoo has a gray head, a gray-and-brown back, and a white belly with a gray-and-brown pattern. It is not adapted to be camouflaged in the snow.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_036.png"
+  },
+  {
+    "id": "scienceqa_real_037",
+    "title": "natural science / biology (grade grade4)",
+    "type": "science_mc",
+    "question": "Select the organism in the same genus as the Goliath heron.",
+    "choices": [
+      "Falco sparverius",
+      "Ardea herodias",
+      "Tigrisoma mexicanum"
+    ],
+    "answerIndex": 1,
+    "answer": "Ardea herodias",
+    "hint": "This organism is a Goliath heron. Its scientific name is Ardea goliath.",
+    "lecture": "Scientists use scientific names to identify organisms. Scientific names are made of two words.\nThe first word in an organism's scientific name tells you the organism's genus. A genus is a group of organisms that share many traits.\nA genus is made up of one or more species. A species is a group of very similar organisms. The second word in an organism's scientific name tells you its species within its genus.\nTogether, the two parts of an organism's scientific name identify its species. For example Ursus maritimus and Ursus americanus are two species of bears. They are part of the same genus, Ursus. But they are different species within the genus. Ursus maritimus has the species name maritimus. Ursus americanus has the species name americanus.\nBoth bears have small round ears and sharp claws. But Ursus maritimus has white fur and Ursus americanus has black fur.\n",
+    "solution": "A Goliath heron's scientific name is Ardea goliath. The first word of its scientific name is Ardea.\nArdea herodias is in the genus Ardea. The first word of its scientific name is Ardea. So, Ardea herodias and Ardea goliath are in the same genus.\nFalco sparverius is in the genus Falco. The first word of its scientific name is Falco. So, Falco sparverius and Ardea goliath are not in the same genus.\nTigrisoma mexicanum is in the genus Tigrisoma. The first word of its scientific name is Tigrisoma. So, Tigrisoma mexicanum and Ardea goliath are not in the same genus.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_037.png"
+  },
+  {
+    "id": "scienceqa_real_038",
+    "title": "social science / geography (grade grade7)",
+    "type": "science_mc",
+    "question": "Which country is highlighted?",
+    "choices": [
+      "Barbados",
+      "the Dominican Republic",
+      "Saint Lucia",
+      "Saint Vincent and the Grenadines"
+    ],
+    "answerIndex": 2,
+    "answer": "Saint Lucia",
+    "hint": "",
+    "lecture": "",
+    "solution": "This country is Saint Lucia.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_038.png"
+  },
+  {
+    "id": "scienceqa_real_039",
+    "title": "natural science / physics (grade grade4)",
+    "type": "science_mc",
+    "question": "Will these magnets attract or repel each other?",
+    "choices": [
+      "repel",
+      "attract"
+    ],
+    "answerIndex": 1,
+    "answer": "attract",
+    "hint": "Two magnets are placed as shown.",
+    "lecture": "Magnets can pull or push on each other without touching. When magnets attract, they pull together. When magnets repel, they push apart.\nWhether a magnet attracts or repels other magnets depends on the positions of its poles, or ends. Every magnet has two poles: north and south.\nHere are some examples of magnets. The north pole of each magnet is labeled N, and the south pole is labeled S.\nIf opposite poles are closest to each other, the magnets attract. The magnets in the pair below attract.\nIf the same, or like, poles are closest to each other, the magnets repel. The magnets in both pairs below repel.\n",
+    "solution": "To predict if these magnets will attract or repel, look at which poles are closest to each other.\nThe north pole of one magnet is closest to the south pole of the other magnet. Opposite poles attract. So, these magnets will attract each other.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_039.png"
+  },
+  {
+    "id": "scienceqa_real_040",
+    "title": "natural science / biology (grade grade4)",
+    "type": "science_mc",
+    "question": "Can Fromia monilis cells make their own food?",
+    "choices": [
+      "yes",
+      "no"
+    ],
+    "answerIndex": 1,
+    "answer": "no",
+    "hint": "This organism is Fromia monilis. It is a member of the animal kingdom.\nFromia monilis is commonly called a tile sea star. Did you notice that this tile sea star is missing one of its arms? If a tile sea star loses an arm, it can regrow the arm over time. This ability is called regeneration.",
+    "lecture": "In the past, scientists classified living organisms into two groups: plants and animals. Over the past 300 years, scientists have discovered many more types of organisms. Today, many scientists classify organisms into six broad groups, called kingdoms.\nOrganisms in each kingdom have specific traits. The table below shows some traits used to describe each kingdom.\n | Bacteria | Archaea | Protists | Fungi | Animals | Plants\nHow many cells do they have? | one | one | one or many | one or many | many | many\nDo their cells have a nucleus? | no | no | yes | yes | yes | yes\nCan their cells make food? | some species can | some species can | some species can | no | no | yes",
+    "solution": "Fromia monilis is an animal. Animal cells cannot make their own food. Animals get their food by digesting other organisms.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_040.png"
+  },
+  {
+    "id": "scienceqa_real_041",
+    "title": "natural science / earth-science (grade grade3)",
+    "type": "science_mc",
+    "question": "Does this passage describe the weather or the climate?",
+    "choices": [
+      "weather",
+      "climate"
+    ],
+    "answerIndex": 0,
+    "answer": "weather",
+    "hint": "Figure: Tambor Beach, Costa Rica.\nTambor Beach is located in Costa Rica, a country in Central America. A temperature of 84\u00b0F was measured at Tambor Beach on Friday.\nHint: Weather is what the atmosphere is like at a certain place and time. Climate is the pattern of weather in a certain place.",
+    "lecture": "The atmosphere is the layer of air that surrounds Earth. Both weather and climate tell you about the atmosphere.\nWeather is what the atmosphere is like at a certain place and time. Weather can change quickly. For example, the temperature outside your house might get higher throughout the day.\nClimate is the pattern of weather in a certain place. For example, summer temperatures in New York are usually higher than winter temperatures.",
+    "solution": "Read the passage carefully.\nTambor Beach is located in Costa Rica, a country in Central America. A temperature of 84\u00b0F was measured at Tambor Beach on Friday.\nThe underlined part of the passage tells you about the temperature at Tambor Beach on Friday. This passage describes the atmosphere at a certain place and time. So, this passage describes the weather.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_041.png"
+  },
+  {
+    "id": "scienceqa_real_042",
+    "title": "social science / geography (grade grade8)",
+    "type": "science_mc",
+    "question": "Which country is highlighted?",
+    "choices": [
+      "Vanuatu",
+      "Tonga",
+      "the Marshall Islands",
+      "Nauru"
+    ],
+    "answerIndex": 3,
+    "answer": "Nauru",
+    "hint": "",
+    "lecture": "",
+    "solution": "This country is Nauru.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_042.png"
+  },
+  {
+    "id": "scienceqa_real_043",
+    "title": "language science / writing-strategies (grade grade12)",
+    "type": "science_mc",
+    "question": "Which rhetorical appeal is primarily used in this ad?",
+    "choices": [
+      "logos (reason)",
+      "pathos (emotion)",
+      "ethos (character)"
+    ],
+    "answerIndex": 1,
+    "answer": "pathos (emotion)",
+    "hint": "",
+    "lecture": "The purpose of an advertisement is to persuade people to do something. To accomplish this purpose, advertisements use three types of persuasive strategies, or appeals.\nAppeals to ethos, or character, show the writer or speaker as trustworthy, authoritative, or sharing important values with the audience. An ad that appeals to ethos might do one of the following:\nsay that a brand has been trusted for many years\ninclude an endorsement from a respected organization, such as the American Dental Association\nfeature a testimonial from a \"real person\" who shares the audience's values\nuse an admired celebrity or athlete as a spokesperson\nAppeals to logos, or reason, use logic and verifiable evidence. An ad that appeals to logos might do one of the following:\nuse graphs or charts to display information\ncite results of clinical trials or independently conducted studies\nexplain the science behind a product or service\nemphasize that the product is a financially wise choice\nanticipate and refute potential counterclaims\nAppeals to pathos, or emotion, use feelings rather than facts to persuade the audience. An ad that appeals to pathos might do one of the following:\ntrigger a fear, such as the fear of embarrassment\nappeal to a desire, such as the desire to appear attractive\nlink the product to a positive feeling, such as adventure, love, or luxury",
+    "solution": "The ad appeals to pathos, or emotion, by evoking feelings of parental love and concern.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_043.png"
+  },
+  {
+    "id": "scienceqa_real_044",
+    "title": "natural science / biology (grade grade5)",
+    "type": "science_mc",
+    "question": "Which animal is also adapted to be camouflaged among dead leaves?",
+    "choices": [
+      "strawberry poison frog",
+      "Surinam horned frog"
+    ],
+    "answerIndex": 1,
+    "answer": "Surinam horned frog",
+    "hint": "Orange oakleaf butterflies live in the forests of Asia. This butterfly is adapted to be camouflaged among dead leaves.\nFigure: orange oakleaf butterfly.",
+    "lecture": "An adaptation is an inherited trait that helps an organism survive or reproduce. Adaptations can include both body parts and behaviors.\nThe color, texture, and covering of an animal's skin are examples of adaptations. Animals' skins can be adapted in different ways. For example, skin with thick fur might help an animal stay warm. Skin with sharp spines might help an animal defend itself against predators.",
+    "solution": "Look at the picture of the orange oakleaf butterfly.\nThe orange oakleaf butterfly has a brown leaf-shaped body. It is adapted to be camouflaged among dead leaves, which often have a reddish or brownish color. The word camouflage means to blend in.\nNow look at each animal. Figure out which animal has a similar adaptation.\nThe Surinam horned frog has orange-and-brown skin. It is adapted to be camouflaged among dead leaves, which often have a reddish or brownish color.\nThe strawberry poison frog has brightly colored skin. It is not adapted to be camouflaged among dead leaves.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_044.png"
+  },
+  {
+    "id": "scienceqa_real_045",
+    "title": "natural science / science-and-engineering-practices (grade grade8)",
+    "type": "science_mc",
+    "question": "Identify the question that Helen's experiment can best answer.",
+    "choices": [
+      "Does fabric turn darker when soaked in a mixture of black dye and water for 15 minutes compared to 30 minutes?",
+      "Does linen fabric turn darker than cotton fabric when soaked in a mixture of black dye and water?"
+    ],
+    "answerIndex": 1,
+    "answer": "Does linen fabric turn darker than cotton fabric when soaked in a mixture of black dye and water?",
+    "hint": "The passage below describes an experiment. Read the passage and then follow the instructions below.\n\nHelen prepared ten buckets, each with one gallon of boiling water and three tablespoons of black fabric dye. Helen soaked white linen fabric squares in five of the buckets, and white cotton fabric squares in the other five buckets. All of the fabric squares were soaked for 15 minutes. After the fabric dried, Helen scored the darkness of the squares on a scale from light to dark. She compared the darkness of the linen fabric to the darkness of the cotton fabric.\nFigure: fabric that has been dyed black.",
+    "lecture": "Experiments can be designed to answer specific questions. How can you identify the questions that a certain experiment can answer? In order to do this, you need to figure out what was tested and what was measured during the experiment.\nImagine an experiment with two groups of daffodil plants. One group of plants was grown in sandy soil, and the other was grown in clay soil. Then, the height of each plant was measured.\nFirst, identify the part of the experiment that was tested. The part of an experiment that is tested usually involves the part of the experimental setup that is different or changed. In the experiment described above, each group of plants was grown in a different type of soil. So, the effect of growing plants in different soil types was tested.\nThen, identify the part of the experiment that was measured. The part of the experiment that is measured may include measurements and calculations. In the experiment described above, the heights of the plants in each group were measured.\nExperiments can answer questions about how the part of the experiment that is tested affects the part that is measured. So, the experiment described above can answer questions about how soil type affects plant height.\nExamples of questions that this experiment can answer include:\nDoes soil type affect the height of daffodil plants?\nDo daffodil plants in sandy soil grow taller than daffodil plants in clay soil?\nAre daffodil plants grown in sandy soil shorter than daffodil plants grown in clay soil?",
+    "solution": "",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_045.png"
+  },
+  {
+    "id": "scienceqa_real_046",
+    "title": "natural science / physics (grade grade3)",
+    "type": "science_mc",
+    "question": "Think about the magnetic force between the magnets in each pair. Which of the following statements is true?",
+    "choices": [
+      "The magnetic force is stronger in Pair 1.",
+      "The magnetic force is stronger in Pair 2.",
+      "The strength of the magnetic force is the same in both pairs."
+    ],
+    "answerIndex": 1,
+    "answer": "The magnetic force is stronger in Pair 2.",
+    "hint": "The images below show two pairs of magnets. The magnets in different pairs do not affect each other. All the magnets shown are made of the same material.",
+    "lecture": "Magnets can pull or push on each other without touching. When magnets attract, they pull together. When magnets repel, they push apart.\nThese pulls and pushes between magnets are called magnetic forces. The stronger the magnetic force between two magnets, the more strongly the magnets attract or repel each other.\nYou can change the strength of a magnetic force between two magnets by changing the distance between them. The magnetic force is stronger when the magnets are closer together.",
+    "solution": "Distance affects the strength of the magnetic force. When magnets are closer together, the magnetic force between them is stronger.\nThe magnets in Pair 2 are closer together than the magnets in Pair 1. So, the magnetic force is stronger in Pair 2 than in Pair 1.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_046.png"
+  },
+  {
+    "id": "scienceqa_real_047",
+    "title": "social science / geography (grade grade5)",
+    "type": "science_mc",
+    "question": "What is the capital of Washington?",
+    "choices": [
+      "Olympia",
+      "Burlington",
+      "Seattle",
+      "Spokane"
+    ],
+    "answerIndex": 0,
+    "answer": "Olympia",
+    "hint": "",
+    "lecture": "",
+    "solution": "Olympia is the capital of Washington.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_047.png"
+  },
+  {
+    "id": "scienceqa_real_048",
+    "title": "natural science / chemistry (grade grade6)",
+    "type": "science_mc",
+    "question": "Which solution has a higher concentration of green particles?",
+    "choices": [
+      "Solution B",
+      "neither; their concentrations are the same",
+      "Solution A"
+    ],
+    "answerIndex": 1,
+    "answer": "neither; their concentrations are the same",
+    "hint": "The diagram below is a model of two solutions. Each green ball represents one particle of solute.",
+    "lecture": "A solution is made up of two or more substances that are completely mixed. In a solution, solute particles are mixed into a solvent. The solute cannot be separated from the solvent by a filter. For example, if you stir a spoonful of salt into a cup of water, the salt will mix into the water to make a saltwater solution. In this case, the salt is the solute. The water is the solvent.\nThe concentration of a solute in a solution is a measure of the ratio of solute to solvent. Concentration can be described in terms of particles of solute per volume of solvent.\nconcentration = particles of solute / volume of solvent",
+    "solution": "In Solution A and Solution B, the green particles represent the solute. To figure out which solution has a higher concentration of green particles, look at both the number of green particles and the volume of the solvent in each container.\nUse the concentration formula to find the number of green particles per milliliter.\nSolution A and Solution B have the same number of green particles per milliliter. So, their concentrations are the same.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_048.png"
+  },
+  {
+    "id": "scienceqa_real_049",
+    "title": "natural science / biology (grade grade7)",
+    "type": "science_mc",
+    "question": "Which is this organism's scientific name?",
+    "choices": [
+      "comet moth",
+      "Argema mittrei"
+    ],
+    "answerIndex": 1,
+    "answer": "Argema mittrei",
+    "hint": "This organism is a comet moth. It is also called Argema mittrei.",
+    "lecture": "An organism's common name is the name that people normally call the organism. Common names often contain words you know.\nAn organism's scientific name is the name scientists use to identify the organism. Scientific names often contain words that are not used in everyday English.\nScientific names are written in italics, but common names are usually not. The first word of the scientific name is capitalized, and the second word is not. For example, the common name of the animal below is giant panda. Its scientific name is Ailuropoda melanoleuca.",
+    "solution": "Argema mittrei is written in italics. The first word is capitalized, and the second word is not.\nSo, Argema mittrei is the scientific name.",
+    "table": [],
+    "source": "ScienceQA (Lu et al., NeurIPS 2022) \u2014 real sample",
+    "imagePath": "/data/scienceqa/images/scienceqa_real_049.png"
+  }
+]

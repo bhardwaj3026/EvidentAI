@@ -1,0 +1,22 @@
+{
+  "name": "capstone-real",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build:data": "node scripts/build_dataset.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "openai": "^7.23.0"
+  }
+}

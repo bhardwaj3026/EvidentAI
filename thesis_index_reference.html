@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantifying and Mitigating Hallucinations in Multimodal RAG | Capstone Research Showcase</title>
+  <meta name="description" content="A comprehensive capstone research showcase on quantifying and mitigating hallucinations in multimodal Retrieval-Augmented Generation across ScienceQA, ChartQA, and SPIQA.">
+  <meta name="keywords" content="Multimodal RAG, Hallucination Detection, ScienceQA, ChartQA, SPIQA, POPE, Ragas, RAGTruth, SelfCheckGPT, Artificial Intelligence, LLM Evaluation">
+  <meta name="author" content="Capstone Research Team">
+
+  <!-- Open Graph & Citation Meta Tags for Academic Showcase -->
+  <meta property="og:title" content="Quantifying and Mitigating Hallucinations in Multimodal RAG">
+  <meta property="og:description" content="Even when a system retrieves the right evidence, it can still get the answer wrong. Research studied across ScienceQA, ChartQA, and SPIQA.">
+  <meta property="og:type" content="article">
+
+  <!-- Fonts: Serif for manuscript headings, Sans for crisp UI, Mono for technical metrics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sticky Academic Navigation -->
+  <header class="sticky-nav" role="banner">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span>Capstone Research</span>
+        <span class="nav-brand-tag">CS-499 Thesis</span>
+      </div>
+
+      <nav aria-label="Project Sections Navigation">
+        <ul class="nav-links">
+          <li><a href="#abstract">Abstract</a></li>
+          <li><a href="#taxonomy">Error Taxonomy</a></li>
+          <li><a href="#datasets">Datasets</a></li>
+          <li><a href="#pipeline">8-Stage Pipeline</a></li>
+          <li><a href="#timeline">12-Week Progress</a></li>
+          <li><a href="#references">Literature</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-controls">
+        <button id="cite-btn" class="btn-action" title="View Citation Format">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9B2 2 0 0 1 8 7H10A2 2 0 0 1 12 9V15A2 2 0 0 1 10 17H8A2 2 0 0 1 6 15V9Z"/><path d="M14 9B2 2 0 0 1 16 7H18A2 2 0 0 1 20 9V15A2 2 0 0 1 18 17H16A2 2 0 0 1 14 15V9Z"/></svg>
+          Cite Paper
+        </button>
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
+          <span id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-label">Dark Slate</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="meta-header-row">
+          <span class="institution-tag">Department of Computer Science & Artificial Intelligence · Final-Year Capstone</span>
+          <div class="status-badge" role="status">
+            <span class="status-pulse"></span>
+            <span>Weeks 1–6 complete: literature review &amp; proposed methodology</span>
+          </div>
+        </div>
+
+        <h1 class="project-title">
+          Quantifying and Mitigating Hallucinations in Multimodal Retrieval-Augmented Generation for Education and Scientific Research
+        </h1>
+
+        <blockquote class="hero-headline">
+          "Even when a system retrieves the right evidence, it can still get the answer wrong."
+        </blockquote>
+
+        <p class="hero-subhead">
+          Quantifying and mitigating hallucinations in multimodal Retrieval-Augmented Generation for education and scientific research — studied across <strong>ScienceQA</strong>, <strong>ChartQA</strong>, and <strong>SPIQA</strong>.
+        </p>
+
+        <div class="authors-box">
+          <div class="author-item">
+            <span class="author-label">Capstone Researcher</span>
+            <span class="author-value">Final-Year Research Candidate</span>
+          </div>
+          <div class="author-item">
+            <span class="author-label">Focus Domains</span>
+            <span class="author-value">Multimodal LLMs · Visual Grounding · Hallucination Quantification</span>
+          </div>
+          <div class="author-item">
+            <span class="author-label">Benchmark Scope</span>
+            <span class="author-value">ScienceQA · ChartQA · SPIQA (320K+ Questions Total)</span>
+          </div>
+        </div>
+
+        <!-- Key Metrics Strip -->
+        <div class="metrics-strip">
+          <article class="metric-card">
+            <div class="metric-num">3 Benchmarks</div>
+            <div class="metric-label">Cross-modal datasets combining text, charts, figures &amp; paper tables</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-num">5 Error Types</div>
+            <div class="metric-label">Taxonomy separating grounded-process failures from true hallucinations</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-num">8 Stages</div>
+            <div class="metric-label">End-to-end multimodal retrieval, detection &amp; mitigation pipeline</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-num">12 Weeks</div>
+            <div class="metric-label">Structured timeline: literature review completed, execution underway</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ABSTRACT SECTION -->
+    <section class="section-padding" id="abstract">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 01 · Research Abstract</div>
+          <h2 class="section-title">Executive Overview &amp; Problem Statement</h2>
+        </div>
+
+        <div class="abstract-grid">
+          <div class="abstract-text-body">
+            <p>
+              Large language models used for question answering can generate answers that are unsupported by, or contradict, the evidence available to them — a problem known as <strong>hallucination</strong>. Retrieval-Augmented Generation (RAG) reduces this by grounding generation in retrieved evidence, and multimodal RAG extends this further by retrieving text, images, charts, and tables together.
+            </p>
+            <p>
+              However, retrieving the correct evidence does not guarantee a model interprets it correctly — especially when that evidence is visual. This project reviews the literature on RAG, multimodal RAG, and hallucination detection (<span class="cite-pill">POPE</span>, <span class="cite-pill">Ragas</span>, <span class="cite-pill">RAGTruth</span>, <span class="cite-pill">SelfCheckGPT</span>), finds that no existing method has been validated on multimodal RAG systems combining more than one evidence type, and proposes an eight-stage pipeline plus an explicit error taxonomy to study the problem directly.
+            </p>
+          </div>
+
+          <aside class="abstract-highlight-callout">
+            <div class="callout-title">The Multimodal Grounding Gap</div>
+            <div class="callout-body">
+              While text-based RAG evaluation framework tools like <em>Ragas</em> or <em>SelfCheckGPT</em> estimate token faithfulness, they fail when an error stems from misinterpreting a plot axis, misreading tabular column headers, or confusing figure labels. Our work fills this gap by validating explicit visual and multi-evidence hallucination metrics.
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.775rem; color: var(--text-tertiary);">
+              Key Question: <em>How do we isolate visual reading failures from parametric hallucination?</em>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Generated Research Schematic Diagram -->
+        <div class="hero-image-wrapper">
+          <img src="assets/multimodal_rag_hallucination_diagram.jpg" alt="Comparative Schematic: Grounded Multimodal RAG Workflow vs LLM Hallucination" loading="lazy">
+          <div class="hero-image-caption">
+            Figure 1. Conceptual overview of Multimodal RAG evidence retrieval vs. parametric hallucination pathways across visual and textual modalities.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CONCEPTUAL CORE: ERROR TAXONOMY -->
+    <section class="section-padding" id="taxonomy">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 02 · Conceptual Core</div>
+          <h2 class="section-title">Why a Wrong Answer Isn't Always a Hallucination</h2>
+        </div>
+
+        <p class="taxonomy-intro">
+          Evaluating RAG systems requires distinguishing where in the reasoning chain a failure occurred. Conflating retrieval or reasoning failures with true hallucination leads to incorrect mitigation strategies. We define a 5-part explicit error taxonomy: Items 1–4 represent <strong>grounded-process errors</strong>, while Item 5 represents a <strong>categorically distinct hallucination</strong>.
+        </p>
+
+        <!-- Taxonomy Legend -->
+        <div class="taxonomy-legend-bar">
+          <span style="font-family: var(--font-mono); color: var(--text-tertiary);">Taxonomy Categories:</span>
+          <div class="legend-item">
+            <span class="legend-swatch swatch-grounded"></span>
+            <span style="color: var(--text-primary);">Grounded-Process Errors (Types 1–4)</span>
+          </div>
+          <div class="legend-item" style="margin-left: 12px;">
+            <span class="legend-swatch swatch-hallucination"></span>
+            <span style="color: var(--accent-hallucination-light);">Hallucination Error (Type 5 · Categorically Distinct)</span>
+          </div>
+        </div>
+
+        <!-- 5 Error Types Taxonomy List -->
+        <div class="taxonomy-list">
+
+          <!-- 1. Retrieval Error -->
+          <article class="taxonomy-card type-grounded">
+            <div class="taxonomy-num-box">01</div>
+            <div class="taxonomy-content">
+              <div class="taxonomy-title-row">
+                <h3 class="taxonomy-title">Retrieval Error</h3>
+                <span class="taxonomy-category-badge">Grounded-Process Error</span>
+              </div>
+              <p class="taxonomy-desc">
+                The evidence needed to answer the question was never retrieved in the first place (e.g. dense/sparse vector search missed the relevant figure caption or table snippet).
+              </p>
+              <button class="taxonomy-example-btn" data-target="ex-1" aria-expanded="false">
+                <span>▶ View Case Study Example</span>
+              </button>
+              <div class="taxonomy-example-box" id="ex-1">
+                <strong>ScienceQA Example:</strong> Question asks about friction on a ramp. The retriever returns context on gravity and momentum, omitting the friction coefficient lecture section entirely. The model fails because necessary context was absent.
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Reasoning Error -->
+          <article class="taxonomy-card type-grounded">
+            <div class="taxonomy-num-box">02</div>
+            <div class="taxonomy-content">
+              <div class="taxonomy-title-row">
+                <h3 class="taxonomy-title">Reasoning Error</h3>
+                <span class="taxonomy-category-badge">Grounded-Process Error</span>
+              </div>
+              <p class="taxonomy-desc">
+                The correct evidence was retrieved, but the model reasoned about it incorrectly (e.g. valid data points were extracted, but mathematical or logical deduction failed).
+              </p>
+              <button class="taxonomy-example-btn" data-target="ex-2" aria-expanded="false">
+                <span>▶ View Case Study Example</span>
+              </button>
+              <div class="taxonomy-example-box" id="ex-2">
+                <strong>ChartQA Example:</strong> The model retrieves the exact bar chart values for 2018 ($4.2M) and 2019 ($5.6M), but calculates the percentage growth as 12% instead of 33.3%. The data retrieved was correct, but calculation logic broke down.
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Generation Error -->
+          <article class="taxonomy-card type-grounded">
+            <div class="taxonomy-num-box">03</div>
+            <div class="taxonomy-content">
+              <div class="taxonomy-title-row">
+                <h3 class="taxonomy-title">Generation Error</h3>
+                <span class="taxonomy-category-badge">Grounded-Process Error</span>
+              </div>
+              <p class="taxonomy-desc">
+                The model produced an answer that doesn't match its own internal reasoning or generated rationale step (e.g. correct intermediate steps leading to a contradictory final option selection).
+              </p>
+              <button class="taxonomy-example-btn" data-target="ex-3" aria-expanded="false">
+                <span>▶ View Case Study Example</span>
+              </button>
+              <div class="taxonomy-example-box" id="ex-3">
+                <strong>ScienceQA Multiple-Choice:</strong> Rationale correctly proves Option (B) is true ("Photosynthesis requires sunlight"), but the final output line outputs: "Therefore, the correct choice is (A)."
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Grounding Error -->
+          <article class="taxonomy-card type-grounded">
+            <div class="taxonomy-num-box">04</div>
+            <div class="taxonomy-content">
+              <div class="taxonomy-title-row">
+                <h3 class="taxonomy-title">Grounding Error</h3>
+                <span class="taxonomy-category-badge">Grounded-Process Error (Visual-Specific)</span>
+              </div>
+              <p class="taxonomy-desc">
+                Specific to visual evidence: the model misread or misunderstood a chart, image, or table (e.g. misinterpreting line legend colors, inverted Y-axis scales, or row-column alignments).
+              </p>
+              <button class="taxonomy-example-btn" data-target="ex-4" aria-expanded="false">
+                <span>▶ View Case Study Example</span>
+              </button>
+              <div class="taxonomy-example-box" id="ex-4">
+                <strong>SPIQA Scientific Diagram:</strong> The model reads a scatterplot image, but misidentifies the dashed trend line as a confidence interval or confuses blue vs red data series due to low contrast OCR/vision encoding.
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Hallucination Error (CATEGORICALLY DISTINCT - RED ACCENT) -->
+          <article class="taxonomy-card type-hallucination">
+            <div class="taxonomy-num-box">05</div>
+            <div class="taxonomy-content">
+              <div class="taxonomy-title-row">
+                <h3 class="taxonomy-title">Hallucination</h3>
+                <span class="taxonomy-category-badge">Categorically Distinct Failure</span>
+              </div>
+              <p class="taxonomy-desc">
+                The answer contains information unsupported by, or directly contradicting, the retrieved evidence given to the model — fabricating un-grounded claims, unmentioned historical facts, or imaginary data points.
+              </p>
+              <button class="taxonomy-example-btn" data-target="ex-5" aria-expanded="false">
+                <span>▶ View Case Study Example</span>
+              </button>
+              <div class="taxonomy-example-box" id="ex-5">
+                <strong>SPIQA Paper QA:</strong> When asked about experimental yield from Table 2, the model asserts: "The compound was synthesized at 450°C under argon gas as noted by Smith et al. (2021)" — even though Smith et al. and argon gas are nowhere in the retrieved paper context.
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- DATASETS SECTION -->
+    <section class="section-padding" id="datasets">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 03 · Benchmark Evaluation Datasets</div>
+          <h2 class="section-title">Studied Multimodal Datasets</h2>
+        </div>
+
+        <div class="datasets-grid">
+
+          <!-- ScienceQA -->
+          <article class="dataset-card">
+            <div>
+              <div class="dataset-header">
+                <div class="dataset-name-row">
+                  <h3 class="dataset-name">ScienceQA</h3>
+                  <span class="dataset-count-badge">~21K Questions</span>
+                </div>
+                <div class="dataset-type">Multiple-Choice · Multimodal Science</div>
+              </div>
+              <p class="dataset-body">
+                Science, social science, and language science questions with paired lecture and explanation annotations — good for testing whether a generated rationale stays faithful even when the final answer choice is correct.
+              </p>
+            </div>
+            <div class="dataset-tags">
+              <span class="dataset-tag">Lecture Annotations</span>
+              <span class="dataset-tag">Rationale Faithfulness</span>
+              <span class="dataset-tag">Multiple Choice</span>
+            </div>
+          </article>
+
+          <!-- ChartQA -->
+          <article class="dataset-card">
+            <div>
+              <div class="dataset-header">
+                <div class="dataset-name-row">
+                  <h3 class="dataset-name">ChartQA</h3>
+                  <span class="dataset-count-badge">32.7K Questions</span>
+                </div>
+                <div class="dataset-type">Open-Vocabulary · Visual &amp; Arithmetic</div>
+              </div>
+              <p class="dataset-body">
+                Human-written and generated questions over real-world charts requiring visual perception and arithmetic reasoning — nested operations and visual-attribute questions represent the hardest benchmark failure points.
+              </p>
+            </div>
+            <div class="dataset-tags">
+              <span class="dataset-tag">Real-world Charts</span>
+              <span class="dataset-tag">Arithmetic Reasoning</span>
+              <span class="dataset-tag">Visual Attributes</span>
+            </div>
+          </article>
+
+          <!-- SPIQA -->
+          <article class="dataset-card">
+            <div>
+              <div class="dataset-header">
+                <div class="dataset-name-row">
+                  <h3 class="dataset-name">SPIQA</h3>
+                  <span class="dataset-count-badge">270K Questions</span>
+                </div>
+                <div class="dataset-type">Generative QA · Full Scientific Papers</div>
+              </div>
+              <p class="dataset-body">
+                Complex generative questions over figures, tables, and diagrams embedded in full scientific papers, evaluated across in-distribution and out-of-distribution research test splits.
+              </p>
+            </div>
+            <div class="dataset-tags">
+              <span class="dataset-tag">Full Research Papers</span>
+              <span class="dataset-tag">Tables &amp; Diagrams</span>
+              <span class="dataset-tag">OOD Test Splits</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PROPOSED METHODOLOGY: 8-STAGE PIPELINE -->
+    <section class="section-padding" id="pipeline">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 04 · Proposed Methodology</div>
+          <h2 class="section-title">8-Stage Multimodal RAG Pipeline</h2>
+        </div>
+
+        <p style="margin-bottom: 24px; color: var(--text-secondary); max-width: 820px;">
+          An end-to-end connected sequence designed to isolate retrieval, visual grounding, and generation stages. Click any stage below to inspect its data inputs, outputs, and hallucination detection hooks.
+        </p>
+
+        <!-- 8-Stage Flow Diagram -->
+        <div class="pipeline-container">
+          <div class="pipeline-flow">
+
+            <div class="stage-node active" data-stage="stage-1">
+              <div class="stage-header-row">
+                <span class="stage-num">01</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Question</div>
+              <div class="stage-summary">Formulate &amp; parse query</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-2">
+              <div class="stage-header-row">
+                <span class="stage-num">02</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Multimodal Retrieval</div>
+              <div class="stage-summary">Retrieve text, chart &amp; figure</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-3">
+              <div class="stage-header-row">
+                <span class="stage-num">03</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Evidence Construction</div>
+              <div class="stage-summary">Assemble cross-modal context</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-4">
+              <div class="stage-header-row">
+                <span class="stage-num">04</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Generation</div>
+              <div class="stage-summary">MLLM rationale &amp; answer</div>
+            </div>
+
+            <div class="stage-node stage-detection" data-stage="stage-5">
+              <div class="stage-header-row">
+                <span class="stage-num">05</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Hallucination Detection</div>
+              <div class="stage-summary">Verify POPE / Ragas claims</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-6">
+              <div class="stage-header-row">
+                <span class="stage-num">06</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Quantification</div>
+              <div class="stage-summary">Score 5 taxonomy error types</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-7">
+              <div class="stage-header-row">
+                <span class="stage-num">07</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Mitigation</div>
+              <div class="stage-summary">Re-ground &amp; self-correct</div>
+            </div>
+
+            <div class="stage-node" data-stage="stage-8">
+              <div class="stage-header-row">
+                <span class="stage-num">08</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="stage-title">Final Answer &amp; Eval</div>
+              <div class="stage-summary">Output verified result</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Interactive Inspector Panel -->
+        <div class="pipeline-inspector-card open" id="pipeline-inspector">
+          <div class="inspector-header">
+            <div>
+              <h3 class="inspector-title" id="inspector-title">Stage 01: Question Formulation</h3>
+              <span class="dataset-tag" id="inspector-tag" style="margin-top: 4px; display: inline-block;">Input Processing</span>
+            </div>
+            <button class="inspector-close" id="inspector-close" title="Close Details">&times;</button>
+          </div>
+          <div class="inspector-content">
+            <p style="margin-bottom: 8px;"><strong>Input Schema:</strong> <span id="inspector-input" style="font-family: var(--font-mono);">User query (Natural language + question context)</span></p>
+            <p style="margin-bottom: 12px;"><strong>Output Schema:</strong> <span id="inspector-output" style="font-family: var(--font-mono);">Structured query representation with intent breakdown</span></p>
+            <p id="inspector-desc">
+              Parses the incoming question to identify multimodal requirements: textual query intent, referenced figures/tables, and expected reasoning depth (e.g., direct lookup vs. multi-step visual arithmetic).
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- PROGRESS TIMELINE (12 WEEKS) -->
+    <section class="section-padding" id="timeline">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 05 · Capstone Progress</div>
+          <h2 class="section-title">12-Week Implementation Roadmap</h2>
+        </div>
+
+        <div class="timeline-list">
+
+          <!-- Week 01 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 01</span>
+                <span class="week-text">RAG background, hallucination-in-RAG survey, candidate datasets</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Initial survey of RAG architectures, LLM hallucination taxonomies, and candidate multimodal datasets.</p>
+          </article>
+
+          <!-- Week 02 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 02</span>
+                <span class="week-text">ScienceQA, ChartQA, SPIQA studied in detail</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Deep-dive analysis into data schemas, visual complexity, and ground-truth annotation availability.</p>
+          </article>
+
+          <!-- Week 03 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 03</span>
+                <span class="week-text">Dataset preprocessing &amp; initial multimodal RAG architecture</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Created preprocessing pipelines for extracting OCR text, table structures, and visual embeddings.</p>
+          </article>
+
+          <!-- Week 04 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 04</span>
+                <span class="week-text">Multimodal hallucination types &amp; error-type differentiation</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Formulated the 5-tier error taxonomy separating grounded-process failures from true hallucinations.</p>
+          </article>
+
+          <!-- Week 05 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 05</span>
+                <span class="week-text">Comparing POPE, Ragas, RAGTruth, and SelfCheckGPT</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Evaluated existing detection frameworks; identified the lack of multi-evidence visual validation.</p>
+          </article>
+
+          <!-- Week 06 - Done -->
+          <article class="timeline-item done">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 06</span>
+                <span class="week-text">Research gap, questions, objectives &amp; proposed methodology finalized</span>
+              </div>
+              <span class="week-status-badge">Completed</span>
+            </div>
+            <p class="week-desc">Finalized research proposal, 8-stage pipeline specification, and experimental methodology.</p>
+          </article>
+
+          <!-- Week 07 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 07</span>
+                <span class="week-text">Baseline multimodal RAG implementation</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Build end-to-end baseline retriever and MLLM generation pipeline on ScienceQA and ChartQA.</p>
+          </article>
+
+          <!-- Week 08 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 08</span>
+                <span class="week-text">Retrieval &amp; multimodal evidence construction</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Integrate dense cross-modal vector retrieval with structured table &amp; chart prompt formatting.</p>
+          </article>
+
+          <!-- Week 09 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 09</span>
+                <span class="week-text">Hallucination detection implementation</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Implement automated hallucination detectors adapted from POPE, Ragas, and SelfCheckGPT.</p>
+          </article>
+
+          <!-- Week 10 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 10</span>
+                <span class="week-text">Mitigation</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Develop re-grounding feedback loops and self-consistency verification mechanisms.</p>
+          </article>
+
+          <!-- Week 11 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 11</span>
+                <span class="week-text">Evaluation &amp; comparison</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Execute comprehensive benchmarks across ScienceQA, ChartQA, and SPIQA splits.</p>
+          </article>
+
+          <!-- Week 12 - Upcoming -->
+          <article class="timeline-item upcoming">
+            <div class="timeline-marker"></div>
+            <div class="timeline-header">
+              <div class="timeline-week-title">
+                <span class="week-num">WEEK 12</span>
+                <span class="week-text">Results, analysis, final report &amp; presentation</span>
+              </div>
+              <span class="week-status-badge">Upcoming</span>
+            </div>
+            <p class="week-desc">Synthesize empirical findings, author final thesis manuscript, and prepare oral defense deck.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- LITERATURE REVIEW & FOOTER CREDITS -->
+    <section class="section-padding" id="references">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 06 · Bibliography</div>
+          <h2 class="section-title">Literature Reviewed</h2>
+        </div>
+
+        <div class="footer-credit-box">
+          <div class="footer-credit-title">Core Academic Citations &amp; Prior Work</div>
+          <p class="footer-credit-text">
+            <strong>Literature reviewed:</strong> Lewis et al. (RAG) · Masry et al. (ChartQA) · Li et al. (POPE) · Niu et al. (RAGTruth) · Abootorabi et al. (Multimodal RAG survey) · Es et al. (Ragas) · Bai et al. &amp; Chen et al. (MLLM hallucination surveys) · Pramanick et al. (SPIQA) · Lu et al. (ScienceQA) · Manakul et al. (SelfCheckGPT).
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ACADEMIC FOOTER -->
+  <footer class="footer-section" role="contentinfo">
+    <div class="container">
+      <div class="footer-actions-row">
+        <div>
+          <span>CS-499 Final-Year Capstone Research Showcase</span>
+          <span style="margin: 0 8px;">·</span>
+          <span>Department of Computer Science</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <a href="#" onclick="printPage(); return false;" class="btn-action non-printable" style="font-size: 0.8rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print Paper Summary
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Citation Modal -->
+  <div class="citation-modal" id="citation-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="citation-card">
+      <h3 id="modal-title" style="font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 8px;">BibTeX Citation</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary);">Copy this reference for academic citations:</p>
+      <pre class="citation-pre" id="bibtex-text">@article{capstone2026multimodal,
+  title   = {Quantifying and Mitigating Hallucinations in Multimodal Retrieval-Augmented Generation for Education and Scientific Research},
+  author  = {Capstone Research Group},
+  journal = {Final-Year Capstone Research Thesis},
+  year    = {2026},
+  note    = {Studied across ScienceQA, ChartQA, and SPIQA}
+}</pre>
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
+        <button id="copy-bibtex-btn" class="btn-action" style="background: var(--accent-grounded-light); color: #fff; border: none;">Copy BibTeX</button>
+        <button id="close-citation-btn" class="btn-action">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
