@@ -22,16 +22,65 @@
        ========================================================================= -->
   <header class="chat-header">
     <div class="chat-header-inner">
-      <!-- Brand & Badge -->
-      <div class="chat-brand">
-        <span class="brand-icon">🖼️</span>
-        <div class="brand-text-col">
-          <h1 class="chat-title">Multimodal Image Chat</h1>
-          <span class="brand-thesis-badge">Visual Reasoning &amp; Grounding</span>
+      <!-- Top Row / Left: Brand & Mobile Quick Actions -->
+      <div class="chat-header-row-main">
+        <div class="chat-brand">
+          <span class="brand-icon">🖼️</span>
+          <div class="brand-text-col">
+            <h1 class="chat-title">Multimodal Image Chat</h1>
+            <span class="brand-thesis-badge">Visual Reasoning &amp; Grounding</span>
+          </div>
+        </div>
+
+        <!-- Quick actions: History, Account, Theme -->
+        <div class="chat-header-quick-actions">
+          <button id="toggleSidebarBtn" class="chat-btn" title="Open Conversation History">💬 <span class="hide-mobile">History</span></button>
+
+          <!-- User Account Widget -->
+          <div class="user-account-widget" id="userAccountWidget">
+            <button type="button" id="userAccountBtn" class="account-pill-btn" aria-haspopup="true" aria-expanded="false" title="Account details & chat quota">
+              <span class="user-avatar" id="userAvatar">A</span>
+              <span class="user-name" id="userName">alice</span>
+              <span class="quota-badge" id="quotaBadge">⚡ 8/10</span>
+              <span class="caret">▾</span>
+            </button>
+            
+            <div id="accountDropdown" class="account-dropdown hidden" role="menu">
+              <div class="account-dropdown-header">
+                <strong id="dropdownUserName">Alice Smith</strong>
+                <span id="dropdownUserRole" class="account-role-tag">Student Plan</span>
+                <span id="dropdownUserEmail" class="account-email">alice@student.demo</span>
+              </div>
+              <div class="account-dropdown-quota">
+                <div class="quota-progress-label">
+                  <span>Chat Limit Quota</span>
+                  <strong id="dropdownQuotaText">2 / 10 used (8 left)</strong>
+                </div>
+                <div class="quota-progress-bar">
+                  <div id="dropdownQuotaProgress" class="quota-progress-fill" style="width: 20%;"></div>
+                </div>
+              </div>
+              <div class="account-dropdown-actions">
+                <button type="button" id="resetQuotaBtn" class="account-menu-item">
+                  <span>🔄</span> Reset Quota (10 Chats)
+                </button>
+                <button type="button" id="switchAccountBtn" class="account-menu-item">
+                  <span>👥</span> Switch / Demo Accounts
+                </button>
+                <button type="button" id="logoutBtn" class="account-menu-item text-danger">
+                  <span>🚪</span> Log Out
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button id="themeToggleBtn" class="chat-btn chat-btn-icon" aria-label="Toggle dark/light theme" title="Toggle Theme">
+            <span class="theme-icon">🌙</span>
+          </button>
         </div>
       </div>
 
-      <!-- Controls & Actions -->
+      <!-- Controls: Provider Selector & Strict Evidence Toggle -->
       <div class="chat-controls">
         <label for="providerSelect" class="visually-hidden">AI Provider</label>
         <select id="providerSelect" class="chat-select" title="AI Provider: Google Gemini">
@@ -41,52 +90,8 @@
         </select>
 
         <label class="chat-toggle" title="Require answer to rely strictly on extracted evidence">
-          <input type="checkbox" id="strictToggle"> Strict Evidence
+          <input type="checkbox" id="strictToggle"> <span>Strict Evidence</span>
         </label>
-
-        <button id="toggleSidebarBtn" class="chat-btn" title="Open Conversation History">💬 History</button>
-
-        <!-- User Account Widget -->
-        <div class="user-account-widget" id="userAccountWidget">
-          <button type="button" id="userAccountBtn" class="account-pill-btn" aria-haspopup="true" aria-expanded="false" title="Account details & chat quota">
-            <span class="user-avatar" id="userAvatar">A</span>
-            <span class="user-name" id="userName">alice</span>
-            <span class="quota-badge" id="quotaBadge">⚡ 8/10</span>
-            <span class="caret">▾</span>
-          </button>
-          
-          <div id="accountDropdown" class="account-dropdown hidden" role="menu">
-            <div class="account-dropdown-header">
-              <strong id="dropdownUserName">Alice Smith</strong>
-              <span id="dropdownUserRole" class="account-role-tag">Student Plan</span>
-              <span id="dropdownUserEmail" class="account-email">alice@student.demo</span>
-            </div>
-            <div class="account-dropdown-quota">
-              <div class="quota-progress-label">
-                <span>Chat Limit Quota</span>
-                <strong id="dropdownQuotaText">2 / 10 used (8 left)</strong>
-              </div>
-              <div class="quota-progress-bar">
-                <div id="dropdownQuotaProgress" class="quota-progress-fill" style="width: 20%;"></div>
-              </div>
-            </div>
-            <div class="account-dropdown-actions">
-              <button type="button" id="resetQuotaBtn" class="account-menu-item">
-                <span>🔄</span> Reset Quota (10 Chats)
-              </button>
-              <button type="button" id="switchAccountBtn" class="account-menu-item">
-                <span>👥</span> Switch / Demo Accounts
-              </button>
-              <button type="button" id="logoutBtn" class="account-menu-item text-danger">
-                <span>🚪</span> Log Out
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <button id="themeToggleBtn" class="chat-btn chat-btn-icon" aria-label="Toggle dark/light theme" title="Toggle Theme">
-          <span class="theme-icon">🌙</span>
-        </button>
       </div>
     </div>
   </header>
