@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EvidentAI – Log in / Create account</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #fff; font-family: 'Nunito', sans-serif; color: #0B3B44; }
+    input:focus { outline: 3px solid #7CCBB0; border-color: #0E7C8A; }
+    a { color: #B8432B; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .bar { transform-box: fill-box; transform-origin: 50% 100%; animation: grow 1s cubic-bezier(.2,.9,.3,1.2) both, breathe 4s ease-in-out 1.2s infinite alternate; }
+    .leaf { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 6s ease-in-out infinite alternate; }
+    .bell { transform-box: fill-box; transform-origin: 50% 0; animation: sway 3.5s ease-in-out infinite alternate; }
+    .scan { animation: scan 7s ease-in-out infinite alternate; }
+    .pupil { animation: look 3.5s ease-in-out infinite alternate; }
+    .eye { transform-box: fill-box; transform-origin: 50% 50%; animation: blink 5s infinite; }
+    .float { animation: float 3.5s ease-in-out infinite alternate; }
+    .crawl { animation: crawl 9s ease-in-out infinite alternate; }
+    .seg { transform-box: fill-box; transform-origin: 50% 100%; animation: bob .9s ease-in-out infinite alternate; }
+    .rise { opacity: 0; animation: rise .7s ease-out forwards; }
+    .btn { transition: transform .2s, box-shadow .2s, background .2s; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,124,138,.35); background: #0b6773; }
+    .demo, .soc { transition: transform .2s, border-color .2s, background .2s, box-shadow .2s; cursor: pointer; }
+    .demo:hover, .soc:hover { transform: translateY(-2px); border-color: #0E7C8A; background: #fff; box-shadow: 0 4px 12px rgba(14,124,138,.12); }
+    @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes breathe { from { transform: scaleY(1); } to { transform: scaleY(.94); } }
+    @keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+    @keyframes scan { from { transform: translateX(-120px); } to { transform: translateX(110px); } }
+    @keyframes look { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
+    @keyframes blink { 0%,92%,100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
+    @keyframes float { from { transform: translateY(-8px); } to { transform: translateY(8px); } }
+    @keyframes crawl { from { transform: translateX(0); } to { transform: translateX(120px); } }
+    @keyframes bob { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; opacity: 1 !important; } }
+    [hidden] { display: none !important; }
+    .auth { display: grid; grid-template-columns: 1fr 1fr; width: 100%; min-height: 100vh; background: #fff; }
+    .auth-banner-side { position: relative; overflow: hidden; background: #CDEFE9; min-height: 100%; }
+    .auth-form-side { display: flex; align-items: center; justify-content: center; padding: 40px 48px; background: #fff; }
+    .auth-brand-badge { position: absolute; top: 28px; left: 32px; display: flex; align-items: center; gap: 10px; font: 800 22px 'Nunito', sans-serif; color: #0B3B44; text-decoration: none; z-index: 10; }
+    .auth-error { background: #FEE2E2; border: 1px solid #FCA5A5; color: #B91C1C; padding: 10px 14px; border-radius: 10px; font: 700 13px 'Nunito', sans-serif; margin-bottom: 14px; text-align: center; }
+    .auth-error.hidden { display: none !important; }
+    @media (max-width: 860px) {
+      .auth { grid-template-columns: 1fr !important; }
+      .auth-banner-side { min-height: 280px; }
+      .auth-form-side { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="auth">
+  <!-- Left Side: Animated SVG Visual Evidence Inspection Canvas -->
+  <div class="auth-banner-side">
+    <svg viewBox="0 0 600 780" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+      <rect width="600" height="780" fill="#CDEFE9"/>
+      <path class="leaf" d="M0 580 C140 470 280 520 320 780 L0 780Z" fill="#2F8F7A"/>
+      <path class="leaf" d="M600 0 C540 150 430 190 390 340 C520 320 600 240 600 240Z" fill="#7CCBB0"/>
+      <path class="leaf" d="M600 780 C560 660 470 640 400 700 L400 780Z" fill="#7CCBB0"/>
+      <g class="bell"><path d="M70 0 L70 60" stroke="#2F8F7A" stroke-width="4"/><path d="M52 60 Q70 40 88 60 L94 84 L46 84Z" fill="#E0529C"/></g>
+      <g class="bell" style="animation-delay:-1.5s"><path d="M130 0 L130 40" stroke="#2F8F7A" stroke-width="4"/><path d="M116 40 Q130 24 144 40 L148 60 L112 60Z" fill="#E0529C"/></g>
+      
+      <!-- Metric Chart Bars (Audited Grounding) -->
+      <rect class="bar" x="120" y="480" width="70" height="120" rx="8" fill="#0E7C8A"/>
+      <rect class="bar" x="220" y="410" width="70" height="190" rx="8" fill="#0E7C8A" style="animation-delay:.15s,1.3s"/>
+      <rect class="bar" x="320" y="450" width="70" height="150" rx="8" fill="#F08A6C" style="animation-delay:.3s,1.5s"/>
+      <rect class="bar" x="420" y="360" width="70" height="240" rx="8" fill="#0E7C8A" style="animation-delay:.45s,1.7s"/>
+      <rect x="90" y="600" width="430" height="10" rx="5" fill="#0B3B44"/>
+
+      <!-- Scanning Magnifying Glass with Inspecting Eye -->
+      <g class="scan">
+        <circle cx="300" cy="340" r="110" fill="#fff" fill-opacity=".5" stroke="#0B3B44" stroke-width="18"/>
+        <path d="M378 418 L480 530" stroke="#E4572E" stroke-width="30" stroke-linecap="round"/>
+        <g class="eye">
+          <circle cx="300" cy="340" r="44" fill="#fff" stroke="#0B3B44" stroke-width="5"/>
+          <g class="pupil">
+            <circle cx="300" cy="340" r="22" fill="#0E7C8A"/>
+            <circle cx="300" cy="340" r="11" fill="#0B3B44"/>
+            <circle cx="293" cy="332" r="5" fill="#fff"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Floating Status Tags -->
+      <g class="float"><rect x="60" y="150" width="132" height="36" rx="18" fill="#0E7C8A"/><text x="126" y="174" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="800" font-size="15">Supported</text></g>
+      <g class="float" style="animation-delay:-1.8s"><rect x="400" y="230" width="150" height="36" rx="18" fill="#B8432B"/><text x="475" y="254" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="800" font-size="15">Hallucinated</text></g>
+      
+      <!-- Crawling Caterpillar -->
+      <g class="crawl">
+        <circle class="seg" cx="60" cy="700" r="18" fill="#8BC34A" style="animation-delay:0s"/>
+        <circle class="seg" cx="96" cy="702" r="18" fill="#F6B93B" style="animation-delay:.15s"/>
+        <circle class="seg" cx="132" cy="702" r="18" fill="#F2A65A" style="animation-delay:.3s"/>
+        <circle class="seg" cx="168" cy="702" r="18" fill="#F6B93B" style="animation-delay:.45s"/>
+        <circle cx="54" cy="694" r="4" fill="#0B3B44"/>
+      </g>
+    </svg>
+
+    <!-- Brand Header -->
+    <a href="/" class="auth-brand-badge" title="Go to Multimodal AI Chat">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" fill="#0E7C8A"/>
+        <path d="M9 17 L14 22 L23 11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      EvidentAI
+    </a>
+  </div>
+
+  <!-- Right Side: Interactive Forms -->
+  <div class="auth-form-side">
+    <!-- LOGIN PANEL -->
+    <div id="panel-login" class="panel" style="width:100%;max-width:400px">
+      <h1 class="rise" style="margin:0 0 22px;text-align:center;font:800 44px 'Nunito',sans-serif;color:#0B3B44">Login</h1>
+      
+      <!-- Error Box -->
+      <div id="login-error" class="auth-error hidden" role="alert"></div>
+
+      <form id="form-login">
+        <div class="rise" style="animation-delay:.1s">
+          <label for="e" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Email</label>
+          <input id="e" type="text" placeholder="you@email.com" required autocomplete="username" style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <div class="rise" style="animation-delay:.2s;margin-top:16px">
+          <label for="p" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Password</label>
+          <input id="p" type="password" placeholder="••••••••" required autocomplete="current-password" style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <a class="rise" id="btn-forgot-pw" href="javascript:void(0)" style="animation-delay:.3s;display:inline-block;margin:10px 0 14px;font:700 14px 'Nunito',sans-serif;color:#B8432B">Forgot Password?</a>
+        
+        <button type="submit" id="login-submit-btn" class="btn rise" style="animation-delay:.35s;width:100%;height:48px;border:0;border-radius:12px;background:#0E7C8A;color:#fff;font:800 16px 'Nunito',sans-serif">Log In</button>
+      </form>
+
+      <div class="rise" style="animation-delay:.4s;display:flex;align-items:center;gap:12px;margin:14px 0 10px;color:#4A6670;font:400 13px 'Nunito',sans-serif">
+        <span style="flex:1;height:1px;background:#C9D6D9"></span>Or<span style="flex:1;height:1px;background:#C9D6D9"></span>
+      </div>
+
+      <p class="rise" style="animation-delay:.45s;text-align:center;margin:0 0 12px;font:400 14px 'Nunito',sans-serif;color:#4A6670">
+        Don't have an account? <a href="#" data-go="signup" style="font-weight:800;color:#B8432B">Sign up</a>
+      </p>
+
+      <div class="rise" style="animation-delay:.5s;display:grid;gap:8px">
+        <button type="button" class="soc" data-login="bhardwaj" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Google</button>
+        <button type="button" class="soc" data-login="teja" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Apple</button>
+        <button type="button" class="soc" data-login="praneetha" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Facebook</button>
+      </div>
+
+      <!-- 1-Click Plan Demo Accounts Section -->
+      <div class="rise" style="animation-delay:.6s;margin-top:16px;padding-top:14px;border-top:1px dashed #C9D6D9">
+        <div style="font:800 12px 'Nunito',sans-serif;color:#4A6670;letter-spacing:.04em;margin-bottom:8px">1-CLICK PLAN DEMO ACCOUNTS:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button type="button" class="demo" data-login="bhardwaj" style="display:flex;align-items:center;gap:10px;text-align:left;box-sizing:border-box;height:52px;border:1px solid #E1E8EA;border-radius:10px;background:#F4F7F8;padding:0 10px;font:800 14px 'Nunito',sans-serif;color:#0B3B44">
+            <span style="flex:none;width:30px;height:30px;border-radius:50%;background:#4B3FC4;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">B</span>
+            <span>Bhardwaj<br><span style="font:400 12px 'Nunito',sans-serif;color:#4A6670">Ultra Pro · 100 Chats</span></span>
+          </button>
+          
+          <button type="button" class="demo" data-login="teja" style="display:flex;align-items:center;gap:10px;text-align:left;box-sizing:border-box;height:52px;border:1px solid #E1E8EA;border-radius:10px;background:#F4F7F8;padding:0 10px;font:800 14px 'Nunito',sans-serif;color:#0B3B44">
+            <span style="flex:none;width:30px;height:30px;border-radius:50%;background:#0E8A5F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">T</span>
+            <span>Teja<br><span style="font:400 12px 'Nunito',sans-serif;color:#4A6670">Pro · 50 Chats</span></span>
+          </button>
+          
+          <button type="button" class="demo" data-login="praneetha" style="display:flex;align-items:center;gap:10px;text-align:left;box-sizing:border-box;height:52px;border:1px solid #E1E8EA;border-radius:10px;background:#F4F7F8;padding:0 10px;font:800 14px 'Nunito',sans-serif;color:#0B3B44">
+            <span style="flex:none;width:30px;height:30px;border-radius:50%;background:#6B2FC9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">P</span>
+            <span>Praneetha<br><span style="font:400 12px 'Nunito',sans-serif;color:#4A6670">Plus · 25 Chats</span></span>
+          </button>
+          
+          <button type="button" class="demo" data-login="dharani" style="display:flex;align-items:center;gap:10px;text-align:left;box-sizing:border-box;height:52px;border:1px solid #E1E8EA;border-radius:10px;background:#F4F7F8;padding:0 10px;font:800 14px 'Nunito',sans-serif;color:#0B3B44">
+            <span style="flex:none;width:30px;height:30px;border-radius:50%;background:#C2183F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">D</span>
+            <span>Dharani<br><span style="font:400 12px 'Nunito',sans-serif;color:#4A6670">Starter · 10 Chats</span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP / CREATE ACCOUNT PANEL -->
+    <div id="panel-signup" class="panel" hidden style="width:100%;max-width:400px">
+      <h1 class="rise" style="margin:0 0 8px;text-align:center;font:800 40px 'Nunito',sans-serif;color:#0B3B44">Create account</h1>
+      
+      <!-- Error Box -->
+      <div id="signup-error" class="auth-error hidden" role="alert"></div>
+
+      <form id="form-signup">
+        <div class="rise" style="animation-delay:0.05s;margin-top:0px">
+          <label for="su-name" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Full name</label>
+          <input id="su-name" name="su-name" type="text" placeholder="e.g. Randy Harrison" style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <div class="rise" style="animation-delay:0.1s;margin-top:14px">
+          <label for="su-email" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Email</label>
+          <input id="su-email" name="su-email" type="text" placeholder="you@email.com" required style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <div class="rise" style="animation-delay:0.15s;margin-top:14px">
+          <label for="su-pass" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Password</label>
+          <input id="su-pass" name="su-pass" type="password" placeholder="••••••••" required style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <div class="rise" style="animation-delay:0.2s;margin-top:14px">
+          <label for="su-confirm" style="display:block;font:800 15px 'Nunito',sans-serif;color:#0B3B44;margin:0 0 6px">Confirm password</label>
+          <input id="su-confirm" name="su-confirm" type="password" placeholder="••••••••" required style="box-sizing:border-box;width:100%;height:48px;border:1.5px solid #C9D6D9;border-radius:12px;padding:0 14px;font:400 15px 'Nunito',sans-serif;color:#0B3B44;background:#F7FBFB">
+        </div>
+
+        <button type="submit" id="signup-submit-btn" class="btn rise" style="animation-delay:.3s;margin-top:20px;width:100%;height:48px;border:0;border-radius:12px;background:#0E7C8A;color:#fff;font:800 16px 'Nunito',sans-serif">Sign Up</button>
+      </form>
+
+      <div class="rise" style="animation-delay:.35s;display:flex;align-items:center;gap:12px;margin:14px 0 10px;color:#4A6670;font:400 13px 'Nunito',sans-serif">
+        <span style="flex:1;height:1px;background:#C9D6D9"></span>Or<span style="flex:1;height:1px;background:#C9D6D9"></span>
+      </div>
+
+      <div class="rise" style="animation-delay:.4s;display:grid;gap:8px">
+        <button type="button" class="soc" data-login="bhardwaj" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Google</button>
+        <button type="button" class="soc" data-login="teja" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Apple</button>
+        <button type="button" class="soc" data-login="praneetha" style="box-sizing:border-box;width:100%;height:40px;border:1.5px solid #C9D6D9;border-radius:10px;background:#fff;font:700 14px 'Nunito',sans-serif;color:#0B3B44">Continue with Facebook</button>
+      </div>
+
+      <p class="rise" style="animation-delay:.45s;text-align:center;margin:16px 0 0;font:400 14px 'Nunito',sans-serif;color:#4A6670">
+        Already have an account? <a href="#" data-go="login" style="font-weight:800;color:#B8432B">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Panel navigation (switch between Login and Signup)
+  if (window.location.pathname.indexOf('signup') !== -1 || window.location.hash === '#signup') {
+    document.getElementById('panel-login').hidden = true;
+    document.getElementById('panel-signup').hidden = false;
+  }
+
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('[data-go]');
+    if (!a) return;
+    e.preventDefault();
+    var go = a.dataset.go;
+    document.getElementById('panel-login').hidden = (go !== 'login');
+    document.getElementById('panel-signup').hidden = (go !== 'signup');
+    clearErrors();
+  });
+
+  function clearErrors() {
+    var le = document.getElementById('login-error');
+    var se = document.getElementById('signup-error');
+    if (le) { le.textContent = ''; le.classList.add('hidden'); }
+    if (se) { se.textContent = ''; se.classList.add('hidden'); }
+  }
+
+  function showLoginError(msg) {
+    var le = document.getElementById('login-error');
+    if (le) {
+      le.textContent = msg;
+      le.classList.remove('hidden');
+    }
+  }
+
+  function showSignupError(msg) {
+    var se = document.getElementById('signup-error');
+    if (se) {
+      se.textContent = msg;
+      se.classList.remove('hidden');
+    }
+  }
+
+  function completeAuth(data) {
+    if (data && data.token && data.user) {
+      try {
+        localStorage.setItem('chatToken', data.token);
+        localStorage.setItem('chatUserId', data.user.id);
+      } catch (err) { /* ignore */ }
+      // Redirect to home/chat app
+      window.location.href = '/';
+    }
+  }
+
+  // 1-Click Demo accounts and Social sign-in buttons
+  document.querySelectorAll('[data-login]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var u = btn.dataset.login;
+      loginWithCredentials(u, 'password123');
+    });
+  });
+
+  // Forgot password handler
+  var forgotBtn = document.getElementById('btn-forgot-pw');
+  if (forgotBtn) {
+    forgotBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var emailVal = document.getElementById('e').value.trim() || 'your email';
+      alert('Password reset instructions have been sent to ' + emailVal + '. Please check your inbox.');
+    });
+  }
+
+  // Login form submission
+  var formLogin = document.getElementById('form-login');
+  if (formLogin) {
+    formLogin.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var un = document.getElementById('e').value.trim();
+      var pw = document.getElementById('p').value;
+      if (un) {
+        loginWithCredentials(un, pw);
+      }
+    });
+  }
+
+  async function loginWithCredentials(username, password) {
+    clearErrors();
+    try {
+      var btn = document.getElementById('login-submit-btn');
+      if (btn) btn.textContent = 'Logging in...';
+
+      var res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username, password: password })
+      });
+      var data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Login failed. Please check credentials.');
+      }
+      completeAuth(data);
+    } catch (err) {
+      showLoginError(err.message);
+    } finally {
+      var btn2 = document.getElementById('login-submit-btn');
+      if (btn2) btn2.textContent = 'Log In';
+    }
+  }
+
+  // Signup form submission
+  var formSignup = document.getElementById('form-signup');
+  if (formSignup) {
+    formSignup.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearErrors();
+      var name = document.getElementById('su-name').value.trim();
+      var email = document.getElementById('su-email').value.trim();
+      var pw = document.getElementById('su-pass').value;
+      var confirm = document.getElementById('su-confirm').value;
+
+      if (!email) {
+        showSignupError('Email is required.');
+        return;
+      }
+      if (pw.length < 4) {
+        showSignupError('Password must be at least 4 characters long.');
+        return;
+      }
+      if (pw !== confirm) {
+        showSignupError('Passwords do not match.');
+        return;
+      }
+
+      try {
+        var btn = document.getElementById('signup-submit-btn');
+        if (btn) btn.textContent = 'Creating account...';
+
+        var res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: email, password: pw, name: name, email: email })
+        });
+        var data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Failed to create account.');
+        }
+        completeAuth(data);
+      } catch (err) {
+        showSignupError(err.message);
+      } finally {
+        var btn2 = document.getElementById('signup-submit-btn');
+        if (btn2) btn2.textContent = 'Sign Up';
+      }
+    });
+  }
+</script>
+</body>
+</html>

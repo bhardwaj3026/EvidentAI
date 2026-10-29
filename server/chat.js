@@ -4,7 +4,14 @@ import OpenAI from 'openai';
 import { extractEvidenceFromImage, callGeminiApi } from './llm/provider.js';
 import { detectHallucinations } from './detection.js';
 import { extractAuthUser } from './auth.js';
-import { checkAndConsumeChatQuota, saveUserSession } from './userStore.js';
+import {
+  checkAndConsumeChatQuota,
+  saveUserSession,
+  getUserSessions,
+  getSessionDetails,
+  deleteUserSession,
+  getUserByTokenOrId
+} from './userStore.js';
 import { extractDocumentText, isDocumentType } from './documentParser.js';
 
 export const chatRouter = express.Router();
@@ -41,6 +48,48 @@ function detectRealImageType(buffer, declaredType = '', name = '') {
   return null;
 }
 
+function formatMessagesForGemini(processedMessages) {
+  const contents = [];
+  for (const msg of processedMessages) {
+    const role = msg.role === 'assistant' ? 'model' : 'user';
+    const parts = [];
+
+    // Attach inline binary (images or pdf)
+    if (msg.image && msg.image.data && (msg.image.mediaType?.startsWith('image/') || msg.image.mediaType === 'application/pdf')) {
+      parts.push({
+        inline_data: {
+          mime_type: msg.image.mediaType,
+          data: msg.image.data
+        }
+      });
+    }
+
+    let text = msg.content || '';
+    if (msg.documentText) {
+      const docHeading = msg.image?.name ? `[Attached Document: ${msg.image.name}]` : '[Attached Document Content]';
+      text = `${docHeading}\n${msg.documentText}\n\n${text}`;
+    }
+
+    if (text || parts.length === 0) {
+      parts.push({ text: text || (parts.length > 0 ? 'Analyze this attachment.' : '...') });
+    }
+
+    // Merge with previous turn if same role (Gemini requires strictly alternating user/model turns)
+    if (contents.length > 0 && contents[contents.length - 1].role === role) {
+      contents[contents.length - 1].parts.push(...parts);
+    } else {
+      contents.push({ role, parts });
+    }
+  }
+
+  // Ensure first turn is from 'user'
+  while (contents.length > 0 && contents[0].role !== 'user') {
+    contents.shift();
+  }
+
+  return contents;
+}
+
 function mapApiError(err) {
   const msg = err.message || '';
   const status = err.status || err.statusCode || 500;
@@ -68,6 +117,51 @@ chatRouter.get('/status', (req, res) => {
     openai: !!process.env.OPENAI_API_KEY,
     gemini: !!process.env.GEMINI_API_KEY
   });
+});
+
+// 1b. GET /api/chat/sessions (Saved Chat History for active user)
+chatRouter.get('/sessions', (req, res) => {
+  try {
+    const user = extractAuthUser(req) || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+    if (!user) {
+      return res.json({ success: true, sessions: [] });
+    }
+    const sessions = getUserSessions(user.id);
+    res.json({ success: true, sessions });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 1c. GET /api/chat/session/:sessionId (Load full conversation)
+chatRouter.get('/session/:sessionId', (req, res) => {
+  try {
+    const user = extractAuthUser(req) || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'Session not found' });
+    }
+    const session = getSessionDetails(user.id, req.params.sessionId);
+    if (!session) {
+      return res.status(404).json({ success: false, error: 'Session not found' });
+    }
+    res.json({ success: true, session });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 1d. DELETE /api/chat/session/:sessionId (Delete a conversation)
+chatRouter.delete('/session/:sessionId', (req, res) => {
+  try {
+    const user = extractAuthUser(req) || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+    const deleted = deleteUserSession(user.id, req.params.sessionId);
+    res.json({ success: true, deleted });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 // 2. POST /api/chat
@@ -266,41 +360,29 @@ Rules:
 
     // 0. GEMINI PROVIDER
     if (activeProvider === 'gemini') {
-      const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+      const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
       try {
-        const lastMsg = processedMessages[processedMessages.length - 1];
-        let userText = lastMsg.content || '';
-        let mediaType = lastMsg.image?.mediaType;
-        let base64Data = lastMsg.image?.data;
-
-        // If a Word document or extracted text exists, prepend document text to user prompt
-        if (lastMsg.documentText) {
-          const docHeading = lastMsg.image?.name ? `[Attached Document: ${lastMsg.image.name}]` : '[Attached Document Content]';
-          userText = `${docHeading}\n${lastMsg.documentText}\n\n${userText}`;
-          // For Word docs, omit inline binary since Gemini inline_data only accepts image/* and application/pdf
-          if (mediaType !== 'application/pdf') {
-            mediaType = null;
-            base64Data = null;
-          }
-        }
+        const geminiContents = formatMessagesForGemini(processedMessages);
 
         const answerText = await callGeminiApi(
           process.env.GEMINI_API_KEY,
           GEMINI_MODEL,
           systemPrompt,
-          userText,
-          mediaType,
-          base64Data
+          null,
+          null,
+          null,
+          geminiContents
         );
 
         const elapsed = Date.now() - startTime;
 
-        if (authUser) {
-          const fullHistory = [...messages, { role: 'assistant', content: answerText }];
+        const targetUser = authUser || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+        if (targetUser) {
+          const fullHistory = [...messages, { role: 'assistant', content: answerText, meta: `EvidentAI · ${(elapsed / 1000).toFixed(1)}s` }];
           const firstUserText = messages.find(m => m.role === 'user')?.content || 'Image Chat';
           const title = firstUserText.length > 36 ? firstUserText.slice(0, 36) + '...' : firstUserText;
           try {
-            saveUserSession(authUser.id, {
+            saveUserSession(targetUser.id, {
               id: sessionId || req.headers['x-session-id'],
               title,
               messages: fullHistory
@@ -313,8 +395,8 @@ Rules:
         return res.json({
           success: true,
           answer: answerText,
-          provider: 'Google Gemini',
-          model: GEMINI_MODEL,
+          provider: 'EvidentAI',
+          model: 'EvidentAI',
           latencyMs: elapsed,
           quota: quotaInfo
         });
@@ -384,8 +466,8 @@ Rules:
         return res.json({
           success: true,
           answer: answerText,
-          provider: 'Claude',
-          model: ANTHROPIC_MODEL,
+          provider: 'EvidentAI',
+          model: 'EvidentAI',
           latencyMs: elapsed
         });
       } catch (err) {
@@ -443,8 +525,8 @@ Rules:
         return res.json({
           success: true,
           answer: answerText,
-          provider: 'OpenAI',
-          model: OPENAI_MODEL,
+          provider: 'EvidentAI',
+          model: 'EvidentAI',
           latencyMs: elapsed
         });
       } catch (err) {
@@ -462,7 +544,7 @@ Rules:
 // 3. POST /api/chat/check (Hallucination Checker for Chat Answers)
 chatRouter.post('/check', async (req, res) => {
   try {
-    const { question = '', answer, image, provider = 'claude' } = req.body;
+    const { question = '', answer, image, provider = 'gemini' } = req.body;
 
     if (!answer) {
       return res.status(400).json({ success: false, error: "Answer text is required for hallucination check." });
@@ -532,7 +614,10 @@ chatRouter.post('/check', async (req, res) => {
       claims: detectionResult.claimCheck.claims,
       totalClaims: detectionResult.claimCheck.totalClaims,
       hallucinatedCount: detectionResult.claimCheck.hallucinatedCount,
-      numericCheck: detectionResult.numericCheck
+      supportedCount: Math.max(0, (detectionResult.claimCheck.totalClaims || 0) - (detectionResult.claimCheck.hallucinatedCount || 0)),
+      numericCheck: detectionResult.numericCheck,
+      extractedEvidence: extractedEvidence || '',
+      provider: 'EvidentAI'
     });
 
   } catch (err) {

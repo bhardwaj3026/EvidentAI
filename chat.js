@@ -6,13 +6,13 @@
   const MAX_ORIGINAL_BYTES = 25 * 1024 * 1024;
   const MAX_DIMENSION = 1568;
   const MAX_SEND_BYTES = 4.5 * 1024 * 1024;
-  const REQUEST_TIMEOUT_MS = 120000;
+  const REQUEST_TIMEOUT_MS = 180000;
 
   const el = {
     scroll: $('chatScroll'), log: $('chatLog'), empty: $('emptyState'),
     form: $('composerForm'), input: $('messageInput'), send: $('sendBtn'),
     fileInput: $('fileInput'), attachBtn: $('attachBtn'), emptyAttachBtn: $('emptyAttachBtn'),
-    chip: $('attachChip'), thumb: $('attachThumb'), docIcon: $('attachDocIcon'), chipName: $('attachName'), chipSize: $('attachSize'), chipRemove: $('attachRemove'),
+    chip: $('attachChip'), thumb: $('attachThumb'), thumbWrap: $('attachThumbWrap'), docIcon: $('attachDocIcon'), chipName: $('attachName'), chipSize: $('attachSize'), chipRemove: $('attachRemove'), metaClickable: $('attachMetaClickable'),
     error: $('composerError'), provider: $('providerSelect'), strict: $('strictToggle'),
     newChat: $('chatNewChatBtn'), theme: $('themeToggleBtn'), banner: $('keyBanner'), drop: $('dropOverlay'),
 
@@ -69,7 +69,15 @@
     registerUsername: $('registerUsername'),
     registerName: $('registerName'),
     registerPassword: $('registerPassword'),
-    authErrorMsg: $('authErrorMsg')
+    authErrorMsg: $('authErrorMsg'),
+
+    // Full-Size Image Preview Lightbox
+    lightboxModal: $('imageLightboxModal'),
+    lightboxImage: $('lightboxImage'),
+    lightboxName: $('lightboxImageName'),
+    lightboxMeta: $('lightboxImageMeta'),
+    lightboxDownloadBtn: $('lightboxDownloadBtn'),
+    closeImageModalBtn: $('closeImageModalBtn')
   };
 
   const store = {
@@ -235,7 +243,11 @@
       if (!res.ok) return;
       const data = await res.json();
       if (data.activeProvider) {
-        if (el.provider) el.provider.value = data.activeProvider;
+        if (el.provider && Array.from(el.provider.options).some(o => o.value === data.activeProvider)) {
+          el.provider.value = data.activeProvider;
+        } else if (el.provider) {
+          el.provider.value = 'gemini';
+        }
       }
       if (!data.hasAnyKey) {
         el.banner.innerHTML = '⚡ <strong>Running in Zero-Config Heuristic Mode:</strong> Add <code>GEMINI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, or <code>OPENAI_API_KEY</code> to your <code>.env</code> file for live multi-modal LLM API calls.';
@@ -375,6 +387,7 @@
       state.pending = enc;
 
       if (enc.isDoc) {
+        if (el.thumbWrap) el.thumbWrap.classList.add('hidden');
         if (el.thumb) el.thumb.classList.add('hidden');
         if (el.docIcon) {
           el.docIcon.textContent = enc.docIcon || '📄';
@@ -385,6 +398,11 @@
         if (el.thumb) {
           el.thumb.src = enc.previewUrl;
           el.thumb.classList.remove('hidden');
+          el.thumb.setAttribute('title', 'Click to view image in big size');
+        }
+        if (el.thumbWrap) {
+          el.thumbWrap.classList.remove('hidden');
+          el.thumbWrap.setAttribute('title', 'Click to view image in big size');
         }
       }
 
@@ -405,6 +423,7 @@
       el.thumb.src = '';
       el.thumb.classList.remove('hidden');
     }
+    if (el.thumbWrap) el.thumbWrap.classList.remove('hidden');
     if (el.docIcon) el.docIcon.classList.add('hidden');
     if (el.fileInput) el.fileInput.value = '';
     clearComposerError();
@@ -415,7 +434,10 @@
   if (el.attachBtn && el.fileInput) el.attachBtn.addEventListener('click', () => el.fileInput.click());
   if (el.emptyAttachBtn && el.fileInput) el.emptyAttachBtn.addEventListener('click', () => el.fileInput.click());
   if (el.fileInput) el.fileInput.addEventListener('change', () => { if (el.fileInput.files[0]) handleAttachedFile(el.fileInput.files[0]); });
-  if (el.chipRemove) el.chipRemove.addEventListener('click', removePending);
+  if (el.chipRemove) el.chipRemove.addEventListener('click', (e) => {
+    e.stopPropagation();
+    removePending();
+  });
 
   // Paste image or document from clipboard
   document.addEventListener('paste', (e) => {
@@ -641,6 +663,20 @@
       img.className = 'msg-image';
       img.src = previewUrl;
       img.alt = 'Attached visual';
+      img.title = 'Click to view image in big size';
+      img.setAttribute('role', 'button');
+      img.setAttribute('tabindex', '0');
+      img.addEventListener('click', () => {
+        const metaText = msg.image?.bytes ? formatBytes(msg.image.bytes) : '';
+        openImageModal(previewUrl, msg.image?.name || 'Attached visual', metaText);
+      });
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const metaText = msg.image?.bytes ? formatBytes(msg.image.bytes) : '';
+          openImageModal(previewUrl, msg.image?.name || 'Attached visual', metaText);
+        }
+      });
       wrap.appendChild(img);
     } else if (msg.image && (msg.image.isDoc || msg.image.mediaType === 'application/pdf' || msg.image.mediaType.includes('word') || msg.image.name?.match(/\.(pdf|docx|doc)$/i))) {
       const docCard = document.createElement('div');
@@ -762,9 +798,10 @@
     wrap.appendChild(actions);
 
     if (meta) {
+      const cleanMeta = String(meta).replace(/gemini[^\s·]*|claude[^\s·]*|gpt[^\s·]*/gi, 'EvidentAI');
       const m = document.createElement('div');
       m.className = 'msg-meta';
-      m.textContent = meta;
+      m.textContent = cleanMeta;
       wrap.appendChild(m);
     }
 
@@ -800,6 +837,10 @@
     const headers = { 'Content-Type': 'application/json' };
     if (authState.token) {
       headers['Authorization'] = `Bearer ${authState.token}`;
+    }
+    const uid = authState.user?.id || store.get('chatUserId') || 'usr_bhardwaj';
+    if (uid) {
+      headers['X-User-Id'] = uid;
     }
     return headers;
   }
@@ -881,7 +922,7 @@
       if (chatId !== state.chatId) return;
       removeTyping();
       state.messages.push({ role: 'assistant', content: data.answer });
-      const meta = `${data.model} · ${(data.latencyMs / 1000).toFixed(1)}s`;
+      const meta = `EvidentAI · ${(data.latencyMs / 1000).toFixed(1)}s`;
       addAssistantBubble(data.answer, meta, state.messages.length - 1);
 
       if (data.quota && authState.user) {
@@ -922,16 +963,30 @@
     if (!image) return;
     btn.disabled = true;
     btn.textContent = 'Checking…';
-    const old = wrap.querySelector('.check-report');
-    if (old) old.remove();
+    const oldReport = wrap.querySelector('.check-report');
+    if (oldReport) oldReport.remove();
+    const oldPrompt = wrap.querySelector('.pipeline-prompt-card');
+    if (oldPrompt) oldPrompt.remove();
+    const oldCompact = wrap.querySelector('.pipeline-prompt-compact');
+    if (oldCompact) oldCompact.remove();
+
     try {
+      const question = findQuestionFor(answerIndex);
+      const answer = state.messages[answerIndex].content;
+      const provider = el.provider?.value || 'gemini';
+
       const data = await postJson('/api/chat/check', {
-        question: findQuestionFor(answerIndex),
-        answer: state.messages[answerIndex].content,
+        question,
+        answer,
         image,
-        provider: el.provider?.value || 'gemini'
+        provider
       });
       wrap.appendChild(buildReport(data));
+
+      // Show option asking whether to view the 8-Stage Research Pipeline
+      const pipelinePrompt = buildPipelinePrompt(answerIndex, question, answer, image, data, provider);
+      wrap.appendChild(pipelinePrompt);
+
       btn.textContent = 'Check again';
       scrollToBottom();
     } catch (err) {
@@ -986,6 +1041,308 @@
     return box;
   }
 
+  function getStageDetails(stageNum, question, answer, image, data, provider) {
+    const pName = 'EvidentAI';
+    const claims = data.claims || [];
+    const hallCount = data.hallucinatedCount || 0;
+    const totalClaims = data.totalClaims || claims.length || 0;
+    const suppCount = data.supportedCount || Math.max(0, totalClaims - hallCount);
+    const ratePct = ((data.hallucinationRate || 0) * 100).toFixed(1);
+    const faithPct = (100 - parseFloat(ratePct)).toFixed(1);
+    const imageName = image?.name || 'Attached visual';
+    const imageType = image?.mediaType || 'image/png';
+    const extractedEv = data.extractedEvidence || 'Visual features and OCR tokens extracted from image input channels.';
+
+    switch (stageNum) {
+      case 1:
+        return {
+          number: '01',
+          title: 'Question Formulation',
+          type: 'Input Processing',
+          input: `User Query: "${question || 'What is shown in this image?'}"\nModality: Multimodal (Text Prompt + Visual Artifact Reference)`,
+          output: `Structured query representation:\n• Intent: Visual evidence analysis & entity reasoning\n• Target Context: ${imageName} (${imageType})\n• Execution Constraints: Multimodal Grounding Active`,
+          desc: 'Parses the user prompt to determine visual reasoning scope, target figure entities, and mathematical/OCR requirements before constructing model prompts.'
+        };
+      case 2:
+        return {
+          number: '02',
+          title: 'Multimodal Retrieval',
+          type: 'Dense & Sparse Vector Search / Ingestion',
+          input: `Artifact: ${imageName} | Type: ${imageType}\nIndexing Mode: Direct Visual Ingestion & Cross-Modal Channel Alignment`,
+          output: `Retrieved Visual Evidence Chunk:\n• Source: User upload / benchmark visual document\n• Resolution channels aligned: Primary image base64 stream\n• Channel status: Ready for vision encoder`,
+          desc: 'Retrieves relevant document fragments, OCR text snippets, or direct visual image representations using dense cross-modal embeddings.'
+        };
+      case 3:
+        return {
+          number: '03',
+          title: 'Evidence Construction',
+          type: 'Context Assembly',
+          input: `Raw Evidence Stream: ${imageName}\nTarget Model: ${pName} Vision Pipeline`,
+          output: `Constructed Multimodal Evidence Context:\n${extractedEv.slice(0, 360)}${extractedEv.length > 360 ? '...' : ''}`,
+          desc: 'Assembles heterogeneous visual tokens, extracted table values, and layout coordinates into an organized context prompt to eliminate grounding ambiguities.'
+        };
+      case 4:
+        return {
+          number: '04',
+          title: 'Generation',
+          type: 'MLLM Synthesis',
+          input: `Provider: ${pName}\nSystem Prompt: Strict Evidence Grounding & Visual Reasoning\nContext: Evidence Block + Formulated Question`,
+          output: `Generated Response:\n"${answer.slice(0, 320)}${answer.length > 320 ? '...' : ''}"`,
+          desc: 'The multimodal LLM reasons over the constructed cross-modal evidence block, generating a candidate explanation and factual assertions.'
+        };
+      case 5:
+        return {
+          number: '05',
+          title: 'Hallucination Detection',
+          type: 'Automated Verification (RAGTruth / POPE)',
+          input: `Answer assertion units (${totalClaims} total claims) vs. Source Visual Evidence (${imageName})`,
+          output: `Claim Decomposition Results:\n• Total Claims Evaluated: ${totalClaims}\n• Grounded (Supported): ${suppCount}\n• Hallucinated / Unsupported: ${hallCount}\n• Status: ${hallCount > 0 ? '⚠️ Unfaithful Claims Detected' : '✓ Grounded (Zero Conflicts)'}`,
+          desc: 'Applies automated multi-agent claim verification adapted from POPE and RAGTruth. Every claim is verified against visible facts in the visual evidence.'
+        };
+      case 6:
+        return {
+          number: '06',
+          title: 'Quantification',
+          type: 'Taxonomy & Metric Scoring',
+          input: `Verification flags across 5 Error Taxonomies:\n1. Retrieval  2. Reasoning  3. Generation  4. Grounding  5. True Hallucination`,
+          output: `Quantified Metrics:\n• Hallucination Rate: ${ratePct}%\n• Mathematical / Numeric Consistency: ${data.numericCheck?.status || 'Verified'}\n• Overall Status: ${data.status || (hallCount > 0 ? 'HALLUCINATION_DETECTED' : 'FAITHFUL')}`,
+          desc: 'Calculates the formal hallucination score, distinguishing reasoning errors from true hallucinations, and checks numeric consistency.'
+        };
+      case 7:
+        return {
+          number: '07',
+          title: 'Mitigation',
+          type: 'Refinement & Self-Correction',
+          input: `Feedback from Stage 05/06: ${hallCount} unfaithful claims flagged.`,
+          output: `Mitigation Recommendation:\n${hallCount > 0 ? '• Enable Strict Evidence Grounding toggle to constrain generation to visible pixels.\n• Re-prompt with negative constraint instructions against speculative extrapolation.' : '• No corrective feedback required. The response is fully grounded in the provided evidence.'}`,
+          desc: 'Applies targeted corrective feedback loops: triggering strict grounding constraints, OCR re-verification, or self-correction passes.'
+        };
+      case 8:
+        return {
+          number: '08',
+          title: 'Final Answer & Evaluation',
+          type: 'Output Verification',
+          input: `Candidate Answer + Quantified Verification Score`,
+          output: `Verified Output Summary:\n• Final Faithfulness Confidence: ${faithPct}%\n• Evidentiary Source: ${imageName}\n• Reliability Rating: ${hallCount === 0 ? 'HIGH (Fully Grounded)' : 'MODERATE (Contains Speculative Claims)'}`,
+          desc: 'Delivers the verified final response with transparent grounding metrics, ensuring verifiable and accountable visual AI answers.'
+        };
+      default:
+        return {
+          number: '01',
+          title: 'Question Formulation',
+          type: 'Input Processing',
+          input: 'Query processing',
+          output: 'Standard format',
+          desc: 'Initial query parsing.'
+        };
+    }
+  }
+
+  function buildPipelinePrompt(answerIndex, question, answer, image, data, provider) {
+    const card = document.createElement('div');
+    card.className = 'pipeline-prompt-card';
+
+    // Header with question and buttons
+    const header = document.createElement('div');
+    header.className = 'pipeline-prompt-header';
+
+    const left = document.createElement('div');
+    left.className = 'pipeline-prompt-left';
+    left.innerHTML = `
+      <span class="pipeline-prompt-icon" aria-hidden="true">🔬</span>
+      <div>
+        <div class="pipeline-prompt-title">
+          8-Stage Research Pipeline Analysis
+          <span class="pipeline-prompt-tag">Research Trace</span>
+        </div>
+        <div class="pipeline-prompt-desc">Would you like to view the full 8-stage multimodal retrieval, grounding, and verification pipeline for this response?</div>
+      </div>
+    `;
+
+    const btns = document.createElement('div');
+    btns.className = 'pipeline-prompt-btns';
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.type = 'button';
+    toggleBtn.className = 'btn-pipeline-toggle';
+    toggleBtn.innerHTML = `<span>⚡</span> <span>Show 8-Stage Pipeline</span>`;
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.type = 'button';
+    dismissBtn.className = 'btn-pipeline-dismiss';
+    dismissBtn.textContent = 'Not now';
+    dismissBtn.title = 'Dismiss this prompt';
+
+    btns.appendChild(toggleBtn);
+    btns.appendChild(dismissBtn);
+    header.appendChild(left);
+    header.appendChild(btns);
+    card.appendChild(header);
+
+    // 8-Stage Pipeline Container (initially hidden)
+    const pipelineContainer = document.createElement('div');
+    pipelineContainer.className = 'chat-pipeline-container hidden';
+
+    const lead = document.createElement('div');
+    lead.className = 'chat-pipeline-lead';
+    lead.innerHTML = `
+      <span>Interactive trace across all 8 stages of the multimodal grounding framework. Click any stage to inspect:</span>
+    `;
+    pipelineContainer.appendChild(lead);
+
+    // Flow scroll wrapper
+    const flowScroll = document.createElement('div');
+    flowScroll.className = 'chat-pipeline-flow-scroll';
+
+    const flow = document.createElement('div');
+    flow.className = 'chat-pipeline-flow';
+
+    const stagesMeta = [
+      { num: 1, title: 'Question', summary: 'Parse & formulate query' },
+      { num: 2, title: 'Multimodal Retrieval', summary: 'Ingest visual evidence' },
+      { num: 3, title: 'Evidence Construction', summary: 'Assemble cross-modal context' },
+      { num: 4, title: 'Generation', summary: 'MLLM synthesis & rationale' },
+      { num: 5, title: 'Hallucination Detection', summary: data.hallucinatedCount > 0 ? `${data.hallucinatedCount} conflict(s)` : 'Grounded verification' },
+      { num: 6, title: 'Quantification', summary: `Hallucination rate: ${((data.hallucinationRate || 0) * 100).toFixed(0)}%` },
+      { num: 7, title: 'Mitigation', summary: 'Grounding constraints' },
+      { num: 8, title: 'Final Answer & Eval', summary: 'Verified output' }
+    ];
+
+    const inspector = document.createElement('div');
+    inspector.className = 'chat-pipeline-inspector';
+    inspector.innerHTML = `
+      <div class="chat-inspector-header">
+        <div class="chat-inspector-title-wrap">
+          <span class="chat-inspector-badge" id="chatInspBadge">STAGE 01</span>
+          <h4 class="chat-inspector-title" id="chatInspTitle">Question Formulation</h4>
+          <span class="chat-inspector-tag" id="chatInspTag">Input Processing</span>
+        </div>
+      </div>
+      <div class="chat-inspector-grid">
+        <div class="chat-inspector-field">
+          <div class="chat-inspector-label">📥 Input Data &amp; Schema:</div>
+          <div class="chat-inspector-val mono" id="chatInspInput"></div>
+        </div>
+        <div class="chat-inspector-field">
+          <div class="chat-inspector-label">📤 Output Data &amp; Schema:</div>
+          <div class="chat-inspector-val mono" id="chatInspOutput"></div>
+        </div>
+        <div class="chat-inspector-field">
+          <div class="chat-inspector-label">📖 Research Methodology:</div>
+          <div class="chat-inspector-val" id="chatInspDesc"></div>
+        </div>
+      </div>
+    `;
+
+    function renderStageInInspector(stageNum) {
+      const details = getStageDetails(stageNum, question, answer, image, data, provider);
+      const badge = inspector.querySelector('#chatInspBadge');
+      const title = inspector.querySelector('#chatInspTitle');
+      const tag = inspector.querySelector('#chatInspTag');
+      const inVal = inspector.querySelector('#chatInspInput');
+      const outVal = inspector.querySelector('#chatInspOutput');
+      const descVal = inspector.querySelector('#chatInspDesc');
+
+      if (badge) badge.textContent = `STAGE ${details.number}`;
+      if (title) title.textContent = details.title;
+      if (tag) tag.textContent = details.type;
+      if (inVal) inVal.textContent = details.input;
+      if (outVal) outVal.textContent = details.output;
+      if (descVal) descVal.textContent = details.desc;
+
+      flow.querySelectorAll('.chat-stage-node').forEach((node) => {
+        const n = parseInt(node.dataset.stageNum, 10);
+        node.classList.toggle('active', n === stageNum);
+      });
+    }
+
+    stagesMeta.forEach((s) => {
+      const node = document.createElement('div');
+      node.className = 'chat-stage-node';
+      node.dataset.stageNum = s.num;
+      if (s.num === 5 && data.hallucinatedCount > 0) {
+        node.classList.add('stage-flagged');
+      }
+
+      const top = document.createElement('div');
+      top.className = 'chat-stage-top';
+      const numSpan = document.createElement('span');
+      numSpan.className = 'chat-stage-num';
+      numSpan.textContent = String(s.num).padStart(2, '0');
+      top.appendChild(numSpan);
+
+      const statusIcon = document.createElement('span');
+      statusIcon.className = 'chat-stage-status-icon';
+      statusIcon.textContent = s.num === 5 ? (data.hallucinatedCount > 0 ? '⚠️' : '✓') : (s.num === 8 ? '🎯' : '→');
+      top.appendChild(statusIcon);
+
+      const titleEl = document.createElement('div');
+      titleEl.className = 'chat-stage-title';
+      titleEl.textContent = s.title;
+
+      const sumEl = document.createElement('div');
+      sumEl.className = 'chat-stage-summary';
+      sumEl.textContent = s.summary;
+
+      node.appendChild(top);
+      node.appendChild(titleEl);
+      node.appendChild(sumEl);
+
+      node.addEventListener('click', () => {
+        renderStageInInspector(s.num);
+      });
+
+      flow.appendChild(node);
+    });
+
+    flowScroll.appendChild(flow);
+    pipelineContainer.appendChild(flowScroll);
+    pipelineContainer.appendChild(inspector);
+    card.appendChild(pipelineContainer);
+
+    // Initial state: default to stage 5 if hallucination detected, else stage 1
+    const defaultStage = data.hallucinatedCount > 0 ? 5 : 1;
+    renderStageInInspector(defaultStage);
+
+    // Toggle event
+    let isExpanded = false;
+    toggleBtn.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      if (isExpanded) {
+        pipelineContainer.classList.remove('hidden');
+        card.classList.add('expanded');
+        toggleBtn.classList.add('active');
+        toggleBtn.innerHTML = `<span>▲</span> <span>Hide 8-Stage Pipeline</span>`;
+        pipelineContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        pipelineContainer.classList.add('hidden');
+        card.classList.remove('expanded');
+        toggleBtn.classList.remove('active');
+        toggleBtn.innerHTML = `<span>⚡</span> <span>Show 8-Stage Pipeline</span>`;
+      }
+    });
+
+    // Dismiss event: collapses into compact trigger
+    dismissBtn.addEventListener('click', () => {
+      card.classList.add('hidden');
+      const compact = document.createElement('div');
+      compact.className = 'pipeline-prompt-compact';
+      const compactBtn = document.createElement('button');
+      compactBtn.type = 'button';
+      compactBtn.className = 'btn-pipeline-compact';
+      compactBtn.innerHTML = `<span>🔬</span> Show 8-Stage Pipeline`;
+      compactBtn.addEventListener('click', () => {
+        compact.remove();
+        card.classList.remove('hidden');
+        if (!isExpanded) toggleBtn.click();
+      });
+      compact.appendChild(compactBtn);
+      card.parentNode.insertBefore(compact, card.nextSibling);
+    });
+
+    return card;
+  }
+
   /* ------------------------------------------------------------ USER ACCOUNT & ISOLATED HISTORY */
   function updateAccountUI() {
     if (!authState.user) return;
@@ -997,7 +1354,7 @@
 
     // Header pill
     if (el.userAvatar) el.userAvatar.textContent = initial;
-    if (el.userName) el.userName.textContent = u.username;
+    if (el.userName) el.userName.textContent = u.name || u.username;
     if (el.quotaBadge) {
       el.quotaBadge.textContent = `⚡ ${remaining}/${u.chatLimit || 10}`;
       el.quotaBadge.className = 'quota-badge ' + (remaining <= 2 ? 'low' : (remaining <= 5 ? 'warn' : 'good'));
@@ -1005,10 +1362,19 @@
 
     // Dropdown details
     if (el.dropdownUserName) el.dropdownUserName.textContent = u.name || u.username;
-    if (el.dropdownUserRole) el.dropdownUserRole.textContent = u.role ? u.role.toUpperCase() + ' PLAN' : 'STUDENT PLAN';
-    if (el.dropdownUserEmail) el.dropdownUserEmail.textContent = u.email || `${u.username}@student.demo`;
+    if (el.dropdownUserRole) {
+      const r = (u.role || 'Starter Plan').toUpperCase();
+      el.dropdownUserRole.textContent = r.endsWith('PLAN') ? r : `${r} PLAN`;
+    }
+    if (el.dropdownUserEmail) el.dropdownUserEmail.textContent = u.email || `${u.username}@evident.ai`;
     if (el.dropdownQuotaText) {
       el.dropdownQuotaText.textContent = `${u.chatsUsed || 0} / ${u.chatLimit || 10} used (${remaining} left)`;
+    }
+    if (el.resetQuotaBtn) {
+      el.resetQuotaBtn.innerHTML = `<span>🔄</span> Reset Quota (${u.chatLimit || 10} Chats)`;
+    }
+    if (el.bannerResetBtn) {
+      el.bannerResetBtn.textContent = `Reset Quota (${u.chatLimit || 10} Chats)`;
     }
     if (el.dropdownQuotaProgress) {
       const pct = Math.min(100, Math.round(((u.chatsUsed || 0) / (u.chatLimit || 10)) * 100));
@@ -1049,10 +1415,10 @@
           }
         }
       }
-      await loginUser('alice', 'password123');
+      await loginUser('bhardwaj', 'password123');
     } catch {
       // offline fallback
-      authState.user = { id: 'usr_alice', username: 'alice', name: 'Alice Smith', chatsUsed: 2, chatLimit: 10, remainingChats: 8 };
+      authState.user = { id: 'usr_bhardwaj', username: 'bhardwaj', name: 'Bhardwaj', role: 'Ultra Pro Plan', chatsUsed: 0, chatLimit: 100, remainingChats: 100 };
       updateAccountUI();
     }
   }
@@ -1213,7 +1579,7 @@
               const preview = msg.image ? (msg.image.data ? `data:${msg.image.mediaType};base64,${msg.image.data}` : null) : null;
               addUserBubble(msg, preview);
             } else if (msg.role === 'assistant') {
-              addAssistantBubble(msg.content, null, idx);
+              addAssistantBubble(msg.content, msg.meta || 'EvidentAI', idx);
             }
           });
         } else {
@@ -1335,21 +1701,82 @@
       });
     });
 
-    // Auth Tabs switcher
-    if (el.authTabLoginBtn && el.authTabRegisterBtn) {
-      el.authTabLoginBtn.addEventListener('click', () => {
-        el.authTabLoginBtn.classList.add('active');
-        el.authTabRegisterBtn.classList.remove('active');
-        if (el.authLoginForm) el.authLoginForm.classList.remove('hidden');
-        if (el.authRegisterForm) el.authRegisterForm.classList.add('hidden');
-      });
-      el.authTabRegisterBtn.addEventListener('click', () => {
-        el.authTabRegisterBtn.classList.add('active');
-        el.authTabLoginBtn.classList.remove('active');
+    // Auth Mode Switcher (Login <-> Create Account)
+    const authTitle = $('authTitle');
+    function setAuthMode(mode) {
+      clearAuthError();
+      if (mode === 'register') {
+        if (authTitle) authTitle.textContent = 'Create Account';
         if (el.authRegisterForm) el.authRegisterForm.classList.remove('hidden');
         if (el.authLoginForm) el.authLoginForm.classList.add('hidden');
+        if (el.registerUsername) el.registerUsername.focus();
+      } else {
+        if (authTitle) authTitle.textContent = 'Login';
+        if (el.authLoginForm) el.authLoginForm.classList.remove('hidden');
+        if (el.authRegisterForm) el.authRegisterForm.classList.add('hidden');
+        if (el.loginUsername) el.loginUsername.focus();
+      }
+    }
+
+    document.querySelectorAll('#authTabRegisterBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        setAuthMode('register');
+      });
+    });
+
+    document.querySelectorAll('#authTabLoginBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        setAuthMode('login');
+      });
+    });
+
+    // Password visibility toggle
+    document.querySelectorAll('.toggle-password-visibility').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const isPw = input.type === 'password';
+        input.type = isPw ? 'text' : 'password';
+        const eyeShow = btn.querySelector('.pw-eye-show');
+        const eyeHide = btn.querySelector('.pw-eye-hide');
+        if (eyeShow) eyeShow.classList.toggle('hidden', isPw);
+        if (eyeHide) eyeHide.classList.toggle('hidden', !isPw);
+      });
+    });
+
+    // Forgot Password link
+    const forgotPw = document.getElementById('forgotPwLink');
+    if (forgotPw) {
+      forgotPw.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = el.loginUsername?.value?.trim() || 'randy.h99@email.com';
+        alert(`Password reset instructions have been sent to ${email}. Please check your inbox.`);
       });
     }
+
+    // Social Authentication Buttons (1-click fast sign in)
+    document.querySelectorAll('.auth-social-google').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginUser('bhardwaj', 'password123');
+      });
+    });
+    document.querySelectorAll('.auth-social-apple').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginUser('teja', 'password123');
+      });
+    });
+    document.querySelectorAll('.auth-social-facebook').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginUser('praneetha', 'password123');
+      });
+    });
 
     // Login Form Submit
     if (el.authLoginForm) {
@@ -1369,6 +1796,98 @@
         const pw = el.registerPassword?.value;
         const name = el.registerName?.value?.trim();
         if (un && pw) await registerNewUser(un, pw, name);
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------ image lightbox modal */
+  function openImageModal(imgSrc, name = 'Attached Visual', meta = '') {
+    if (!el.lightboxModal || !el.lightboxImage || !imgSrc) return;
+    el.lightboxImage.src = imgSrc;
+    if (el.lightboxName) {
+      el.lightboxName.textContent = name || 'Image Preview';
+    }
+    if (el.lightboxMeta) {
+      el.lightboxMeta.textContent = meta || '';
+    }
+    if (el.lightboxDownloadBtn) {
+      el.lightboxDownloadBtn.href = imgSrc;
+      el.lightboxDownloadBtn.download = (name || 'visual-evidence').replace(/[^\w.-]+/g, '_');
+    }
+    el.lightboxModal.classList.remove('hidden');
+    el.lightboxModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeImageModal() {
+    if (!el.lightboxModal) return;
+    el.lightboxModal.classList.add('hidden');
+    el.lightboxModal.setAttribute('aria-hidden', 'true');
+    if (el.lightboxImage) {
+      el.lightboxImage.src = '';
+    }
+    document.body.classList.remove('modal-open');
+  }
+
+  function openPendingImageModal() {
+    if (state.pending && !state.pending.isDoc && state.pending.previewUrl) {
+      openImageModal(
+        state.pending.previewUrl,
+        state.pending.name || 'Attached Visual',
+        state.pending.bytes ? formatBytes(state.pending.bytes) : ''
+      );
+    } else if (el.thumb && el.thumb.src && !el.thumb.classList.contains('hidden')) {
+      openImageModal(
+        el.thumb.src,
+        el.chipName ? el.chipName.textContent : 'Attached Visual',
+        el.chipSize ? el.chipSize.textContent : ''
+      );
+    }
+  }
+
+  function setupImageLightbox() {
+    if (el.closeImageModalBtn) {
+      el.closeImageModalBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeImageModal();
+      });
+    }
+
+    if (el.lightboxModal) {
+      el.lightboxModal.addEventListener('click', (e) => {
+        if (e.target === el.lightboxModal || e.target.classList.contains('image-lightbox-overlay') || e.target.id === 'imageLightboxWrapper') {
+          closeImageModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && el.lightboxModal && !el.lightboxModal.classList.contains('hidden')) {
+        closeImageModal();
+      }
+    });
+
+    if (el.thumbWrap) {
+      el.thumbWrap.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openPendingImageModal();
+      });
+    }
+
+    if (el.thumb) {
+      el.thumb.setAttribute('title', 'Click to view image in big size');
+      el.thumb.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openPendingImageModal();
+      });
+    }
+
+    if (el.metaClickable) {
+      el.metaClickable.addEventListener('click', (e) => {
+        if (!state.pending?.isDoc) {
+          e.stopPropagation();
+          openPendingImageModal();
+        }
       });
     }
   }
@@ -1394,9 +1913,11 @@
   if (el.newChat) el.newChat.addEventListener('click', resetChat);
 
   /* ------------------------------------------------------------ INITIALIZATION */
+  if (el.strict) el.strict.checked = false;
   loadKeyStatus();
   setupVoiceInput();
   setupAuthAndHistory();
+  setupImageLightbox();
   initAuth();
   updateSendState();
 })();

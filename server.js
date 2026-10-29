@@ -12,7 +12,7 @@ import { sessionTracker } from './server/quantification.js';
 import { runMitigationPass } from './server/mitigation.js';
 import { chatRouter } from './server/chat.js';
 import { authRouter, extractAuthUser } from './server/auth.js';
-import { checkAndConsumeChatQuota } from './server/userStore.js';
+import { checkAndConsumeChatQuota, initDatabase } from './server/userStore.js';
 import { extractDocumentText, isDocumentType } from './server/documentParser.js';
 
 dotenv.config();
@@ -22,6 +22,12 @@ const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({ success: false, error: 'Malformed JSON payload.' });
+  }
+  next(err);
+});
 app.use('/api/auth', authRouter);
 app.use('/api/chat', chatRouter);
 
@@ -111,6 +117,11 @@ function validateUploadedImage(uploadedImage) {
 // Main entrypoint: Serve Unified Multimodal Platform at root '/'
 app.get(['/', '/showcase', '/lab', '/chat', '/analytics', '/index.html'], (req, res) => {
   res.sendFile(path.join(process.cwd(), 'chat.html'));
+});
+
+// Auth entrypoint: Serve Login and Account Creation page
+app.get(['/login', '/signup', '/auth', '/auth-pages.html'], (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'auth-pages.html'));
 });
 
 // Serve static frontend files (without defaulting to index.html)
@@ -736,7 +747,8 @@ app.post('/api/session/reset', (req, res) => {
   res.json({ success: true, stats: sessionTracker.getStats() });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await initDatabase();
   console.log(`\n==================================================`);
   console.log(`Multimodal AI Image Chat running at http://localhost:${PORT}`);
   console.log(`Chat Interface: http://localhost:${PORT}/`);

@@ -24,18 +24,19 @@ export function getBase64Image(imagePath) {
 }
 
 /**
- * Helper to call Google Gemini API directly via REST
+ * Helper to call Google Gemini API directly via REST (supports single-turn and multi-turn conversations)
  */
-export async function callGeminiApi(apiKey, model, systemPrompt, userText, mediaType, base64Data) {
+export async function callGeminiApi(apiKey, model, systemPrompt, userText, mediaType, base64Data, contents = null) {
   if (!apiKey || apiKey.trim() === '') {
     throw new Error("Missing GEMINI_API_KEY in .env. Please add your GEMINI_API_KEY to the .env file.");
   }
 
-  const primaryModel = model || process.env.GEMINI_MODEL || 'gemini-3.5-flash';
+  const primaryModel = model || process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
   const candidateModels = Array.from(new Set([
     primaryModel,
-    'gemini-3.5-flash',
     'gemini-3.1-flash-lite',
+    'gemini-3.5-flash-lite',
+    'gemini-3.5-flash',
     'gemini-3-flash-preview',
     'gemini-3.8-flash'
   ]));
@@ -46,24 +47,33 @@ export async function callGeminiApi(apiKey, model, systemPrompt, userText, media
     try {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey.trim()}`;
 
-      const parts = [];
-      if (base64Data) {
-        parts.push({
-          inline_data: {
-            mime_type: mediaType || 'image/png',
-            data: base64Data
-          }
-        });
+      let bodyContents = contents;
+      if (!bodyContents || !Array.isArray(bodyContents) || bodyContents.length === 0) {
+        const parts = [];
+        if (base64Data) {
+          parts.push({
+            inline_data: {
+              mime_type: mediaType || 'image/png',
+              data: base64Data
+            }
+          });
+        }
+        parts.push({ text: userText || 'Analyze this input.' });
+        bodyContents = [{ role: 'user', parts }];
       }
-      const fullText = systemPrompt ? `System Instructions:\n${systemPrompt}\n\n${userText}` : userText;
-      parts.push({ text: fullText || 'Analyze this input.' });
 
-      const body = { contents: [{ parts }] };
+      const body = { contents: bodyContents };
+      if (systemPrompt && systemPrompt.trim()) {
+        body.system_instruction = {
+          parts: [{ text: systemPrompt.trim() }]
+        };
+      }
 
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(25000)
       });
 
       const data = await res.json();
@@ -88,7 +98,7 @@ export async function callGeminiApi(apiKey, model, systemPrompt, userText, media
     } catch (err) {
       lastError = err;
       const errLower = err.message.toLowerCase();
-      const isRetryable = errLower.includes('high demand') || errLower.includes('capacity') || errLower.includes('unavailable') || errLower.includes('429') || errLower.includes('503') || errLower.includes('not_found') || errLower.includes('quota');
+      const isRetryable = errLower.includes('high demand') || errLower.includes('capacity') || errLower.includes('unavailable') || errLower.includes('429') || errLower.includes('503') || errLower.includes('not_found') || errLower.includes('quota') || errLower.includes('abort');
       if (candidateModels.indexOf(modelName) < candidateModels.length - 1 && isRetryable) {
         console.warn(`Retrying with fallback Gemini model after error: ${err.message}`);
         continue;
@@ -117,7 +127,7 @@ export async function extractEvidenceFromImage(provider, mediaType, base64Data, 
   const promptText = "Transcribe everything visible in this document or image: all text, labels, axis titles, legends, numbers, and any data table, as plain structured text.";
   const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5-5';
   const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o';
-  const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+  const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
 
   if (provider === 'gemini') {
     if (!process.env.GEMINI_API_KEY) {
@@ -190,7 +200,7 @@ export async function generateAnswer(provider, evidence, question, options = {})
 
   const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5-5';
   const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o';
-  const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+  const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
 
   const pLower = (provider || '').toLowerCase();
   const normalizedProvider = pLower.includes('gemini')
@@ -407,10 +417,10 @@ Answer the user's question clearly based on the provided chart table and image c
       );
       const elapsed = Date.now() - startTime;
       return {
-        provider: `Google Gemini (${GEMINI_MODEL})`,
+        provider: 'EvidentAI',
         answer: answerText,
         latencyMs: elapsed,
-        raw: { model: GEMINI_MODEL },
+        raw: { model: 'EvidentAI' },
         mode: 'live_api'
       };
     } catch (err) {
@@ -453,7 +463,7 @@ Answer the user's question clearly based on the provided chart table and image c
       const answerText = response.content.map(c => c.text).join('\n');
 
       return {
-        provider: `Claude (${ANTHROPIC_MODEL})`,
+        provider: 'EvidentAI',
         answer: answerText,
         latencyMs: elapsed,
         raw: response,
@@ -496,7 +506,7 @@ Answer the user's question clearly based on the provided chart table and image c
       const answerText = response.choices[0]?.message?.content || '';
 
       return {
-        provider: `OpenAI (${OPENAI_MODEL})`,
+        provider: 'EvidentAI',
         answer: answerText,
         latencyMs: elapsed,
         raw: response,

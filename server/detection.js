@@ -378,7 +378,7 @@ ${JSON.stringify(claims)}
   // 3. Try Gemini Judge
   if (judgeProvider === 'gemini' && process.env.GEMINI_API_KEY) {
     try {
-      const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+      const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
       const prompt = `You are a factual claim verifier for Multimodal RAG benchmarking.
 Evidence Type: ${sampleType}
 Context Evidence:

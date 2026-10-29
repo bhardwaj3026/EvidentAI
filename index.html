@@ -10,7 +10,7 @@
   <!-- Google Fonts: Serif for manuscript headings, Sans for crisp UI, Mono for technical metrics -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Nunito:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="chat.css">
@@ -22,76 +22,102 @@
        ========================================================================= -->
   <header class="chat-header">
     <div class="chat-header-inner">
-      <!-- Top Row / Left: Brand & Mobile Quick Actions -->
-      <div class="chat-header-row-main">
-        <div class="chat-brand">
-          <span class="brand-icon">🖼️</span>
-          <div class="brand-text-col">
-            <h1 class="chat-title">Multimodal Image Chat</h1>
-            <span class="brand-thesis-badge">Visual Reasoning &amp; Grounding</span>
+      <!-- Left side: Brand Logo, Chat History, User Account -->
+      <div class="chat-header-left">
+        <a href="/" class="chat-brand" title="EvidentAI - Explainable and Verifiable AI">
+          <div class="brand-shield-logo" aria-hidden="true">
+            <svg class="brand-shield-svg" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0L0 5.81818V16.3636C0 26.1818 6.83636 34.9091 16 36C25.1636 34.9091 32 26.1818 32 16.3636V5.81818L16 0Z" fill="url(#shield_grad)"/>
+              <path d="M13.5 24L7.5 18L9.6 15.9L13.5 19.8L22.4 10.9L24.5 13L13.5 24Z" fill="#FFFFFF"/>
+              <defs>
+                <linearGradient id="shield_grad" x1="0" y1="0" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#818CF8"/>
+                  <stop offset="1" stop-color="#4F46E5"/>
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
-        </div>
+          <div class="brand-text-col">
+            <h1 class="chat-title">EvidentAI</h1>
+            <span class="brand-thesis-badge">Explainable and Verifiable AI</span>
+          </div>
+        </a>
 
-        <!-- Quick actions: History, Account, Theme -->
-        <div class="chat-header-quick-actions">
-          <button id="toggleSidebarBtn" class="chat-btn" title="Open Conversation History">💬 <span class="hide-mobile">History</span></button>
+        <!-- Chat History Button -->
+        <button id="toggleSidebarBtn" class="btn-chat-history" title="Open Conversation History">
+          <svg class="history-clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Chat History</span>
+        </button>
 
-          <!-- User Account Widget -->
-          <div class="user-account-widget" id="userAccountWidget">
-            <button type="button" id="userAccountBtn" class="account-pill-btn" aria-haspopup="true" aria-expanded="false" title="Account details & chat quota">
-              <span class="user-avatar" id="userAvatar">A</span>
-              <span class="user-name" id="userName">alice</span>
-              <span class="quota-badge" id="quotaBadge">⚡ 8/10</span>
-              <span class="caret">▾</span>
-            </button>
-            
-            <div id="accountDropdown" class="account-dropdown hidden" role="menu">
-              <div class="account-dropdown-header">
-                <strong id="dropdownUserName">Alice Smith</strong>
-                <span id="dropdownUserRole" class="account-role-tag">Student Plan</span>
-                <span id="dropdownUserEmail" class="account-email">alice@student.demo</span>
+        <!-- User Account Widget -->
+        <div class="user-account-widget" id="userAccountWidget">
+          <button type="button" id="userAccountBtn" class="account-pill-btn" aria-haspopup="true" aria-expanded="false" title="Account details & chat quota">
+            <span class="user-avatar" id="userAvatar">B</span>
+            <span class="user-name" id="userName">Bhardwaj</span>
+            <span class="user-sparkle">✦</span>
+            <span class="caret">▾</span>
+            <span class="quota-badge hidden" id="quotaBadge">⚡ 100/100</span>
+          </button>
+          
+          <div id="accountDropdown" class="account-dropdown hidden" role="menu">
+            <div class="account-dropdown-header">
+              <strong id="dropdownUserName">Bhardwaj</strong>
+              <span id="dropdownUserRole" class="account-role-tag">Ultra Pro Plan</span>
+              <span id="dropdownUserEmail" class="account-email">bhardwaj@evident.ai</span>
+            </div>
+            <div class="account-dropdown-quota">
+              <div class="quota-progress-label">
+                <span>Chat Limit Quota</span>
+                <strong id="dropdownQuotaText">0 / 100 used (100 left)</strong>
               </div>
-              <div class="account-dropdown-quota">
-                <div class="quota-progress-label">
-                  <span>Chat Limit Quota</span>
-                  <strong id="dropdownQuotaText">2 / 10 used (8 left)</strong>
-                </div>
-                <div class="quota-progress-bar">
-                  <div id="dropdownQuotaProgress" class="quota-progress-fill" style="width: 20%;"></div>
-                </div>
-              </div>
-              <div class="account-dropdown-actions">
-                <button type="button" id="resetQuotaBtn" class="account-menu-item">
-                  <span>🔄</span> Reset Quota (10 Chats)
-                </button>
-                <button type="button" id="switchAccountBtn" class="account-menu-item">
-                  <span>👥</span> Switch / Demo Accounts
-                </button>
-                <button type="button" id="logoutBtn" class="account-menu-item text-danger">
-                  <span>🚪</span> Log Out
-                </button>
+              <div class="quota-progress-bar">
+                <div id="dropdownQuotaProgress" class="quota-progress-fill" style="width: 0%;"></div>
               </div>
             </div>
+            <div class="account-dropdown-actions">
+              <button type="button" id="resetQuotaBtn" class="account-menu-item">
+                <span>🔄</span> Reset Quota (100 Chats)
+              </button>
+              <button type="button" id="switchAccountBtn" class="account-menu-item">
+                <span>👥</span> Switch / Demo Accounts
+              </button>
+              <button type="button" id="themeToggleBtn" class="account-menu-item" aria-label="Toggle dark/light theme" title="Toggle Theme">
+                <span class="theme-icon">🌙</span> Toggle Theme
+              </button>
+              <button type="button" id="logoutBtn" class="account-menu-item text-danger">
+                <span>🚪</span> Log Out
+              </button>
+            </div>
           </div>
-
-          <button id="themeToggleBtn" class="chat-btn chat-btn-icon" aria-label="Toggle dark/light theme" title="Toggle Theme">
-            <span class="theme-icon">🌙</span>
-          </button>
         </div>
       </div>
 
-      <!-- Controls: Provider Selector & Strict Evidence Toggle -->
-      <div class="chat-controls">
-        <label for="providerSelect" class="visually-hidden">AI Provider</label>
-        <select id="providerSelect" class="chat-select" title="AI Provider: Google Gemini">
-          <option value="gemini" selected>Google Gemini (Gemini 1.5 Flash)</option>
-          <option value="claude">Anthropic Claude 3.5 Sonnet</option>
-          <option value="openai">OpenAI GPT-4o</option>
-        </select>
+      <!-- Right side: Model Select, Strict Verification, + New Analysis -->
+      <div class="chat-header-right">
+        <!-- Model Selector Pill (Hidden) -->
+        <div class="model-select-wrapper" title="AI Model: Google Gemini" style="display: none !important;">
+          <span class="model-sparkle">✦</span>
+          <label for="providerSelect" class="visually-hidden">AI Provider</label>
+          <select id="providerSelect" class="model-select-input" title="AI Provider: Google Gemini">
+            <option value="gemini" selected>Gemini</option>
+          </select>
+          <span class="model-select-caret">▾</span>
+        </div>
 
-        <label class="chat-toggle" title="Require answer to rely strictly on extracted evidence">
-          <input type="checkbox" id="strictToggle"> <span>Strict Evidence</span>
+        <!-- Strict Verification iOS Toggle -->
+        <label class="strict-verification-toggle" title="Require answer to rely strictly on extracted evidence">
+          <input type="checkbox" id="strictToggle">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Strict Verification</span>
         </label>
+
+        <!-- + New Analysis Pill Button -->
+        <button id="chatNewChatBtn" class="btn-new-analysis" title="Start a fresh analysis">
+          <span>+ New Analysis</span>
+        </button>
       </div>
     </div>
   </header>
@@ -103,39 +129,58 @@
        MAIN CHAT APPLICATION CONTAINER
        ========================================================================= -->
   <div class="chat-main-container">
-    <!-- Chat Action Sub-Toolbar -->
-    <div class="chat-sub-toolbar">
-      <span class="chat-sub-status">Continuous Multimodal Conversation</span>
-      <div style="display: flex; gap: 8px;">
-        <button id="chatNewChatBtn" class="chat-btn" title="Start a fresh conversation">+ New chat</button>
-      </div>
-    </div>
-
     <!-- MAIN SCROLLABLE LOG -->
     <main id="chatScroll" class="chat-scroll" aria-live="polite">
       <!-- CHAT LOG -->
       <div id="chatLog" class="chat-log">
         <!-- EMPTY STATE -->
-        <div id="emptyState" class="empty-state">
-          <div class="empty-state-icon">🖼️</div>
-          <h2>Ask anything about your visual evidence</h2>
-          <p>Attach any photo, screenshot, chart, or scientific diagram to analyze details, extract numbers, or detect hallucinations.</p>
-          <button type="button" id="emptyAttachBtn" class="empty-attach">
-            <span>📎 Attach Image or Document (PDF / Word)</span>
+        <div id="emptyState" class="empty-state evident-hero">
+          <div class="hero-shield-wrapper" aria-hidden="true">
+            <div class="hero-sparkle sp-tl">✦</div>
+            <div class="hero-sparkle sp-tr">✦</div>
+            <div class="hero-sparkle sp-bl">✦</div>
+            <div class="hero-sparkle sp-br">✦</div>
+            <div class="hero-shield-glow"></div>
+            <div class="hero-shield-badge">
+              <svg class="hero-shield-svg" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 0L0 7.27273V20.4545C0 32.7273 8.54545 43.6364 20 45C31.4545 43.6364 40 32.7273 40 20.4545V7.27273L20 0Z" fill="url(#hero_shield_grad)"/>
+                <path d="M17 30L9.5 22.5L12.125 19.875L17 24.75L27.875 13.875L30.5 16.5L17 30Z" fill="#FFFFFF"/>
+                <defs>
+                  <linearGradient id="hero_shield_grad" x1="0" y1="0" x2="40" y2="45" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3B82F6"/>
+                    <stop offset="1" stop-color="#1D4ED8"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <h2 class="hero-title">Ask. Analyze. Verify.</h2>
+          <p class="hero-subtitle">Turn visual information into verifiable insights.</p>
+
+          <button type="button" id="emptyAttachBtn" class="hero-upload-btn">
+            <svg class="upload-clip-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+            </svg>
+            <span>Upload for Analysis</span>
           </button>
-          <p class="empty-hint">Or drag and drop an image, PDF, or Word document anywhere on this page, or paste from clipboard (Ctrl+V).</p>
+
+          <p class="hero-hint">Or drag and drop an image, PDF, or Word document anywhere on this page, or paste from clipboard (Ctrl+V).</p>
         </div>
       </div>
     </main>
 
     <!-- COMPOSER FOOTER -->
-    <div class="composer-wrap">
-      <div class="composer-inner">
+    <div class="composer-wrap evident-composer-wrap">
+      <div class="composer-inner evident-composer-inner">
         <!-- ATTACHMENT PREVIEW CHIP -->
         <div id="attachChip" class="attach-chip hidden">
-          <img id="attachThumb" src="" alt="Attached image preview">
+          <div class="attach-thumb-wrap" id="attachThumbWrap" title="Click to view image in big size">
+            <img id="attachThumb" src="" alt="Attached image preview">
+            <span class="attach-thumb-zoom-hint" aria-hidden="true">🔍</span>
+          </div>
           <div id="attachDocIcon" class="attach-doc-icon hidden">📄</div>
-          <div class="attach-meta">
+          <div class="attach-meta" id="attachMetaClickable" title="Click to view image in big size">
             <span id="attachName" class="attach-name">document.pdf</span>
             <span id="attachSize" class="attach-size">1.2 MB</span>
           </div>
@@ -169,11 +214,11 @@
             <span class="quota-banner-icon">⚠️</span>
             <div>
               <strong>Chat Limit Reached:</strong>
-              <span id="quotaBannerText">You have used all 10 messages allocated to this account.</span>
+              <span id="quotaBannerText">You have used all messages allocated to this account.</span>
             </div>
           </div>
           <div class="quota-banner-actions">
-            <button type="button" id="bannerResetBtn" class="btn-quota-action reset">Reset Quota (10 Chats)</button>
+            <button type="button" id="bannerResetBtn" class="btn-quota-action reset">Reset Quota (100 Chats)</button>
             <button type="button" id="bannerSwitchBtn" class="btn-quota-action switch">Switch Account</button>
           </div>
         </div>
@@ -181,25 +226,64 @@
         <!-- INLINE ERROR -->
         <div id="composerError" class="composer-error hidden" role="alert"></div>
 
-        <!-- COMPOSER FORM -->
-        <form id="composerForm" class="composer">
+        <!-- FLOATING CAPSULE COMPOSER FORM -->
+        <form id="composerForm" class="composer evident-composer">
           <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
           
-          <button type="button" id="attachBtn" class="composer-icon" aria-label="Attach File" title="Attach Image, PDF, or Word document (PNG, JPEG, WebP, GIF, PDF, DOCX &le; 25MB)">
-            <span>📎</span>
+          <button type="button" id="attachBtn" class="composer-icon evident-attach-btn" aria-label="Attach File" title="Attach Image, PDF, or Word document">
+            <svg class="composer-clip-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+            </svg>
           </button>
 
-          <textarea id="messageInput" class="composer-input" rows="1" placeholder="Type a message or click the mic to speak..."></textarea>
+          <textarea id="messageInput" class="composer-input evident-message-input" rows="1" placeholder="Ask a question about your visual evidence..."></textarea>
 
-          <button type="button" id="voiceInputBtn" class="composer-icon voice-btn voice-btn-composer" aria-label="Voice input (dictate message)" title="Voice input (Click to speak)">
-            <span class="mic-icon">🎙️</span>
+          <button type="button" id="voiceInputBtn" class="composer-icon voice-btn voice-btn-composer evident-mic-btn" aria-label="Voice input (dictate message)" title="Voice input (Click to speak)">
+            <svg class="composer-mic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
           </button>
 
-          <button type="submit" id="sendBtn" class="composer-send" aria-label="Send Message" title="Send Message" disabled>
-            <span>➔</span>
+          <button type="submit" id="sendBtn" class="composer-send evident-send-btn" aria-label="Send Message" title="Send Message" disabled>
+            <svg class="send-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </button>
         </form>
-        <div class="composer-note">Enter sends, Shift+Enter adds a new line. Click 🎙️ for voice input. Click 🔊 on assistant replies to read aloud.</div>
+
+        <!-- FEATURES FOOTER BAR -->
+        <div class="evident-features-bar">
+          <span class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Claim Inspection
+          </span>
+          <span class="feature-divider">|</span>
+          <span class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Re-check &amp; Fix
+          </span>
+          <span class="feature-divider">|</span>
+          <span class="feature-item">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Multimodal Evidence Analysis
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -213,81 +297,221 @@
     <div>📄 Drop image, PDF, or Word document here to attach</div>
   </div>
 
-  <!-- 2. Authentication & Account Switcher Modal -->
-  <div id="authModal" class="modal-overlay hidden" aria-hidden="true" role="dialog">
-    <div class="modal-content auth-modal-content">
-      <div class="modal-header">
-        <div>
-          <h2 class="modal-title">Account Access &amp; Chat Limit</h2>
-          <p class="modal-subtitle">Log in to track your 10-message chat limit and keep your conversation history separate.</p>
+  <!-- 2. Authentication & Account Switcher Modal (Matching auth-pages.html) -->
+  <div id="authModal" class="modal-overlay auth-modal-overlay hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="auth-split-card" id="authSplitCard">
+      <!-- Top right close button -->
+      <button id="closeAuthModalBtn" class="auth-card-close-btn" aria-label="Close modal" title="Close">&times;</button>
+
+      <!-- Left Panel: Animated SVG Visual Evidence Inspection Canvas -->
+      <div class="auth-banner-panel">
+        <svg viewBox="0 0 600 780" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+          <rect width="600" height="780" fill="#CDEFE9"/>
+          <path class="leaf" d="M0 580 C140 470 280 520 320 780 L0 780Z" fill="#2F8F7A"/>
+          <path class="leaf" d="M600 0 C540 150 430 190 390 340 C520 320 600 240 600 240Z" fill="#7CCBB0"/>
+          <path class="leaf" d="M600 780 C560 660 470 640 400 700 L400 780Z" fill="#7CCBB0"/>
+          <g class="bell"><path d="M70 0 L70 60" stroke="#2F8F7A" stroke-width="4"/><path d="M52 60 Q70 40 88 60 L94 84 L46 84Z" fill="#E0529C"/></g>
+          <g class="bell" style="animation-delay:-1.5s"><path d="M130 0 L130 40" stroke="#2F8F7A" stroke-width="4"/><path d="M116 40 Q130 24 144 40 L148 60 L112 60Z" fill="#E0529C"/></g>
+          
+          <!-- Metric Chart Bars (Audited Grounding) -->
+          <rect class="bar" x="120" y="480" width="70" height="120" rx="8" fill="#0E7C8A"/>
+          <rect class="bar" x="220" y="410" width="70" height="190" rx="8" fill="#0E7C8A" style="animation-delay:.15s,1.3s"/>
+          <rect class="bar" x="320" y="450" width="70" height="150" rx="8" fill="#F08A6C" style="animation-delay:.3s,1.5s"/>
+          <rect class="bar" x="420" y="360" width="70" height="240" rx="8" fill="#0E7C8A" style="animation-delay:.45s,1.7s"/>
+          <rect x="90" y="600" width="430" height="10" rx="5" fill="#0B3B44"/>
+
+          <!-- Scanning Magnifying Glass with Inspecting Eye -->
+          <g class="scan">
+            <circle cx="300" cy="340" r="110" fill="#fff" fill-opacity=".5" stroke="#0B3B44" stroke-width="18"/>
+            <path d="M378 418 L480 530" stroke="#E4572E" stroke-width="30" stroke-linecap="round"/>
+            <g class="eye">
+              <circle cx="300" cy="340" r="44" fill="#fff" stroke="#0B3B44" stroke-width="5"/>
+              <g class="pupil">
+                <circle cx="300" cy="340" r="22" fill="#0E7C8A"/>
+                <circle cx="300" cy="340" r="11" fill="#0B3B44"/>
+                <circle cx="293" cy="332" r="5" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- Floating Status Tags -->
+          <g class="float"><rect x="60" y="150" width="132" height="36" rx="18" fill="#0E7C8A"/><text x="126" y="174" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="800" font-size="15">Supported</text></g>
+          <g class="float" style="animation-delay:-1.8s"><rect x="400" y="230" width="150" height="36" rx="18" fill="#B8432B"/><text x="475" y="254" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="800" font-size="15">Hallucinated</text></g>
+          
+          <!-- Crawling Caterpillar -->
+          <g class="crawl">
+            <circle class="seg" cx="60" cy="700" r="18" fill="#8BC34A" style="animation-delay:0s"/>
+            <circle class="seg" cx="96" cy="702" r="18" fill="#F6B93B" style="animation-delay:.15s"/>
+            <circle class="seg" cx="132" cy="702" r="18" fill="#F2A65A" style="animation-delay:.3s"/>
+            <circle class="seg" cx="168" cy="702" r="18" fill="#F6B93B" style="animation-delay:.45s"/>
+            <circle cx="54" cy="694" r="4" fill="#0B3B44"/>
+          </g>
+        </svg>
+
+        <!-- Brand Header inside Banner -->
+        <div style="position:absolute;top:24px;left:24px;display:flex;align-items:center;gap:10px;font:800 20px 'Nunito',sans-serif;color:#0B3B44;z-index:10">
+          <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" fill="#0E7C8A"/>
+            <path d="M9 17 L14 22 L23 11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          EvidentAI
         </div>
-        <button id="closeAuthModalBtn" class="modal-close-btn" aria-label="Close modal">&times;</button>
       </div>
 
-      <!-- Fast 1-Click Demo Accounts -->
-      <div class="auth-demo-section">
-        <div class="auth-section-label">⚡ 1-Click Fast Log In (Separate Accounts &amp; History):</div>
-        <div class="demo-accounts-grid">
-          <button type="button" class="demo-account-card" data-username="alice">
-            <div class="demo-avatar avatar-alice">A</div>
-            <div class="demo-details">
-              <strong>Alice Smith</strong>
-              <span>@alice · Student Plan (10 Chats)</span>
+      <!-- Right Panel: Authentication Forms -->
+      <div class="auth-form-panel">
+        <div class="auth-form-scrollable">
+          <!-- LOGIN PANEL -->
+          <div id="panel-login" class="panel">
+            <h1 class="rise auth-title-heading">Login</h1>
+            
+            <!-- Error Banner -->
+            <div id="authErrorMsg" class="auth-error hidden" role="alert"></div>
+
+            <form id="authLoginForm" class="auth-form-body">
+              <div class="rise auth-form-group" style="animation-delay:.1s">
+                <label for="loginUsername" class="auth-label">Email</label>
+                <input id="loginUsername" type="text" placeholder="you@email.com" required autocomplete="username" class="auth-input">
+              </div>
+
+              <div class="rise auth-form-group" style="animation-delay:.2s">
+                <label for="loginPassword" class="auth-label">Password</label>
+                <input id="loginPassword" type="password" placeholder="••••••••" required autocomplete="current-password" class="auth-input">
+              </div>
+
+              <div>
+                <a class="rise auth-coral-link" id="forgotPwLink" href="javascript:void(0)" style="animation-delay:.3s;display:inline-block;margin:6px 0 14px">Forgot Password?</a>
+              </div>
+
+              <button type="submit" id="authLoginSubmitBtn" class="auth-btn-teal rise" style="animation-delay:.35s">Log In</button>
+            </form>
+
+            <div class="rise auth-or-separator" style="animation-delay:.4s">
+              <span class="auth-or-line"></span><span class="auth-or-text">Or</span><span class="auth-or-line"></span>
             </div>
-            <span class="demo-action-tag">Log In →</span>
-          </button>
-          <button type="button" class="demo-account-card" data-username="bob">
-            <div class="demo-avatar avatar-bob">B</div>
-            <div class="demo-details">
-              <strong>Bob Johnson</strong>
-              <span>@bob · Researcher Plan (10 Chats)</span>
+
+            <p class="rise auth-switch-prompt" style="animation-delay:.45s">
+              Don't have an account? <a href="#" id="authTabRegisterBtn" class="auth-switch-link" data-go="signup">Sign up</a>
+            </p>
+
+            <div class="rise auth-social-stack" style="animation-delay:.5s">
+              <button type="button" class="auth-social-btn auth-social-google">Continue with Google</button>
+              <button type="button" class="auth-social-btn auth-social-apple">Continue with Apple</button>
+              <button type="button" class="auth-social-btn auth-social-facebook">Continue with Facebook</button>
             </div>
-            <span class="demo-action-tag">Log In →</span>
-          </button>
+
+            <!-- 1-Click Plan Demo Accounts Section -->
+            <div class="rise auth-plans-quick-wrap" style="animation-delay:.6s">
+              <div class="auth-plans-label">1-CLICK PLAN DEMO ACCOUNTS:</div>
+              <div class="auth-plans-grid">
+                <button type="button" class="demo-account-card" data-username="bhardwaj">
+                  <span class="demo-avatar avatar-bhardwaj">B</span>
+                  <span class="demo-details">
+                    <strong>Bhardwaj</strong>
+                    <span>Ultra Pro · 100 Chats</span>
+                  </span>
+                </button>
+                
+                <button type="button" class="demo-account-card" data-username="teja">
+                  <span class="demo-avatar avatar-teja">T</span>
+                  <span class="demo-details">
+                    <strong>Teja</strong>
+                    <span>Pro · 50 Chats</span>
+                  </span>
+                </button>
+                
+                <button type="button" class="demo-account-card" data-username="praneetha">
+                  <span class="demo-avatar avatar-praneetha">P</span>
+                  <span class="demo-details">
+                    <strong>Praneetha</strong>
+                    <span>Plus · 25 Chats</span>
+                  </span>
+                </button>
+                
+                <button type="button" class="demo-account-card" data-username="dharani">
+                  <span class="demo-avatar avatar-dharani">D</span>
+                  <span class="demo-details">
+                    <strong>Dharani</strong>
+                    <span>Starter · 10 Chats</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIGNUP PANEL -->
+          <div id="panel-signup" class="panel hidden">
+            <h1 class="rise auth-title-heading" style="font-size:2.2rem">Create account</h1>
+            
+            <div id="registerErrorMsg" class="auth-error hidden" role="alert"></div>
+
+            <form id="authRegisterForm" class="auth-form-body">
+              <div class="rise auth-form-group" style="animation-delay:0.05s">
+                <label for="registerName" class="auth-label">Full name</label>
+                <input id="registerName" type="text" placeholder="e.g. Randy Harrison" class="auth-input">
+              </div>
+
+              <div class="rise auth-form-group" style="animation-delay:0.1s">
+                <label for="registerUsername" class="auth-label">Email</label>
+                <input id="registerUsername" type="text" placeholder="you@email.com" required autocomplete="username" class="auth-input">
+              </div>
+
+              <div class="rise auth-form-group" style="animation-delay:0.15s">
+                <label for="registerPassword" class="auth-label">Password</label>
+                <input id="registerPassword" type="password" placeholder="••••••••" required autocomplete="new-password" class="auth-input">
+              </div>
+
+              <div class="rise auth-form-group" style="animation-delay:0.2s">
+                <label for="registerConfirmPassword" class="auth-label">Confirm password</label>
+                <input id="registerConfirmPassword" type="password" placeholder="••••••••" required autocomplete="new-password" class="auth-input">
+              </div>
+
+              <button type="submit" id="authRegisterSubmitBtn" class="auth-btn-teal rise" style="animation-delay:.3s;margin-top:10px">Sign Up</button>
+            </form>
+
+            <div class="rise auth-or-separator" style="animation-delay:.35s">
+              <span class="auth-or-line"></span><span class="auth-or-text">Or</span><span class="auth-or-line"></span>
+            </div>
+
+            <div class="rise auth-social-stack" style="animation-delay:.4s">
+              <button type="button" class="auth-social-btn auth-social-google">Continue with Google</button>
+              <button type="button" class="auth-social-btn auth-social-apple">Continue with Apple</button>
+              <button type="button" class="auth-social-btn auth-social-facebook">Continue with Facebook</button>
+            </div>
+
+            <p class="rise auth-switch-prompt" style="animation-delay:.45s">
+              Already have an account? <a href="#" id="authTabLoginBtn" class="auth-switch-link" data-go="login">Log in</a>
+            </p>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Tabs: Sign In vs Register -->
-      <div class="auth-tabs-nav">
-        <button type="button" id="authTabLoginBtn" class="auth-nav-btn active">Sign In</button>
-        <button type="button" id="authTabRegisterBtn" class="auth-nav-btn">Create New Account</button>
+  <!-- 4. Full-Size Image Preview Modal (Lightbox) -->
+  <div id="imageLightboxModal" class="modal-overlay image-lightbox-overlay hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image Preview">
+    <div class="image-lightbox-wrapper" id="imageLightboxWrapper">
+      <div class="image-lightbox-header">
+        <div class="image-lightbox-title-wrap">
+          <span class="image-lightbox-icon">🖼️</span>
+          <div class="image-lightbox-meta">
+            <span id="lightboxImageName" class="image-lightbox-name">image.png</span>
+            <span id="lightboxImageMeta" class="image-lightbox-size"></span>
+          </div>
+        </div>
+        <div class="image-lightbox-actions">
+          <a id="lightboxDownloadBtn" href="#" download="image.png" class="image-lightbox-btn" title="Download image" target="_blank" rel="noopener">
+            <span>⬇️</span> <span>Download</span>
+          </a>
+          <button type="button" id="closeImageModalBtn" class="image-lightbox-close" aria-label="Close image preview" title="Close (Esc)">&times;</button>
+        </div>
       </div>
-
-      <div id="authErrorMsg" class="upload-error hidden" role="alert" style="margin-bottom: 1rem;"></div>
-
-      <!-- Login Form -->
-      <form id="authLoginForm" class="auth-form-card">
-        <div class="form-group">
-          <label for="loginUsername">Username</label>
-          <input type="text" id="loginUsername" class="text-input" placeholder="e.g. alice or bob" required autocomplete="username">
-        </div>
-        <div class="form-group">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" class="text-input" placeholder="Password (default: password123)" required autocomplete="current-password">
-        </div>
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
-          Sign In to Account →
-        </button>
-      </form>
-
-      <!-- Register Form -->
-      <form id="authRegisterForm" class="auth-form-card hidden">
-        <div class="form-group">
-          <label for="registerUsername">Username</label>
-          <input type="text" id="registerUsername" class="text-input" placeholder="Choose a unique username" required autocomplete="username">
-        </div>
-        <div class="form-group">
-          <label for="registerName">Full Name</label>
-          <input type="text" id="registerName" class="text-input" placeholder="e.g. Jane Doe">
-        </div>
-        <div class="form-group">
-          <label for="registerPassword">Password</label>
-          <input type="password" id="registerPassword" class="text-input" placeholder="Create password (min 4 chars)" required autocomplete="new-password">
-        </div>
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
-          Create Account (10 Chat Quota) →
-        </button>
-      </form>
+      <div class="image-lightbox-body" id="imageLightboxBody">
+        <img id="lightboxImage" src="" alt="Full-size visual preview" class="image-lightbox-img">
+      </div>
+      <div class="image-lightbox-footer">
+        <span>Click outside or press <kbd>Esc</kbd> to close</span>
+      </div>
     </div>
   </div>
 

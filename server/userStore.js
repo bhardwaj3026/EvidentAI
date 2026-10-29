@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import mongoose from 'mongoose';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
@@ -15,6 +16,68 @@ if (!fs.existsSync(DATA_DIR)) {
 let usersCache = new Map();
 const tokenStore = new Map(); // token -> userId
 
+// Mongoose Schema for MongoDB Atlas
+const userSchema = new mongoose.Schema({
+  _id: { type: String }, // e.g. 'usr_bhardwaj'
+  id: { type: String, required: true },
+  username: { type: String, required: true, index: true },
+  name: { type: String },
+  email: { type: String },
+  passwordHash: { type: String, required: true },
+  role: { type: String, default: 'Starter Plan' },
+  chatLimit: { type: Number, default: 10 },
+  chatsUsed: { type: Number, default: 0 },
+  createdAt: { type: String },
+  sessions: [
+    {
+      id: String,
+      title: String,
+      createdAt: Number,
+      updatedAt: Number,
+      messages: Array
+    }
+  ]
+}, { timestamps: true });
+
+const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
+let isMongoConnected = false;
+
+/**
+ * Connect to MongoDB Atlas if MONGODB_URI is provided
+ */
+export async function initDatabase() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri || !uri.trim()) {
+    console.log('[Database] No MONGODB_URI set. Storing accounts & chat history in local data/users.json.');
+    return;
+  }
+  try {
+    await mongoose.connect(uri.trim(), { serverSelectionTimeoutMS: 6000 });
+    isMongoConnected = true;
+    console.log('[Database] Connected to MongoDB Atlas successfully!');
+
+    // If MongoDB collection is empty, automatically migrate existing users.json data
+    const count = await UserModel.countDocuments();
+    if (count === 0) {
+      console.log('[Database] MongoDB is fresh. Migrating existing local accounts and chat history to cloud...');
+      for (const [k, u] of usersCache.entries()) {
+        await UserModel.findByIdAndUpdate(k, { ...u, _id: k }, { upsert: true });
+      }
+      console.log('[Database] Migration to MongoDB Atlas complete!');
+    } else {
+      // Sync from MongoDB into in-memory cache
+      const docs = await UserModel.find().lean();
+      for (const d of docs) {
+        usersCache.set(d._id || d.id, d);
+      }
+      console.log(`[Database] Loaded ${docs.length} user accounts with full chat histories from MongoDB Atlas.`);
+    }
+  } catch (err) {
+    isMongoConnected = false;
+    console.warn(`[Database] Could not connect to MongoDB Atlas (${err.message}). Continuing with local data/users.json.`);
+  }
+}
+
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password + '_salt_capstone_2026').digest('hex');
 }
@@ -23,67 +86,59 @@ function hashPassword(password) {
  * Seed initial accounts if users.json does not exist or is empty
  */
 function getInitialSeedUsers() {
-  const aliceId = 'usr_alice';
-  const bobId = 'usr_bob';
+  const bhardwajId = 'usr_bhardwaj';
+  const tejaId = 'usr_teja';
+  const praneethaId = 'usr_praneetha';
+  const dharaniId = 'usr_dharani';
 
   return {
-    [aliceId]: {
-      id: aliceId,
-      username: 'alice',
-      name: 'Alice Smith',
-      email: 'alice@student.demo',
+    [bhardwajId]: {
+      id: bhardwajId,
+      username: 'bhardwaj',
+      name: 'Bhardwaj',
+      email: 'bhardwaj@evident.ai',
       passwordHash: hashPassword('password123'),
-      role: 'Student',
-      chatLimit: DEFAULT_CHAT_LIMIT,
-      chatsUsed: 1,
+      role: 'Ultra Pro Plan',
+      chatLimit: 100,
+      chatsUsed: 0,
       createdAt: new Date().toISOString(),
-      sessions: [
-        {
-          id: 'session_alice_demo_1',
-          title: 'ScienceQA Photosynthesis Diagram',
-          createdAt: Date.now() - 3600000,
-          updatedAt: Date.now() - 3600000,
-          messages: [
-            {
-              role: 'user',
-              content: 'What process is illustrated in this plant biology diagram?'
-            },
-            {
-              role: 'assistant',
-              content: '**Correct Answer:** Photosynthesis\n\n**Notes:** The diagram depicts light energy, carbon dioxide, and water being converted into glucose and oxygen in the chloroplasts.'
-            }
-          ]
-        }
-      ]
+      sessions: []
     },
-    [bobId]: {
-      id: bobId,
-      username: 'bob',
-      name: 'Bob Johnson',
-      email: 'bob@researcher.demo',
+    [tejaId]: {
+      id: tejaId,
+      username: 'teja',
+      name: 'Teja',
+      email: 'teja@evident.ai',
       passwordHash: hashPassword('password123'),
-      role: 'Researcher',
-      chatLimit: DEFAULT_CHAT_LIMIT,
-      chatsUsed: 2,
+      role: 'Pro Plan',
+      chatLimit: 50,
+      chatsUsed: 0,
       createdAt: new Date().toISOString(),
-      sessions: [
-        {
-          id: 'session_bob_demo_1',
-          title: 'ChartQA Revenue Comparison Q3',
-          createdAt: Date.now() - 7200000,
-          updatedAt: Date.now() - 7200000,
-          messages: [
-            {
-              role: 'user',
-              content: 'Compare the revenue figures between North America and Europe in 2023.'
-            },
-            {
-              role: 'assistant',
-              content: '**Correct Answer:** North America exceeded Europe by $14.2M.\n\n**Step-by-Step Calculation:**\n1. North America: $58.4M\n2. Europe: $44.2M\n3. Difference: $58.4M - $44.2M = $14.2M.'
-            }
-          ]
-        }
-      ]
+      sessions: []
+    },
+    [praneethaId]: {
+      id: praneethaId,
+      username: 'praneetha',
+      name: 'Praneetha',
+      email: 'praneetha@evident.ai',
+      passwordHash: hashPassword('password123'),
+      role: 'Plus Plan',
+      chatLimit: 25,
+      chatsUsed: 0,
+      createdAt: new Date().toISOString(),
+      sessions: []
+    },
+    [dharaniId]: {
+      id: dharaniId,
+      username: 'dharani',
+      name: 'Dharani',
+      email: 'dharani@evident.ai',
+      passwordHash: hashPassword('password123'),
+      role: 'Starter Plan',
+      chatLimit: 10,
+      chatsUsed: 0,
+      createdAt: new Date().toISOString(),
+      sessions: []
     }
   };
 }
@@ -93,12 +148,39 @@ function getInitialSeedUsers() {
  */
 function loadUsersFromDisk() {
   try {
+    const seed = getInitialSeedUsers();
     if (fs.existsSync(USERS_FILE)) {
       const raw = fs.readFileSync(USERS_FILE, 'utf-8');
       const parsed = JSON.parse(raw);
       usersCache = new Map(Object.entries(parsed));
+
+      let updated = false;
+      // Ensure all 4 accounts exist and update plan/chatLimit to latest
+      for (const [k, v] of Object.entries(seed)) {
+        if (!usersCache.has(k)) {
+          usersCache.set(k, v);
+          updated = true;
+        } else {
+          const existing = usersCache.get(k);
+          if (existing.role !== v.role || existing.chatLimit !== v.chatLimit) {
+            existing.role = v.role;
+            existing.chatLimit = v.chatLimit;
+            usersCache.set(k, existing);
+            updated = true;
+          }
+        }
+      }
+      // Clean up any old obsolete accounts outside the 4
+      for (const k of Array.from(usersCache.keys())) {
+        if (!seed[k]) {
+          usersCache.delete(k);
+          updated = true;
+        }
+      }
+      if (updated) {
+        saveUsersToDisk();
+      }
     } else {
-      const seed = getInitialSeedUsers();
       usersCache = new Map(Object.entries(seed));
       saveUsersToDisk();
     }
@@ -106,6 +188,7 @@ function loadUsersFromDisk() {
     console.error('Error loading users.json:', err);
     const seed = getInitialSeedUsers();
     usersCache = new Map(Object.entries(seed));
+    saveUsersToDisk();
   }
 }
 
@@ -118,6 +201,19 @@ function saveUsersToDisk() {
     fs.writeFileSync(USERS_FILE, JSON.stringify(obj, null, 2), 'utf-8');
   } catch (err) {
     console.error('Error writing users.json:', err);
+  }
+
+  // Two-way sync to MongoDB Atlas when connected
+  if (isMongoConnected) {
+    (async () => {
+      try {
+        for (const [k, u] of usersCache.entries()) {
+          await UserModel.findByIdAndUpdate(k, { ...u, _id: k }, { upsert: true });
+        }
+      } catch (mErr) {
+        console.warn('[Database] Error syncing users to MongoDB Atlas:', mErr.message);
+      }
+    })();
   }
 }
 
@@ -152,7 +248,7 @@ export function sanitizeUser(user) {
 export function authenticateUser(username, password) {
   const cleanUsername = String(username || '').trim().toLowerCase();
   for (const user of usersCache.values()) {
-    if (user.username.toLowerCase() === cleanUsername) {
+    if (user.username.toLowerCase() === cleanUsername || (user.email && user.email.toLowerCase() === cleanUsername)) {
       const expectedHash = hashPassword(password);
       if (user.passwordHash === expectedHash) {
         const token = crypto.randomBytes(24).toString('hex');
@@ -162,7 +258,7 @@ export function authenticateUser(username, password) {
       throw new Error('Incorrect password. Please try again.');
     }
   }
-  throw new Error(`User "${username}" not found.`);
+  throw new Error(`Account "${username}" not found. Choose a plan demo account below or create an account.`);
 }
 
 /**
