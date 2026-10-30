@@ -1,0 +1,20 @@
+{
+  "shr_1793383538189_ba3a4258": {
+    "shareId": "shr_1793383538189_ba3a4258",
+    "sessionId": "",
+    "title": "Photosynthesis Mechanism",
+    "messages": [
+      {
+        "content": "Where does the light-dependent reaction occur?",
+        "role": "user"
+      },
+      {
+        "content": "The light-dependent reactions occur in the thylakoid membrane.",
+        "role": "assistant"
+      }
+    ],
+    "authorName": "Bhardwaj",
+    "authorId": "usr_bhardwaj",
+    "createdAt": 1793383538189
+  }
+}

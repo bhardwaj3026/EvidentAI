@@ -77,7 +77,23 @@
     lightboxName: $('lightboxImageName'),
     lightboxMeta: $('lightboxImageMeta'),
     lightboxDownloadBtn: $('lightboxDownloadBtn'),
-    closeImageModalBtn: $('closeImageModalBtn')
+    closeImageModalBtn: $('closeImageModalBtn'),
+
+    // Share Conversation Elements
+    shareBtn: $('shareChatBtn'),
+    shareModal: $('shareModal'),
+    closeShareModalBtn: $('closeShareModalBtn'),
+    sharePreviewTitle: $('sharePreviewTitle'),
+    sharePreviewMeta: $('sharePreviewMeta'),
+    shareLinkInput: $('shareLinkInput'),
+    copyShareLinkBtn: $('copyShareLinkBtn'),
+    copyBtnIcon: $('copyBtnIcon'),
+    copyBtnText: $('copyBtnText'),
+    sharedChatBanner: $('sharedChatBanner'),
+    sharedBannerAuthor: $('sharedBannerAuthor'),
+    sharedBannerAccount: $('sharedBannerAccount'),
+    closeSharedBannerBtn: $('closeSharedBannerBtn'),
+    sharedSwitchAccountBtn: $('sharedSwitchAccountBtn')
   };
 
   const store = {
@@ -1411,15 +1427,18 @@
             authState.user = data.user;
             updateAccountUI();
             loadUserSessions();
+            await checkIncomingShare();
             return;
           }
         }
       }
       await loginUser('bhardwaj', 'password123');
+      await checkIncomingShare();
     } catch {
       // offline fallback
       authState.user = { id: 'usr_bhardwaj', username: 'bhardwaj', name: 'Bhardwaj', role: 'Ultra Pro Plan', chatsUsed: 0, chatLimit: 100, remainingChats: 100 };
       updateAccountUI();
+      await checkIncomingShare();
     }
   }
 
@@ -1535,17 +1554,28 @@
             <span class="session-item-title">${hasImage}${escapeHtml(s.title || 'Untitled Chat')}</span>
             <span class="session-item-meta">${dateStr} · ${s.messageCount || 0} msgs</span>
           </div>
-          <button type="button" class="session-item-delete" data-delete-id="${escapeHtml(s.id)}" title="Delete conversation">&times;</button>
+          <div class="session-item-actions">
+            <button type="button" class="session-item-share" data-share-id="${escapeHtml(s.id)}" title="Share conversation link">🔗</button>
+            <button type="button" class="session-item-delete" data-delete-id="${escapeHtml(s.id)}" title="Delete conversation">&times;</button>
+          </div>
         </div>
       `;
     }).join('');
 
     el.sidebarSessionsList.querySelectorAll('.sidebar-session-item').forEach(item => {
       item.addEventListener('click', (e) => {
-        if (e.target.closest('.session-item-delete')) return;
+        if (e.target.closest('.session-item-actions')) return;
         const sid = item.dataset.id;
         loadSessionDetails(sid);
         closeSidebar();
+      });
+    });
+
+    el.sidebarSessionsList.querySelectorAll('.session-item-share').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sid = btn.dataset.shareId;
+        openShareModal(sid);
       });
     });
 
@@ -1892,6 +1922,212 @@
     }
   }
 
+  /* ------------------------------------------------------------ share conversation */
+  function setupShareFeature() {
+    if (el.shareBtn) {
+      el.shareBtn.addEventListener('click', () => {
+        openShareModal();
+      });
+    }
+
+    if (el.closeShareModalBtn) {
+      el.closeShareModalBtn.addEventListener('click', closeShareModal);
+    }
+
+    if (el.shareModal) {
+      el.shareModal.addEventListener('click', (e) => {
+        if (e.target === el.shareModal) closeShareModal();
+      });
+    }
+
+    if (el.copyShareLinkBtn) {
+      el.copyShareLinkBtn.addEventListener('click', () => {
+        if (!el.shareLinkInput) return;
+        el.shareLinkInput.select();
+        el.shareLinkInput.setSelectionRange(0, 99999);
+        try {
+          navigator.clipboard.writeText(el.shareLinkInput.value).then(() => {
+            if (el.copyBtnText) el.copyBtnText.textContent = '✓ Copied!';
+            if (el.copyBtnIcon) el.copyBtnIcon.textContent = '';
+            setTimeout(() => {
+              if (el.copyBtnText) el.copyBtnText.textContent = 'Copy Link';
+              if (el.copyBtnIcon) el.copyBtnIcon.textContent = '📋';
+            }, 3000);
+          }).catch(() => {
+            document.execCommand('copy');
+            if (el.copyBtnText) el.copyBtnText.textContent = '✓ Copied!';
+          });
+        } catch {
+          document.execCommand('copy');
+          if (el.copyBtnText) el.copyBtnText.textContent = '✓ Copied!';
+        }
+      });
+    }
+
+    if (el.closeSharedBannerBtn) {
+      el.closeSharedBannerBtn.addEventListener('click', () => {
+        if (el.sharedChatBanner) el.sharedChatBanner.classList.add('hidden');
+      });
+    }
+
+    if (el.sharedSwitchAccountBtn) {
+      el.sharedSwitchAccountBtn.addEventListener('click', () => {
+        openAuthModal('login');
+      });
+    }
+  }
+
+  async function openShareModal(specificSessionId = null) {
+    let messagesToShare = [];
+    let titleToShare = 'Shared Conversation';
+
+    if (specificSessionId && specificSessionId !== authState.currentSessionId) {
+      try {
+        const res = await fetch(`/api/chat/session/${encodeURIComponent(specificSessionId)}`, { headers: getAuthHeaders() });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.session) {
+            messagesToShare = data.session.messages || [];
+            titleToShare = data.session.title || 'Shared Conversation';
+          }
+        }
+      } catch (err) {
+        console.warn('Error fetching session for share:', err);
+      }
+    } else {
+      messagesToShare = state.messages;
+      const firstUserMsg = messagesToShare.find(m => m.role === 'user');
+      if (firstUserMsg) {
+        titleToShare = firstUserMsg.content.slice(0, 36) + (firstUserMsg.content.length > 36 ? '...' : '');
+      }
+    }
+
+    if (!messagesToShare || messagesToShare.length === 0) {
+      alert('There is no conversation to share yet. Ask a question or start chatting first!');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/chat/share', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({
+          sessionId: specificSessionId || authState.currentSessionId,
+          title: titleToShare,
+          messages: messagesToShare
+        })
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        alert(data.error || 'Failed to create share link.');
+        return;
+      }
+
+      const shareUrl = `${window.location.origin}/?share=${data.shareId}`;
+      if (el.sharePreviewTitle) el.sharePreviewTitle.textContent = data.title;
+      if (el.sharePreviewMeta) {
+        const hasVisual = messagesToShare.some(m => m.image);
+        el.sharePreviewMeta.textContent = `${data.messageCount} messages · ${hasVisual ? '🖼️ Visual evidence included' : 'Text conversation'}`;
+      }
+      if (el.shareLinkInput) {
+        el.shareLinkInput.value = shareUrl;
+      }
+      if (el.copyBtnText) el.copyBtnText.textContent = 'Copy Link';
+      if (el.copyBtnIcon) el.copyBtnIcon.textContent = '📋';
+
+      if (el.shareModal) {
+        el.shareModal.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+      }
+
+      // Auto-copy to clipboard if permitted
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          if (el.copyBtnText) el.copyBtnText.textContent = '✓ Copied!';
+          if (el.copyBtnIcon) el.copyBtnIcon.textContent = '';
+        }).catch(() => {});
+      }
+    } catch (err) {
+      alert('Network error while generating share link.');
+    }
+  }
+
+  function closeShareModal() {
+    if (el.shareModal) {
+      el.shareModal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  async function checkIncomingShare() {
+    const params = new URLSearchParams(window.location.search);
+    const shareId = params.get('share');
+    if (!shareId) return;
+
+    try {
+      const res = await fetch(`/api/chat/share/${encodeURIComponent(shareId)}/fork`, {
+        method: 'POST',
+        headers: getAuthHeaders()
+      });
+
+      if (!res.ok) {
+        console.warn('Could not load shared conversation');
+        return;
+      }
+
+      const data = await res.json();
+      if (data.success && data.session) {
+        const s = data.session;
+        authState.currentSessionId = s.id;
+        state.chatId++;
+        removeTyping();
+        state.messages = [];
+        if (el.log) el.log.querySelectorAll('.msg').forEach((n) => n.remove());
+
+        if (s.messages && s.messages.length > 0) {
+          hideEmptyState();
+          s.messages.forEach((msg, idx) => {
+            state.messages.push(msg);
+            if (msg.role === 'user') {
+              const preview = msg.image ? (msg.image.data ? `data:${msg.image.mediaType};base64,${msg.image.data}` : null) : null;
+              addUserBubble(msg, preview);
+            } else if (msg.role === 'assistant') {
+              addAssistantBubble(msg.content, msg.meta || 'EvidentAI', idx);
+            }
+          });
+        }
+
+        // Show continuation banner
+        if (el.sharedChatBanner) {
+          el.sharedChatBanner.classList.remove('hidden');
+          if (el.sharedBannerAuthor) {
+            el.sharedBannerAuthor.textContent = data.authorName || 'Someone';
+          }
+          if (el.sharedBannerAccount) {
+            el.sharedBannerAccount.textContent = (authState.user?.name || authState.user?.username || 'Your Account');
+          }
+        }
+
+        // Clean up URL parameter cleanly without reloading page
+        try {
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        } catch {}
+
+        // Refresh sidebar so the forked conversation shows up in User B's saved chats
+        loadUserSessions();
+
+        // Focus message input
+        if (el.input) {
+          el.input.focus();
+        }
+      }
+    } catch (err) {
+      console.warn('Error importing shared chat:', err);
+    }
+  }
+
   /* ------------------------------------------------------------ reset chat */
   function resetChat() {
     if (voiceState.isListening) stopVoiceInput(false);
@@ -1918,6 +2154,7 @@
   setupVoiceInput();
   setupAuthAndHistory();
   setupImageLightbox();
+  setupShareFeature();
   initAuth();
   updateSendState();
 })();

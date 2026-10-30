@@ -117,6 +117,18 @@
           <span class="toggle-label">Strict Verification</span>
         </label>
 
+        <!-- Share Conversation Pill Button -->
+        <button id="shareChatBtn" class="btn-share-chat" title="Share this conversation with a link" aria-label="Share Conversation">
+          <svg class="share-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>Share</span>
+        </button>
+
         <!-- + New Analysis Pill Button -->
         <button id="chatNewChatBtn" class="btn-new-analysis" title="Start a fresh analysis">
           <span>+ New Analysis</span>
@@ -132,6 +144,23 @@
        MAIN CHAT APPLICATION CONTAINER
        ========================================================================= -->
   <div class="chat-main-container">
+    <!-- SHARED CONTINUATION BANNER (Shown when opened via shared link) -->
+    <div id="sharedChatBanner" class="shared-chat-banner hidden" role="status">
+      <div class="shared-banner-inner">
+        <div class="shared-banner-left">
+          <span class="shared-banner-icon">🔗</span>
+          <div class="shared-banner-text-wrap">
+            <span class="shared-banner-title">Shared Conversation Loaded</span>
+            <span class="shared-banner-desc">Shared by <strong id="sharedBannerAuthor">Someone</strong> · Continued in your account (<strong id="sharedBannerAccount">Your Account</strong>). Ask a question below to continue!</span>
+          </div>
+        </div>
+        <div class="shared-banner-actions">
+          <button type="button" id="sharedSwitchAccountBtn" class="btn-shared-switch" title="Switch to another account">Switch Account</button>
+          <button type="button" id="closeSharedBannerBtn" class="btn-shared-dismiss" aria-label="Dismiss">&times;</button>
+        </div>
+      </div>
+    </div>
+
     <!-- MAIN SCROLLABLE LOG -->
     <main id="chatScroll" class="chat-scroll" aria-live="polite">
       <!-- CHAT LOG -->
@@ -514,6 +543,47 @@
       </div>
       <div class="image-lightbox-footer">
         <span>Click outside or press <kbd>Esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Share Conversation Modal -->
+  <div id="shareModal" class="modal-overlay share-modal-overlay hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Share Conversation">
+    <div class="share-modal-card">
+      <div class="share-modal-header">
+        <div class="share-modal-title-wrap">
+          <div class="share-modal-icon-badge">🔗</div>
+          <div>
+            <h3 class="share-modal-title">Share Conversation</h3>
+            <p class="share-modal-subtitle">Generate a link to share this conversation with others.</p>
+          </div>
+        </div>
+        <button type="button" id="closeShareModalBtn" class="share-modal-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="share-modal-body">
+        <div class="share-preview-card">
+          <div class="share-preview-title" id="sharePreviewTitle">Conversation Title</div>
+          <div class="share-preview-meta" id="sharePreviewMeta">0 messages · Includes multimodal evidence</div>
+        </div>
+
+        <div class="share-explain-box">
+          <div class="share-explain-icon">💡</div>
+          <div class="share-explain-text">
+            When someone opens this link, the full conversation is <strong>copied into their account</strong> so they can continue chatting seamlessly from where you left off.
+          </div>
+        </div>
+
+        <div class="share-link-group">
+          <label class="share-input-label" for="shareLinkInput">Shareable Link</label>
+          <div class="share-input-wrapper">
+            <input type="text" id="shareLinkInput" class="share-link-input" readonly spellcheck="false">
+            <button type="button" id="copyShareLinkBtn" class="btn-copy-share">
+              <span id="copyBtnIcon">📋</span>
+              <span id="copyBtnText">Copy Link</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const SHARES_FILE = path.join(DATA_DIR, 'shares.json');
 const DEFAULT_CHAT_LIMIT = 10;
 
 // Ensure data directory exists
@@ -12,8 +13,9 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-// In-Memory cache of users and active tokens
+// In-Memory cache of users, shares, and active tokens
 let usersCache = new Map();
+let sharesCache = new Map();
 const tokenStore = new Map(); // token -> userId
 
 // Mongoose Schema for MongoDB Atlas
@@ -39,7 +41,19 @@ const userSchema = new mongoose.Schema({
   ]
 }, { timestamps: true });
 
+const shareSchema = new mongoose.Schema({
+  _id: { type: String }, // shareId e.g. 'shr_...'
+  shareId: { type: String, required: true, index: true },
+  sessionId: String,
+  title: String,
+  messages: Array,
+  authorName: String,
+  authorId: String,
+  createdAt: { type: Number, default: () => Date.now() }
+}, { timestamps: true });
+
 const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
+const ShareModel = mongoose.models.Share || mongoose.model('Share', shareSchema);
 let isMongoConnected = false;
 
 /**
@@ -71,6 +85,19 @@ export async function initDatabase() {
         usersCache.set(d._id || d.id, d);
       }
       console.log(`[Database] Loaded ${docs.length} user accounts with full chat histories from MongoDB Atlas.`);
+    }
+
+    // Sync shares collection with MongoDB Atlas
+    try {
+      const shareDocs = await ShareModel.find().lean();
+      for (const s of shareDocs) {
+        sharesCache.set(s._id || s.shareId, s);
+      }
+      if (shareDocs.length > 0) {
+        console.log(`[Database] Loaded ${shareDocs.length} shared conversations from MongoDB Atlas.`);
+      }
+    } catch (sErr) {
+      console.warn('[Database] Error loading shares from MongoDB:', sErr.message);
     }
   } catch (err) {
     isMongoConnected = false;
@@ -217,8 +244,52 @@ function saveUsersToDisk() {
   }
 }
 
+/**
+ * Load shared conversations from disk
+ */
+function loadSharesFromDisk() {
+  try {
+    if (fs.existsSync(SHARES_FILE)) {
+      const raw = fs.readFileSync(SHARES_FILE, 'utf-8');
+      const obj = JSON.parse(raw);
+      sharesCache = new Map(Object.entries(obj));
+    } else {
+      sharesCache = new Map();
+      saveSharesToDisk();
+    }
+  } catch (err) {
+    console.error('Error loading shares.json:', err);
+    sharesCache = new Map();
+  }
+}
+
+/**
+ * Save shares cache to disk
+ */
+function saveSharesToDisk() {
+  try {
+    const obj = Object.fromEntries(sharesCache);
+    fs.writeFileSync(SHARES_FILE, JSON.stringify(obj, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Error writing shares.json:', err);
+  }
+
+  if (isMongoConnected) {
+    (async () => {
+      try {
+        for (const [k, s] of sharesCache.entries()) {
+          await ShareModel.findByIdAndUpdate(k, { ...s, _id: k }, { upsert: true });
+        }
+      } catch (mErr) {
+        console.warn('[Database] Error syncing shares to MongoDB Atlas:', mErr.message);
+      }
+    })();
+  }
+}
+
 // Initial load
 loadUsersFromDisk();
+loadSharesFromDisk();
 
 /**
  * Format public safe user profile
@@ -453,4 +524,82 @@ export function getDemoAccounts() {
     list.push(sanitizeUser(u));
   }
   return list;
+}
+
+/**
+ * Create a public shareable snapshot of a conversation
+ */
+export async function createShareSession({ sessionId, title, messages, authorName, authorId }) {
+  const shareId = `shr_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
+  const record = {
+    shareId,
+    sessionId: sessionId || '',
+    title: title || 'Shared Conversation',
+    messages: JSON.parse(JSON.stringify(messages || [])),
+    authorName: authorName || 'EvidentAI User',
+    authorId: authorId || '',
+    createdAt: Date.now()
+  };
+
+  sharesCache.set(shareId, record);
+  saveSharesToDisk();
+
+  if (isMongoConnected) {
+    try {
+      await ShareModel.findByIdAndUpdate(shareId, { ...record, _id: shareId }, { upsert: true });
+    } catch (e) {
+      console.warn('[Database] Error saving share to MongoDB:', e.message);
+    }
+  }
+
+  return record;
+}
+
+/**
+ * Get details of a shared conversation
+ */
+export async function getShareSession(shareId) {
+  if (!shareId) return null;
+  if (sharesCache.has(shareId)) {
+    return sharesCache.get(shareId);
+  }
+  if (isMongoConnected) {
+    try {
+      const doc = await ShareModel.findById(shareId).lean();
+      if (doc) {
+        sharesCache.set(shareId, doc);
+        return doc;
+      }
+    } catch (e) {
+      console.warn('[Database] Error querying share from MongoDB:', e.message);
+    }
+  }
+  return null;
+}
+
+/**
+ * Fork/Clone a shared conversation into a recipient's user account so they can continue chatting
+ */
+export async function forkShareSession(shareId, targetUserId) {
+  const share = await getShareSession(shareId);
+  if (!share) {
+    throw new Error('Shared conversation not found or expired.');
+  }
+
+  const targetUser = getUserByTokenOrId(targetUserId);
+  if (!targetUser) {
+    throw new Error('Target user account not found.');
+  }
+
+  const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const clonedSession = saveUserSession(targetUser.id, {
+    id: newSessionId,
+    title: share.title || 'Shared Conversation',
+    messages: JSON.parse(JSON.stringify(share.messages || []))
+  });
+
+  return {
+    session: clonedSession,
+    authorName: share.authorName || 'EvidentAI User'
+  };
 }

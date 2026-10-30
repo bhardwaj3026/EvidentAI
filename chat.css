@@ -4588,3 +4588,535 @@ html[data-theme="dark"],
   border-color: #24304c !important;
   color: #f8fafc !important;
 }
+
+
+/* ==========================================================================
+   SHARE CONVERSATION UI & MODAL
+   ========================================================================== */
+
+.btn-share-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-share-chat:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
+  transform: translateY(-1px);
+}
+
+.share-icon-svg {
+  width: 15px;
+  height: 15px;
+  stroke: #4f46e5;
+}
+
+/* Sidebar Session Item Actions */
+.session-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.session-item-share {
+  opacity: 0;
+  background: transparent;
+  border: 0;
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: #64748b;
+  transition: all 0.15s ease;
+}
+
+.sidebar-session-item:hover .session-item-share {
+  opacity: 1;
+}
+
+.session-item-share:hover {
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+  transform: scale(1.1);
+}
+
+/* Shared Chat Continuation Top Banner */
+.shared-chat-banner {
+  flex: none;
+  background: #eff6ff;
+  border-bottom: 1px solid #dbeafe;
+  padding: 9px 18px;
+  box-sizing: border-box;
+  width: 100%;
+  animation: slideDownBanner 0.25s ease-out;
+  z-index: 25;
+}
+
+@keyframes slideDownBanner {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shared-banner-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.shared-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.shared-banner-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.shared-banner-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.shared-banner-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.shared-banner-desc {
+  font-size: 0.78rem;
+  color: #475569;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shared-banner-desc strong {
+  color: #0f172a;
+}
+
+.shared-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-shared-switch {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-shared-switch:hover {
+  background: #dbeafe;
+}
+
+.btn-shared-dismiss {
+  background: transparent;
+  border: 0;
+  color: #64748b;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.btn-shared-dismiss:hover {
+  color: #0f172a;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Share Modal Dialog */
+.share-modal-overlay {
+  z-index: 10000;
+}
+
+.share-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  position: relative;
+  animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.share-modal-header {
+  padding: 18px 22px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.share-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.share-modal-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #2563eb;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.share-modal-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.share-modal-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.share-modal-close {
+  background: rgba(0, 0, 0, 0.05);
+  border: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.share-modal-close:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.share-modal-body {
+  padding: 18px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.share-preview-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.share-preview-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-preview-meta {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.share-explain-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.share-explain-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.share-explain-text {
+  font-size: 0.8rem;
+  color: #1e40af;
+  line-height: 1.45;
+}
+
+.share-link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.share-input-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+}
+
+.share-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 4px 6px 4px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.share-input-wrapper:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.share-link-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.84rem;
+  color: #0f172a;
+  outline: none;
+}
+
+.btn-copy-share {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  background: #2563eb;
+  color: #ffffff;
+  border: 0;
+  border-radius: 9px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-copy-share:hover {
+  background: #1d4ed8;
+  transform: scale(1.02);
+}
+
+/* 14. Share Conversation Elements in Dark Mode */
+[data-theme="dark"] .btn-share-chat {
+  background: #151c2c !important;
+  border-color: #232f4a !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .btn-share-chat:hover {
+  background: #1c263c !important;
+  border-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .share-icon-svg {
+  stroke: #818cf8 !important;
+}
+
+[data-theme="dark"] .session-item-share {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .session-item-share:hover {
+  color: #60a5fa !important;
+  background: rgba(59, 130, 246, 0.18) !important;
+}
+
+[data-theme="dark"] .shared-chat-banner {
+  background: #0d1729 !important;
+  border-bottom: 1px solid #1e2e4f !important;
+}
+
+[data-theme="dark"] .shared-banner-title {
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .shared-banner-desc {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .shared-banner-desc strong {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .btn-shared-switch {
+  background: #17243c !important;
+  border-color: #2b3e66 !important;
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .btn-shared-switch:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-shared-dismiss {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .btn-shared-dismiss:hover {
+  color: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .share-modal-card {
+  background: #111726 !important;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px #232f4a !important;
+}
+
+[data-theme="dark"] .share-modal-header {
+  border-bottom: 1px solid #1c2538 !important;
+}
+
+[data-theme="dark"] .share-modal-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .share-modal-subtitle {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .share-modal-icon-badge {
+  background: #17243c !important;
+  border-color: #243557 !important;
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .share-modal-close {
+  background: #182238 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .share-modal-close:hover {
+  background: #331519 !important;
+  color: #f87171 !important;
+}
+
+[data-theme="dark"] .share-preview-card {
+  background: #161e30 !important;
+  border-color: #24304c !important;
+}
+
+[data-theme="dark"] .share-preview-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .share-preview-meta {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .share-explain-box {
+  background: #132038 !important;
+  border-color: #20355c !important;
+}
+
+[data-theme="dark"] .share-explain-text {
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .share-input-label {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .share-input-wrapper {
+  background: #161e30 !important;
+  border-color: #24304c !important;
+}
+
+[data-theme="dark"] .share-input-wrapper:focus-within {
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .share-link-input {
+  color: #f8fafc !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 540px) {
+  .btn-share-chat {
+    padding: 5px 10px !important;
+    font-size: 0.76rem !important;
+    gap: 4px !important;
+  }
+  .share-icon-svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .shared-banner-desc {
+    white-space: normal !important;
+    font-size: 0.74rem !important;
+  }
+  .share-modal-card {
+    max-width: 94vw !important;
+  }
+  .share-modal-header {
+    padding: 14px 16px !important;
+  }
+  .share-modal-body {
+    padding: 14px 16px 18px !important;
+  }
+  .btn-copy-share {
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+  }
+}

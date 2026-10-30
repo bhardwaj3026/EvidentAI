@@ -10,7 +10,10 @@ import {
   getUserSessions,
   getSessionDetails,
   deleteUserSession,
-  getUserByTokenOrId
+  getUserByTokenOrId,
+  createShareSession,
+  getShareSession,
+  forkShareSession
 } from './userStore.js';
 import { extractDocumentText, isDocumentType } from './documentParser.js';
 
@@ -160,6 +163,96 @@ chatRouter.delete('/session/:sessionId', (req, res) => {
     const deleted = deleteUserSession(user.id, req.params.sessionId);
     res.json({ success: true, deleted });
   } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 1e. POST /api/chat/share (Generate a share link for current or specified session)
+chatRouter.post('/share', async (req, res) => {
+  try {
+    const user = extractAuthUser(req) || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+    const { sessionId, title, messages } = req.body;
+
+    let sessionMessages = messages;
+    let sessionTitle = title;
+
+    if ((!sessionMessages || sessionMessages.length === 0) && sessionId && user) {
+      const existing = getSessionDetails(user.id, sessionId);
+      if (existing) {
+        sessionMessages = existing.messages;
+        sessionTitle = sessionTitle || existing.title;
+      }
+    }
+
+    if (!sessionMessages || sessionMessages.length === 0) {
+      return res.status(400).json({ success: false, error: 'Cannot share an empty conversation. Send at least one message first.' });
+    }
+
+    const authorName = user?.name || user?.username || 'EvidentAI User';
+    const shareRecord = await createShareSession({
+      sessionId,
+      title: sessionTitle || 'Shared Conversation',
+      messages: sessionMessages,
+      authorName,
+      authorId: user?.id
+    });
+
+    res.json({
+      success: true,
+      shareId: shareRecord.shareId,
+      shareUrl: `/?share=${shareRecord.shareId}`,
+      title: shareRecord.title,
+      authorName: shareRecord.authorName,
+      messageCount: sessionMessages.length
+    });
+  } catch (err) {
+    console.error('Share error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 1f. GET /api/chat/share/:shareId (Retrieve a shared conversation)
+chatRouter.get('/share/:shareId', async (req, res) => {
+  try {
+    const share = await getShareSession(req.params.shareId);
+    if (!share) {
+      return res.status(404).json({ success: false, error: 'Shared conversation not found or expired.' });
+    }
+    res.json({
+      success: true,
+      share: {
+        shareId: share.shareId,
+        title: share.title,
+        messages: share.messages || [],
+        authorName: share.authorName || 'EvidentAI User',
+        createdAt: share.createdAt
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 1g. POST /api/chat/share/:shareId/fork (Clone/continue shared conversation in current account)
+chatRouter.post('/share/:shareId/fork', async (req, res) => {
+  try {
+    const targetUser = extractAuthUser(req) || getUserByTokenOrId(req.headers['x-user-id']) || getUserByTokenOrId('usr_bhardwaj');
+    if (!targetUser) {
+      return res.status(401).json({ success: false, error: 'User account required to continue conversation.' });
+    }
+
+    const result = await forkShareSession(req.params.shareId, targetUser.id);
+    res.json({
+      success: true,
+      session: result.session,
+      authorName: result.authorName,
+      targetUser: {
+        id: targetUser.id,
+        name: targetUser.name || targetUser.username
+      }
+    });
+  } catch (err) {
+    console.error('Fork share error:', err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

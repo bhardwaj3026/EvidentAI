@@ -320,9 +320,35 @@
     "passwordHash": "c535e2ee0606515260f422ba5e2d1a3693f74865163cdf454107def7b1f669a5",
     "role": "Pro Plan",
     "chatLimit": 50,
-    "chatsUsed": 0,
+    "chatsUsed": 1,
     "createdAt": "2026-10-28T10:00:00.000Z",
-    "sessions": []
+    "sessions": [
+      {
+        "id": "session_1793383538287_v4qe4",
+        "title": "Where does the light-dependent react...",
+        "createdAt": 1793383538287,
+        "updatedAt": 1793383560518,
+        "messages": [
+          {
+            "content": "Where does the light-dependent reaction occur?",
+            "role": "user"
+          },
+          {
+            "content": "The light-dependent reactions occur in the thylakoid membrane.",
+            "role": "assistant"
+          },
+          {
+            "content": "What about the Calvin cycle?",
+            "role": "user"
+          },
+          {
+            "role": "assistant",
+            "content": "**Correct Answer:** Stroma\n\n**Notes:**\nThe Calvin cycle (also known as the light-independent reactions) takes place in the stroma, which is the fluid-filled space surrounding the thylakoid membranes within the chloroplast. This is where the ATP and NADPH produced during the light-dependent reactions are used to convert carbon dioxide into glucose.",
+            "meta": "EvidentAI · 1.2s"
+          }
+        ]
+      }
+    ]
   },
   "usr_praneetha": {
     "id": "usr_praneetha",
