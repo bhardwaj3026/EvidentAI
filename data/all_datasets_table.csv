@@ -1,0 +1,922 @@
+dataset,id,title,type,question,answer,imagePath,source,markdownTable,rawTableJson
+"chartqa","chartqa_001","Quarterly Revenue by Region (2023)","chart_table","What was the revenue for North America in Q3 2023?","$4.8M","/data/chartqa/images/chartqa_001.png","Financial Benchmark Suite","| Region | Q1 2023 | Q2 2023 | Q3 2023 | Q4 2023 |
+| --- | --- | --- | --- | --- |
+| North America | $3.2M | $4.1M | $4.8M | $5.2M |
+| Europe | $2.1M | $2.8M | $3.4M | $3.9M |
+| Asia Pacific | $1.8M | $2.5M | $3.1M | $3.7M |
+| Latin America | $0.9M | $1.2M | $1.5M | $1.8M |
+","[[""Region"",""Q1 2023"",""Q2 2023"",""Q3 2023"",""Q4 2023""],[""North America"",""$3.2M"",""$4.1M"",""$4.8M"",""$5.2M""],[""Europe"",""$2.1M"",""$2.8M"",""$3.4M"",""$3.9M""],[""Asia Pacific"",""$1.8M"",""$2.5M"",""$3.1M"",""$3.7M""],[""Latin America"",""$0.9M"",""$1.2M"",""$1.5M"",""$1.8M""]]"
+"chartqa","chartqa_002","Global Renewable Energy Production (2019-2023)","chart_table","How many TWh of Solar energy were produced in 2022?","1280 TWh","/data/chartqa/images/chartqa_002.png","Global Energy Outlook","| Source | 2019 | 2020 | 2021 | 2022 | 2023 |
+| --- | --- | --- | --- | --- | --- |
+| Solar | 720 TWh | 890 TWh | 1050 TWh | 1280 TWh | 1540 TWh |
+| Wind | 1420 TWh | 1590 TWh | 1810 TWh | 2040 TWh | 2310 TWh |
+| Hydro | 4150 TWh | 4210 TWh | 4250 TWh | 4300 TWh | 4380 TWh |
+","[[""Source"",""2019"",""2020"",""2021"",""2022"",""2023""],[""Solar"",""720 TWh"",""890 TWh"",""1050 TWh"",""1280 TWh"",""1540 TWh""],[""Wind"",""1420 TWh"",""1590 TWh"",""1810 TWh"",""2040 TWh"",""2310 TWh""],[""Hydro"",""4150 TWh"",""4210 TWh"",""4250 TWh"",""4300 TWh"",""4380 TWh""]]"
+"chartqa","chartqa_003","Smartphone OS Global Market Share (2023)","chart_table","What is Android's share of the global smartphone OS market?","70.5%","/data/chartqa/images/chartqa_003.png","Mobile Tech Analytics","| Operating System | Market Share |
+| --- | --- |
+| Android | 70.5% |
+| iOS | 28.8% |
+| KaiOS | 0.4% |
+| Others | 0.3% |
+","[[""Operating System"",""Market Share""],[""Android"",""70.5%""],[""iOS"",""28.8%""],[""KaiOS"",""0.4%""],[""Others"",""0.3%""]]"
+"chartqa","chartqa_004","Electric Vehicle Battery Cost per kWh (2015-2023)","chart_table","What was the average EV battery pack cost in 2021?","$138/kWh","/data/chartqa/images/chartqa_004.png","Clean Energy Research","| Year | Cost ($/kWh) |
+| --- | --- |
+| 2015 | $384 |
+| 2017 | $221 |
+| 2019 | $161 |
+| 2021 | $138 |
+| 2023 | $128 |
+","[[""Year"",""Cost ($/kWh)""],[""2015"",""$384""],[""2017"",""$221""],[""2019"",""$161""],[""2021"",""$138""],[""2023"",""$128""]]"
+"chartqa","chartqa_005","Cloud Provider Market Share Q4 2023","chart_table","Which cloud provider holds the largest market share?","AWS","/data/chartqa/images/chartqa_005.png","Enterprise Tech Index","| Provider | Market Share |
+| --- | --- |
+| AWS | 31% |
+| Microsoft Azure | 24% |
+| Google Cloud | 11% |
+| Alibaba Cloud | 4% |
+| IBM Cloud | 3% |
+| Others | 27% |
+","[[""Provider"",""Market Share""],[""AWS"",""31%""],[""Microsoft Azure"",""24%""],[""Google Cloud"",""11%""],[""Alibaba Cloud"",""4%""],[""IBM Cloud"",""3%""],[""Others"",""27%""]]"
+"chartqa","chartqa_006","Global Semiconductor Revenue (2018-2023)","chart_table","What was total semiconductor revenue in 2021?","$555B","/data/chartqa/images/chartqa_006.png","Semiconductor Industry Assoc.","| Year | Revenue ($ Billion) |
+| --- | --- |
+| 2018 | $468B |
+| 2019 | $412B |
+| 2020 | $440B |
+| 2021 | $555B |
+| 2022 | $574B |
+| 2023 | $527B |
+","[[""Year"",""Revenue ($ Billion)""],[""2018"",""$468B""],[""2019"",""$412B""],[""2020"",""$440B""],[""2021"",""$555B""],[""2022"",""$574B""],[""2023"",""$527B""]]"
+"chartqa","chartqa_007","Multimodal RAG Hallucination Rate by Vision Model","chart_table","Which model exhibits the lowest hallucination rate on ChartQA?","Claude 3.5 Sonnet","/data/chartqa/images/chartqa_007.png","Multimodal RAG Benchmark 2024","| Model | ChartQA Hallucination Rate | DocVQA Hallucination Rate |
+| --- | --- | --- |
+| GPT-4 Vision | 18.4% | 14.2% |
+| Claude 3.5 Sonnet | 8.6% | 6.1% |
+| Gemini 1.5 Pro | 11.2% | 9.5% |
+| Open-Source VLM-7B | 29.5% | 24.8% |
+","[[""Model"",""ChartQA Hallucination Rate"",""DocVQA Hallucination Rate""],[""GPT-4 Vision"",""18.4%"",""14.2%""],[""Claude 3.5 Sonnet"",""8.6%"",""6.1%""],[""Gemini 1.5 Pro"",""11.2%"",""9.5%""],[""Open-Source VLM-7B"",""29.5%"",""24.8%""]]"
+"chartqa","chartqa_008","Average Household Income by Education Level (USA 2023)","chart_table","What is the median household income for individuals with a Master's degree?","$98,500","/data/chartqa/images/chartqa_008.png","US Census Bureau","| Education Level | Median Income |
+| --- | --- |
+| High School Diploma | $42,000 |
+| Bachelor's Degree | $74,200 |
+| Master's Degree | $98,500 |
+| Doctorate / Professional | $124,000 |
+","[[""Education Level"",""Median Income""],[""High School Diploma"",""$42,000""],[""Bachelor's Degree"",""$74,200""],[""Master's Degree"",""$98,500""],[""Doctorate / Professional"",""$124,000""]]"
+"chartqa","chartqa_009","Global Carbon Emissions by Sector (2023)","chart_table","What percentage of carbon emissions comes from Electricity & Heat Production?","34%","/data/chartqa/images/chartqa_009.png","IPCC Climate Report","| Sector | Percentage |
+| --- | --- |
+| Electricity & Heat | 34% |
+| Industry | 24% |
+| Agriculture & Forestry | 21% |
+| Transportation | 15% |
+| Buildings | 6% |
+","[[""Sector"",""Percentage""],[""Electricity & Heat"",""34%""],[""Industry"",""24%""],[""Agriculture & Forestry"",""21%""],[""Transportation"",""15%""],[""Buildings"",""6%""]]"
+"chartqa","chartqa_0010","Global E-Commerce Mobile vs Desktop Share (2020-2023)","chart_table","What was the mobile share of e-commerce sales in 2023?","73%","/data/chartqa/images/chartqa_0010.png","Global Digital Commerce Benchmark","| Year | Mobile Share | Desktop Share |
+| --- | --- | --- |
+| 2020 | 64% | 36% |
+| 2021 | 67% | 33% |
+| 2022 | 70% | 30% |
+| 2023 | 73% | 27% |
+","[[""Year"",""Mobile Share"",""Desktop Share""],[""2020"",""64%"",""36%""],[""2021"",""67%"",""33%""],[""2022"",""70%"",""30%""],[""2023"",""73%"",""27%""]]"
+"chartqa","chartqa_0011","Autonomous Driving Miles (Millions)","chart_table","How many test miles were driven in 2019?","15 M Miles","/data/chartqa/images/chartqa_0011.png","ChartQA Research Dataset","| Category | Miles |
+| --- | --- |
+| 2019 | 15 M Miles |
+| 2020 | 18.5 M Miles |
+| 2021 | 22 M Miles |
+| 2022 | 25.5 M Miles |
+| 2023 | 29 M Miles |
+","[[""Category"",""Miles""],[""2019"",""15 M Miles""],[""2020"",""18.5 M Miles""],[""2021"",""22 M Miles""],[""2022"",""25.5 M Miles""],[""2023"",""29 M Miles""]]"
+"chartqa","chartqa_0012","Global Crude Oil Output (Mbpd)","chart_table","What is the crude oil output for Saudi Arabia?","84.5 Mbpd","/data/chartqa/images/chartqa_0012.png","ChartQA Research Dataset","| Category | Production |
+| --- | --- |
+| US | 81 Mbpd |
+| Saudi Arabia | 84.5 Mbpd |
+| Russia | 88 Mbpd |
+| Canada | 91.5 Mbpd |
+| Iraq | 95 Mbpd |
+","[[""Category"",""Production""],[""US"",""81 Mbpd""],[""Saudi Arabia"",""84.5 Mbpd""],[""Russia"",""88 Mbpd""],[""Canada"",""91.5 Mbpd""],[""Iraq"",""95 Mbpd""]]"
+"chartqa","chartqa_0013","Gaming Console Lifetime Sales","chart_table","What are the lifetime sales for Xbox Series X/S?","49 M Units","/data/chartqa/images/chartqa_0013.png","ChartQA Research Dataset","| Category | Sales |
+| --- | --- |
+| PS5 | 42 M Units |
+| Nintendo Switch | 45.5 M Units |
+| Xbox Series X/S | 49 M Units |
+","[[""Category"",""Sales""],[""PS5"",""42 M Units""],[""Nintendo Switch"",""45.5 M Units""],[""Xbox Series X/S"",""49 M Units""]]"
+"chartqa","chartqa_0014","Global Population by Age Group","chart_table","What percentage of the population is aged 55-64 yrs?","33.5 %","/data/chartqa/images/chartqa_0014.png","ChartQA Research Dataset","| Category | Share |
+| --- | --- |
+| 0-14 yrs | 23 % |
+| 15-24 yrs | 26.5 % |
+| 25-54 yrs | 30 % |
+| 55-64 yrs | 33.5 % |
+| 65+ yrs | 37 % |
+","[[""Category"",""Share""],[""0-14 yrs"",""23 %""],[""15-24 yrs"",""26.5 %""],[""25-54 yrs"",""30 %""],[""55-64 yrs"",""33.5 %""],[""65+ yrs"",""37 %""]]"
+"chartqa","chartqa_0015","Solar Capacity Added by Region 2023","chart_table","How many GW of solar capacity were added in Rest of World?","49 GW","/data/chartqa/images/chartqa_0015.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| China | 35 GW |
+| Europe | 38.5 GW |
+| North America | 42 GW |
+| Asia Pacific | 45.5 GW |
+| Rest of World | 49 GW |
+","[[""Category"",""Capacity""],[""China"",""35 GW""],[""Europe"",""38.5 GW""],[""North America"",""42 GW""],[""Asia Pacific"",""45.5 GW""],[""Rest of World"",""49 GW""]]"
+"chartqa","chartqa_0016","Cyber Security Breaches by Sector 2023","chart_table","What percentage of cyber security breaches targeted Healthcare?","13 %","/data/chartqa/images/chartqa_0016.png","ChartQA Research Dataset","| Category | Percentage |
+| --- | --- |
+| Healthcare | 13 % |
+| Finance | 16.5 % |
+| Government | 20 % |
+| Tech | 23.5 % |
+| Education | 27 % |
+","[[""Category"",""Percentage""],[""Healthcare"",""13 %""],[""Finance"",""16.5 %""],[""Government"",""20 %""],[""Tech"",""23.5 %""],[""Education"",""27 %""]]"
+"chartqa","chartqa_0017","Remote Work Percentage by Industry","chart_table","What is the remote work adoption rate in Finance?","33.5 %","/data/chartqa/images/chartqa_0017.png","ChartQA Research Dataset","| Category | Remote Share |
+| --- | --- |
+| Software/IT | 30 % |
+| Finance | 33.5 % |
+| Professional Services | 37 % |
+| Education | 40.5 % |
+| Healthcare | 44 % |
+","[[""Category"",""Remote Share""],[""Software/IT"",""30 %""],[""Finance"",""33.5 %""],[""Professional Services"",""37 %""],[""Education"",""40.5 %""],[""Healthcare"",""44 %""]]"
+"chartqa","chartqa_0018","Global Freight Shipping Container Index","chart_table","What was the container shipping index in Q4 2023?","1414 Index","/data/chartqa/images/chartqa_0018.png","ChartQA Research Dataset","| Category | Value |
+| --- | --- |
+| Q1 2023 | 1403 Index |
+| Q2 2023 | 1407 Index |
+| Q3 2023 | 1410 Index |
+| Q4 2023 | 1414 Index |
+","[[""Category"",""Value""],[""Q1 2023"",""1403 Index""],[""Q2 2023"",""1407 Index""],[""Q3 2023"",""1410 Index""],[""Q4 2023"",""1414 Index""]]"
+"chartqa","chartqa_0019","Medical Imaging AI Diagnostics Accuracy","chart_table","What is the AI diagnostic accuracy for Mammography?","88 %","/data/chartqa/images/chartqa_0019.png","ChartQA Research Dataset","| Category | Accuracy |
+| --- | --- |
+| Mammography | 88 % |
+| Chest X-Ray | 91.5 % |
+| Brain MRI | 95 % |
+| CT Angiography | 98.5 % |
+","[[""Category"",""Accuracy""],[""Mammography"",""88 %""],[""Chest X-Ray"",""91.5 %""],[""Brain MRI"",""95 %""],[""CT Angiography"",""98.5 %""]]"
+"chartqa","chartqa_0020","Global Coffee Production by Country (2023)","chart_table","How many million bags of coffee did Ethiopia produce?","40 M Bags","/data/chartqa/images/chartqa_0020.png","ChartQA Research Dataset","| Category | Production |
+| --- | --- |
+| Brazil | 26 M Bags |
+| Vietnam | 29.5 M Bags |
+| Colombia | 33 M Bags |
+| Indonesia | 36.5 M Bags |
+| Ethiopia | 40 M Bags |
+","[[""Category"",""Production""],[""Brazil"",""26 M Bags""],[""Vietnam"",""29.5 M Bags""],[""Colombia"",""33 M Bags""],[""Indonesia"",""36.5 M Bags""],[""Ethiopia"",""40 M Bags""]]"
+"chartqa","chartqa_0021","Streaming Service Subscribers 2023","chart_table","How many subscribers does Netflix have?","112 Million","/data/chartqa/images/chartqa_0021.png","ChartQA Research Dataset","| Category | Subscribers |
+| --- | --- |
+| Netflix | 112 Million |
+| Disney+ | 115.5 Million |
+| Amazon Prime Video | 119 Million |
+| Max | 122.5 Million |
+| Paramount+ | 126 Million |
+","[[""Category"",""Subscribers""],[""Netflix"",""112 Million""],[""Disney+"",""115.5 Million""],[""Amazon Prime Video"",""119 Million""],[""Max"",""122.5 Million""],[""Paramount+"",""126 Million""]]"
+"chartqa","chartqa_0022","Smart Home Device Penetration Rate","chart_table","What is the penetration rate for Thermostats?","31.5 %","/data/chartqa/images/chartqa_0022.png","ChartQA Research Dataset","| Category | Penetration |
+| --- | --- |
+| Smart Speakers | 21 % |
+| Smart Lighting | 24.5 % |
+| Security Cameras | 28 % |
+| Thermostats | 31.5 % |
+","[[""Category"",""Penetration""],[""Smart Speakers"",""21 %""],[""Smart Lighting"",""24.5 %""],[""Security Cameras"",""28 %""],[""Thermostats"",""31.5 %""]]"
+"chartqa","chartqa_0023","Global Lithium Production (2018-2023)","chart_table","What was the lithium output for Australia?","85 kt","/data/chartqa/images/chartqa_0023.png","ChartQA Research Dataset","| Category | Output |
+| --- | --- |
+| Australia | 85 kt |
+| Chile | 88.5 kt |
+| China | 92 kt |
+| Argentina | 95.5 kt |
+","[[""Category"",""Output""],[""Australia"",""85 kt""],[""Chile"",""88.5 kt""],[""China"",""92 kt""],[""Argentina"",""95.5 kt""]]"
+"chartqa","chartqa_0024","5G Population Coverage Share 2023","chart_table","What is the 5G population coverage in Germany?","56.5 %","/data/chartqa/images/chartqa_0024.png","ChartQA Research Dataset","| Category | Coverage |
+| --- | --- |
+| South Korea | 46 % |
+| USA | 49.5 % |
+| China | 53 % |
+| Germany | 56.5 % |
+| UK | 60 % |
+","[[""Category"",""Coverage""],[""South Korea"",""46 %""],[""USA"",""49.5 %""],[""China"",""53 %""],[""Germany"",""56.5 %""],[""UK"",""60 %""]]"
+"chartqa","chartqa_0025","Mobile App Downloads by Category 2023","chart_table","How many billion downloads were logged for Finance?","28 Billion","/data/chartqa/images/chartqa_0025.png","ChartQA Research Dataset","| Category | Downloads |
+| --- | --- |
+| Games | 14 Billion |
+| Social Media | 17.5 Billion |
+| Tools/Utilities | 21 Billion |
+| Shopping | 24.5 Billion |
+| Finance | 28 Billion |
+","[[""Category"",""Downloads""],[""Games"",""14 Billion""],[""Social Media"",""17.5 Billion""],[""Tools/Utilities"",""21 Billion""],[""Shopping"",""24.5 Billion""],[""Finance"",""28 Billion""]]"
+"chartqa","chartqa_0026","Venture Capital Funding by Sector (2023)","chart_table","How much VC funding went to AI & ML?","18 $ Billion","/data/chartqa/images/chartqa_0026.png","ChartQA Research Dataset","| Category | Funding |
+| --- | --- |
+| AI & ML | 18 $ Billion |
+| Fintech | 21.5 $ Billion |
+| Healthtech | 25 $ Billion |
+| Cleantech | 28.5 $ Billion |
+| Crypto/Web3 | 32 $ Billion |
+","[[""Category"",""Funding""],[""AI & ML"",""18 $ Billion""],[""Fintech"",""21.5 $ Billion""],[""Healthtech"",""25 $ Billion""],[""Cleantech"",""28.5 $ Billion""],[""Crypto/Web3"",""32 $ Billion""]]"
+"chartqa","chartqa_0027","Plastic Recycling Rate by Country","chart_table","What is the plastic recycling rate in South Korea?","17.5 %","/data/chartqa/images/chartqa_0027.png","ChartQA Research Dataset","| Category | Recycled % |
+| --- | --- |
+| Germany | 14 % |
+| South Korea | 17.5 % |
+| Japan | 21 % |
+| EU Average | 24.5 % |
+| USA | 28 % |
+","[[""Category"",""Recycled %""],[""Germany"",""14 %""],[""South Korea"",""17.5 %""],[""Japan"",""21 %""],[""EU Average"",""24.5 %""],[""USA"",""28 %""]]"
+"chartqa","chartqa_0028","Quantum Computing Qubit Milestone Count","chart_table","What was the qubit count milestone in 2022?","135 Qubits","/data/chartqa/images/chartqa_0028.png","ChartQA Research Dataset","| Category | Qubit Count |
+| --- | --- |
+| 2020 | 128 Qubits |
+| 2021 | 131.5 Qubits |
+| 2022 | 135 Qubits |
+| 2023 | 138.5 Qubits |
+| 2024 | 142 Qubits |
+","[[""Category"",""Qubit Count""],[""2020"",""128 Qubits""],[""2021"",""131.5 Qubits""],[""2022"",""135 Qubits""],[""2023"",""138.5 Qubits""],[""2024"",""142 Qubits""]]"
+"chartqa","chartqa_0029","Orbital Space Launches by Provider (2023)","chart_table","How many orbital launches were conducted by Rocket Lab?","32.5 Launches","/data/chartqa/images/chartqa_0029.png","ChartQA Research Dataset","| Category | Launches |
+| --- | --- |
+| SpaceX | 22 Launches |
+| CASC (China) | 25.5 Launches |
+| Roscosmos | 29 Launches |
+| Rocket Lab | 32.5 Launches |
+| ISRO | 36 Launches |
+","[[""Category"",""Launches""],[""SpaceX"",""22 Launches""],[""CASC (China)"",""25.5 Launches""],[""Roscosmos"",""29 Launches""],[""Rocket Lab"",""32.5 Launches""],[""ISRO"",""36 Launches""]]"
+"chartqa","chartqa_0030","Robotics Density per 10,000 Workers","chart_table","What is the robot density per 10,000 workers in USA?","317 Units","/data/chartqa/images/chartqa_0030.png","ChartQA Research Dataset","| Category | Robots/10k |
+| --- | --- |
+| South Korea | 303 Units |
+| Singapore | 306.5 Units |
+| Japan | 310 Units |
+| Germany | 313.5 Units |
+| USA | 317 Units |
+","[[""Category"",""Robots/10k""],[""South Korea"",""303 Units""],[""Singapore"",""306.5 Units""],[""Japan"",""310 Units""],[""Germany"",""313.5 Units""],[""USA"",""317 Units""]]"
+"chartqa","chartqa_0031","Online Course Completion Rates","chart_table","What is the course completion rate for Computer Science?","12 %","/data/chartqa/images/chartqa_0031.png","ChartQA Research Dataset","| Category | Completion Rate |
+| --- | --- |
+| Computer Science | 12 % |
+| Business | 15.5 % |
+| Data Science | 19 % |
+| Humanities | 22.5 % |
+| Arts | 26 % |
+","[[""Category"",""Completion Rate""],[""Computer Science"",""12 %""],[""Business"",""15.5 %""],[""Data Science"",""19 %""],[""Humanities"",""22.5 %""],[""Arts"",""26 %""]]"
+"chartqa","chartqa_0032","Nuclear Share in Electricity Generation","chart_table","What percentage of electricity comes from nuclear energy in Slovakia?","29.5 %","/data/chartqa/images/chartqa_0032.png","ChartQA Research Dataset","| Category | Nuclear Share |
+| --- | --- |
+| France | 26 % |
+| Slovakia | 29.5 % |
+| Hungary | 33 % |
+| USA | 36.5 % |
+| UK | 40 % |
+","[[""Category"",""Nuclear Share""],[""France"",""26 %""],[""Slovakia"",""29.5 %""],[""Hungary"",""33 %""],[""USA"",""36.5 %""],[""UK"",""40 %""]]"
+"chartqa","chartqa_0033","Telemedicine Visit Volume (2020-2023)","chart_table","How many million telemedicine visits occurred in 2022?","49 Million","/data/chartqa/images/chartqa_0033.png","ChartQA Research Dataset","| Category | Visits |
+| --- | --- |
+| 2020 | 42 Million |
+| 2021 | 45.5 Million |
+| 2022 | 49 Million |
+| 2023 | 52.5 Million |
+","[[""Category"",""Visits""],[""2020"",""42 Million""],[""2021"",""45.5 Million""],[""2022"",""49 Million""],[""2023"",""52.5 Million""]]"
+"chartqa","chartqa_0034","LLM Context Window Latency Benchmark","chart_table","What is the inference latency for 64k tokens?","163.5 ms","/data/chartqa/images/chartqa_0034.png","ChartQA Research Dataset","| Category | Latency |
+| --- | --- |
+| 4k tokens | 153 ms |
+| 16k tokens | 156.5 ms |
+| 32k tokens | 160 ms |
+| 64k tokens | 163.5 ms |
+| 128k tokens | 167 ms |
+","[[""Category"",""Latency""],[""4k tokens"",""153 ms""],[""16k tokens"",""156.5 ms""],[""32k tokens"",""160 ms""],[""64k tokens"",""163.5 ms""],[""128k tokens"",""167 ms""]]"
+"chartqa","chartqa_0035","Fast Food Chain Global Store Count","chart_table","How many stores does Dominos operate globally?","18014 Stores","/data/chartqa/images/chartqa_0035.png","ChartQA Research Dataset","| Category | Count |
+| --- | --- |
+| McDonald's | 18000 Stores |
+| Subway | 18004 Stores |
+| Starbucks | 18007 Stores |
+| KFC | 18011 Stores |
+| Dominos | 18014 Stores |
+","[[""Category"",""Count""],[""McDonald's"",""18000 Stores""],[""Subway"",""18004 Stores""],[""Starbucks"",""18007 Stores""],[""KFC"",""18011 Stores""],[""Dominos"",""18014 Stores""]]"
+"chartqa","chartqa_0036","Desalination Plant Output Capacity","chart_table","What is the desalination capacity of Saudi Arabia?","9 M m3/day","/data/chartqa/images/chartqa_0036.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| Saudi Arabia | 9 M m3/day |
+| UAE | 12.5 M m3/day |
+| USA | 16 M m3/day |
+| Spain | 19.5 M m3/day |
+| China | 23 M m3/day |
+","[[""Category"",""Capacity""],[""Saudi Arabia"",""9 M m3/day""],[""UAE"",""12.5 M m3/day""],[""USA"",""16 M m3/day""],[""Spain"",""19.5 M m3/day""],[""China"",""23 M m3/day""]]"
+"chartqa","chartqa_0037","Global Wind Power Capacity (GW)","chart_table","What is the onshore wind power capacity in USA?","75.5 GW","/data/chartqa/images/chartqa_0037.png","ChartQA Research Dataset","| Category | Onshore GW |
+| --- | --- |
+| China | 72 GW |
+| USA | 75.5 GW |
+| Germany | 79 GW |
+| India | 82.5 GW |
+| Spain | 86 GW |
+","[[""Category"",""Onshore GW""],[""China"",""72 GW""],[""USA"",""75.5 GW""],[""Germany"",""79 GW""],[""India"",""82.5 GW""],[""Spain"",""86 GW""]]"
+"chartqa","chartqa_0038","E-sports Championship Prize Pools (2023)","chart_table","What was the tournament prize pool for League of Legends?","15 $ Million","/data/chartqa/images/chartqa_0038.png","ChartQA Research Dataset","| Category | Prize Pool |
+| --- | --- |
+| Dota 2 (TI) | 8 $ Million |
+| Fortnite | 11.5 $ Million |
+| League of Legends | 15 $ Million |
+| PUBG Mobile | 18.5 $ Million |
+| CS:GO | 22 $ Million |
+","[[""Category"",""Prize Pool""],[""Dota 2 (TI)"",""8 $ Million""],[""Fortnite"",""11.5 $ Million""],[""League of Legends"",""15 $ Million""],[""PUBG Mobile"",""18.5 $ Million""],[""CS:GO"",""22 $ Million""]]"
+"chartqa","chartqa_0039","Electric Scooter Trips Count (2023)","chart_table","How many million e-scooter trips were recorded in North America?","35 Million","/data/chartqa/images/chartqa_0039.png","ChartQA Research Dataset","| Category | Trips |
+| --- | --- |
+| North America | 35 Million |
+| Europe | 38.5 Million |
+| Asia-Pacific | 42 Million |
+| Latin America | 45.5 Million |
+","[[""Category"",""Trips""],[""North America"",""35 Million""],[""Europe"",""38.5 Million""],[""Asia-Pacific"",""42 Million""],[""Latin America"",""45.5 Million""]]"
+"chartqa","chartqa_0040","Microchip Shortage Delivery Lead Time","chart_table","What was the chip delivery lead time in 2021 Q1?","18.5 Weeks","/data/chartqa/images/chartqa_0040.png","ChartQA Research Dataset","| Category | Lead Time |
+| --- | --- |
+| 2020 Q1 | 15 Weeks |
+| 2021 Q1 | 18.5 Weeks |
+| 2022 Q1 | 22 Weeks |
+| 2023 Q1 | 25.5 Weeks |
+","[[""Category"",""Lead Time""],[""2020 Q1"",""15 Weeks""],[""2021 Q1"",""18.5 Weeks""],[""2022 Q1"",""22 Weeks""],[""2023 Q1"",""25.5 Weeks""]]"
+"chartqa","chartqa_0041","Global Agricultural Fertilizer Efficiency","chart_table","What is the efficiency index for Potash?","74 Index","/data/chartqa/images/chartqa_0041.png","ChartQA Research Dataset","| Category | Efficiency |
+| --- | --- |
+| Nitrogen | 67 Index |
+| Phosphate | 70.5 Index |
+| Potash | 74 Index |
+| Organic Blend | 77.5 Index |
+","[[""Category"",""Efficiency""],[""Nitrogen"",""67 Index""],[""Phosphate"",""70.5 Index""],[""Potash"",""74 Index""],[""Organic Blend"",""77.5 Index""]]"
+"chartqa","chartqa_0042","Commercial Real Estate Vacancy Rate","chart_table","What is the commercial vacancy rate in New York?","17.5 %","/data/chartqa/images/chartqa_0042.png","ChartQA Research Dataset","| Category | Vacancy % |
+| --- | --- |
+| San Francisco | 14 % |
+| New York | 17.5 % |
+| London | 21 % |
+| Tokyo | 24.5 % |
+| Singapore | 28 % |
+","[[""Category"",""Vacancy %""],[""San Francisco"",""14 %""],[""New York"",""17.5 %""],[""London"",""21 %""],[""Tokyo"",""24.5 %""],[""Singapore"",""28 %""]]"
+"chartqa","chartqa_0043","Airline Passenger Traffic Recovery Share","chart_table","What is the passenger recovery rate for Domestic US?","82 % vs 2019","/data/chartqa/images/chartqa_0043.png","ChartQA Research Dataset","| Category | Recovery Rate |
+| --- | --- |
+| Domestic US | 82 % vs 2019 |
+| Europe Intra | 85.5 % vs 2019 |
+| Asia Pacific | 89 % vs 2019 |
+| Transatlantic | 92.5 % vs 2019 |
+","[[""Category"",""Recovery Rate""],[""Domestic US"",""82 % vs 2019""],[""Europe Intra"",""85.5 % vs 2019""],[""Asia Pacific"",""89 % vs 2019""],[""Transatlantic"",""92.5 % vs 2019""]]"
+"chartqa","chartqa_0044","Global Heat Anomaly Index (2019-2023)","chart_table","What was the global heat anomaly index in 2022?","1.09 deg C","/data/chartqa/images/chartqa_0044.png","ChartQA Research Dataset","| Category | Anomaly |
+| --- | --- |
+| 2019 | 0.85 deg C |
+| 2020 | 0.93 deg C |
+| 2021 | 1.01 deg C |
+| 2022 | 1.09 deg C |
+| 2023 | 1.17 deg C |
+","[[""Category"",""Anomaly""],[""2019"",""0.85 deg C""],[""2020"",""0.93 deg C""],[""2021"",""1.01 deg C""],[""2022"",""1.09 deg C""],[""2023"",""1.17 deg C""]]"
+"chartqa","chartqa_0045","Higher Education Stem vs Arts Graduates","chart_table","How many thousand graduates were recorded in Social Sciences?","459 Thousands","/data/chartqa/images/chartqa_0045.png","ChartQA Research Dataset","| Category | Graduates |
+| --- | --- |
+| STEM Fields | 452 Thousands |
+| Business & Econ | 455.5 Thousands |
+| Social Sciences | 459 Thousands |
+| Arts & Humanities | 462.5 Thousands |
+","[[""Category"",""Graduates""],[""STEM Fields"",""452 Thousands""],[""Business & Econ"",""455.5 Thousands""],[""Social Sciences"",""459 Thousands""],[""Arts & Humanities"",""462.5 Thousands""]]"
+"chartqa","chartqa_0046","Smart Grid Investment by Region (2023)","chart_table","How much was invested in smart grids in Rest of Asia?","25.5 $ Billion","/data/chartqa/images/chartqa_0046.png","ChartQA Research Dataset","| Category | Investment |
+| --- | --- |
+| North America | 15 $ Billion |
+| Europe | 18.5 $ Billion |
+| China | 22 $ Billion |
+| Rest of Asia | 25.5 $ Billion |
+","[[""Category"",""Investment""],[""North America"",""15 $ Billion""],[""Europe"",""18.5 $ Billion""],[""China"",""22 $ Billion""],[""Rest of Asia"",""25.5 $ Billion""]]"
+"chartqa","chartqa_0047","AI Dataset Token Count Scale (2020-2024)","chart_table","What was the pretraining dataset size in 2021?","303.5 Billion Tokens","/data/chartqa/images/chartqa_0047.png","ChartQA Research Dataset","| Category | Tokens |
+| --- | --- |
+| 2020 | 300 Billion Tokens |
+| 2021 | 303.5 Billion Tokens |
+| 2022 | 307 Billion Tokens |
+| 2023 | 310.5 Billion Tokens |
+| 2024 | 314 Billion Tokens |
+","[[""Category"",""Tokens""],[""2020"",""300 Billion Tokens""],[""2021"",""303.5 Billion Tokens""],[""2022"",""307 Billion Tokens""],[""2023"",""310.5 Billion Tokens""],[""2024"",""314 Billion Tokens""]]"
+"chartqa","chartqa_0048","Autonomous Robot Deliveries (2023)","chart_table","How many robot deliveries occurred in Suburban?","84.5 Thousands","/data/chartqa/images/chartqa_0048.png","ChartQA Research Dataset","| Category | Deliveries |
+| --- | --- |
+| Campus | 81 Thousands |
+| Suburban | 84.5 Thousands |
+| Urban Sidewalk | 88 Thousands |
+| Industrial Park | 91.5 Thousands |
+","[[""Category"",""Deliveries""],[""Campus"",""81 Thousands""],[""Suburban"",""84.5 Thousands""],[""Urban Sidewalk"",""88 Thousands""],[""Industrial Park"",""91.5 Thousands""]]"
+"chartqa","chartqa_0049","Battery Recycling Capacity Growth","chart_table","What was the battery recycling capacity in 2023?","24 GWh","/data/chartqa/images/chartqa_0049.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| 2021 | 17 GWh |
+| 2022 | 20.5 GWh |
+| 2023 | 24 GWh |
+| 2024 (Est) | 27.5 GWh |
+","[[""Category"",""Capacity""],[""2021"",""17 GWh""],[""2022"",""20.5 GWh""],[""2023"",""24 GWh""],[""2024 (Est)"",""27.5 GWh""]]"
+"chartqa","chartqa_0050","Generative AI Code Assistant Acceptance Rate","chart_table","What is the AI code completion acceptance rate for Go?","44 %","/data/chartqa/images/chartqa_0050.png","ChartQA Research Dataset","| Category | Acceptance |
+| --- | --- |
+| JavaScript/TS | 30 % |
+| Python | 33.5 % |
+| Java | 37 % |
+| C++ | 40.5 % |
+| Go | 44 % |
+","[[""Category"",""Acceptance""],[""JavaScript/TS"",""30 %""],[""Python"",""33.5 %""],[""Java"",""37 %""],[""C++"",""40.5 %""],[""Go"",""44 %""]]"
+"scienceqa","scienceqa_real_000","natural science / science-and-engineering-practices (grade grade8)","science_mc","Which of the following could Gordon's test show?","how steady a parachute with a 1 m vent was at 200 km per hour","/data/scienceqa/images/scienceqa_real_000.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Design Test Parameter | Experimental Value | Measurement Goal |
+| --- | --- | --- |
+| Tested Prototype | Parachute with 1 m vent | Vent size aerodynamic stability |
+| Wind Tunnel Air Speed | 200 km per hour | Simulated high-speed Mars descent entry |
+| Observed Measurement | Swing magnitude / steadiness | Determine if parachute swings wildly or remains steady |
+","[[""Design Test Parameter"",""Experimental Value"",""Measurement Goal""],[""Tested Prototype"",""Parachute with 1 m vent"",""Vent size aerodynamic stability""],[""Wind Tunnel Air Speed"",""200 km per hour"",""Simulated high-speed Mars descent entry""],[""Observed Measurement"",""Swing magnitude / steadiness"",""Determine if parachute swings wildly or remains steady""]]"
+"scienceqa","scienceqa_real_001","social science / us-history (grade grade5)","science_mc","What is the name of the colony shown?","New Hampshire","/data/scienceqa/images/scienceqa_real_001.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Colony / Territory | Colonial Status | Bordering Regions | Key Geographical Detail |
+| --- | --- | --- | --- |
+| New Hampshire | Highlighted Colony | Bordered by Massachusetts, New York / Vermont territory | Northern New England 13 original colonies |
+| Vermont | Not independent colony | Claimed by New Hampshire & New York | Inland green territory |
+| Rhode Island | Colony | South of Massachusetts | Smallest coastal colony |
+| Maryland | Colony | Chesapeake Bay region | Mid-Atlantic colony |
+","[[""Colony / Territory"",""Colonial Status"",""Bordering Regions"",""Key Geographical Detail""],[""New Hampshire"",""Highlighted Colony"",""Bordered by Massachusetts, New York / Vermont territory"",""Northern New England 13 original colonies""],[""Vermont"",""Not independent colony"",""Claimed by New Hampshire & New York"",""Inland green territory""],[""Rhode Island"",""Colony"",""South of Massachusetts"",""Smallest coastal colony""],[""Maryland"",""Colony"",""Chesapeake Bay region"",""Mid-Atlantic colony""]]"
+"scienceqa","scienceqa_real_002","natural science / biology (grade grade5)","science_mc","Which of these organisms contains matter that was once part of the lichen?","mushroom","/data/scienceqa/images/scienceqa_real_002.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism | Trophic Level / Role | Food Source (Eats) | Consumed By (Arrow Points To) |
+| --- | --- | --- | --- |
+| lichen | Producer / Symbiont | Sunlight & mineral nutrients | collared lemming, barren-ground caribou |
+| bilberry | Producer | Sunlight | Arctic fox, barren-ground caribou |
+| bear sedge | Producer | Sunlight | collared lemming, barren-ground caribou |
+| collared lemming | Primary Consumer | lichen, bear sedge | Arctic fox |
+| barren-ground caribou | Primary Consumer | lichen, bear sedge, bilberry | grizzly bear, mushroom (post-mortem) |
+| mushroom | Decomposer / Fungi | Matter from dead lichen, caribou & organic detritus | Decomposes matter back to soil nutrients |
+| earthworm | Decomposer | Soil organic matter | Arctic fox |
+| Arctic fox | Secondary Consumer | collared lemming, earthworm, bilberry | grizzly bear |
+| grizzly bear | Apex Predator | barren-ground caribou, Arctic fox | - |
+","[[""Organism"",""Trophic Level / Role"",""Food Source (Eats)"",""Consumed By (Arrow Points To)""],[""lichen"",""Producer / Symbiont"",""Sunlight & mineral nutrients"",""collared lemming, barren-ground caribou""],[""bilberry"",""Producer"",""Sunlight"",""Arctic fox, barren-ground caribou""],[""bear sedge"",""Producer"",""Sunlight"",""collared lemming, barren-ground caribou""],[""collared lemming"",""Primary Consumer"",""lichen, bear sedge"",""Arctic fox""],[""barren-ground caribou"",""Primary Consumer"",""lichen, bear sedge, bilberry"",""grizzly bear, mushroom (post-mortem)""],[""mushroom"",""Decomposer / Fungi"",""Matter from dead lichen, caribou & organic detritus"",""Decomposes matter back to soil nutrients""],[""earthworm"",""Decomposer"",""Soil organic matter"",""Arctic fox""],[""Arctic fox"",""Secondary Consumer"",""collared lemming, earthworm, bilberry"",""grizzly bear""],[""grizzly bear"",""Apex Predator"",""barren-ground caribou, Arctic fox"",""-""]]"
+"scienceqa","scienceqa_real_003","natural science / biology (grade grade8)","science_mc","What is the expected ratio of offspring with a woolly fleece to offspring with a hairy fleece? Choose the most likely ratio.","4:0","/data/scienceqa/images/scienceqa_real_003.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Parent Genotypes | Allele 1 (f) | Allele 2 (f) |
+| --- | --- | --- |
+| Parent 1 Allele (f) | ff (woolly fleece) | ff (woolly fleece) |
+| Parent 2 Allele (f) | ff (woolly fleece) | ff (woolly fleece) |
+| Phenotype Summary | Woolly fleece (ff): 4 boxes | Hairy fleece: 0 boxes (Ratio 4:0 / 100%) |
+","[[""Parent Genotypes"",""Allele 1 (f)"",""Allele 2 (f)""],[""Parent 1 Allele (f)"",""ff (woolly fleece)"",""ff (woolly fleece)""],[""Parent 2 Allele (f)"",""ff (woolly fleece)"",""ff (woolly fleece)""],[""Phenotype Summary"",""Woolly fleece (ff): 4 boxes"",""Hairy fleece: 0 boxes (Ratio 4:0 / 100%)""]]"
+"scienceqa","scienceqa_real_004","natural science / physics (grade grade4)","science_mc","Which property do these three objects have in common?","opaque","/data/scienceqa/images/scienceqa_real_004.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Object | Shiny? | Slippery? | Opaque (Does not transmit light)? |
+| --- | --- | --- | --- |
+| tortoise shell | No | No | Yes (Opaque) |
+| crown | Yes (Gold metal) | No | Yes (Opaque) |
+| basketball | No | No | Yes (Opaque) |
+| Common Attribute | Not all shiny | Not slippery | All three objects are Opaque |
+","[[""Object"",""Shiny?"",""Slippery?"",""Opaque (Does not transmit light)?""],[""tortoise shell"",""No"",""No"",""Yes (Opaque)""],[""crown"",""Yes (Gold metal)"",""No"",""Yes (Opaque)""],[""basketball"",""No"",""No"",""Yes (Opaque)""],[""Common Attribute"",""Not all shiny"",""Not slippery"",""All three objects are Opaque""]]"
+"scienceqa","scienceqa_real_005","natural science / physics (grade grade8)","science_mc","Think about the magnetic force between the magnets in each pair. Which of the following statements is true?","The magnitude of the magnetic force is smaller in Pair 2.","/data/scienceqa/images/scienceqa_real_005.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Pair | Block Magnet Size | Horseshoe Magnet Size | Distance | Relative Magnetic Force Magnitude |
+| --- | --- | --- | --- | --- |
+| Pair 1 | Large block magnet | Large horseshoe magnet | 2.25 inches | Stronger magnetic force (larger magnet volume) |
+| Pair 2 | Large block magnet | Small horseshoe magnet | 2.25 inches | Smaller magnetic force (smaller magnet volume) |
+","[[""Pair"",""Block Magnet Size"",""Horseshoe Magnet Size"",""Distance"",""Relative Magnetic Force Magnitude""],[""Pair 1"",""Large block magnet"",""Large horseshoe magnet"",""2.25 inches"",""Stronger magnetic force (larger magnet volume)""],[""Pair 2"",""Large block magnet"",""Small horseshoe magnet"",""2.25 inches"",""Smaller magnetic force (smaller magnet volume)""]]"
+"scienceqa","scienceqa_real_006","social science / geography (grade grade4)","science_mc","What is the capital of Wyoming?","Cheyenne","/data/scienceqa/images/scienceqa_real_006.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| US State | Capital City | Location / Geographic Feature | Highlighted in Map |
+| --- | --- | --- | --- |
+| Wyoming | Cheyenne | Western US / Rocky Mountain state | State highlighted in green with star at Cheyenne |
+| Arizona | Phoenix | Southwestern US | Not highlighted |
+| Louisiana | Baton Rouge | Southern US / Gulf Coast | Not highlighted |
+| Hawaii | Honolulu | Pacific island chain | Not highlighted |
+","[[""US State"",""Capital City"",""Location / Geographic Feature"",""Highlighted in Map""],[""Wyoming"",""Cheyenne"",""Western US / Rocky Mountain state"",""State highlighted in green with star at Cheyenne""],[""Arizona"",""Phoenix"",""Southwestern US"",""Not highlighted""],[""Louisiana"",""Baton Rouge"",""Southern US / Gulf Coast"",""Not highlighted""],[""Hawaii"",""Honolulu"",""Pacific island chain"",""Not highlighted""]]"
+"scienceqa","scienceqa_real_007","natural science / earth-science (grade grade6)","science_mc","Is the following statement about our solar system true or false?
+The largest planet is made mainly of ice.","false","/data/scienceqa/images/scienceqa_real_007.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Planet | Volume Relative to Earth | Primary Composition | Category |
+| --- | --- | --- | --- |
+| Jupiter | 1,321 (Largest Planet) | Gas (Hydrogen & Helium) | Gas Giant |
+| Saturn | 764 | Gas (Hydrogen & Helium) | Gas Giant |
+| Uranus | 63 | Ice & Gas (Water, Ammonia, Methane) | Ice Giant |
+| Neptune | 58 | Ice & Gas | Ice Giant |
+| Earth | 1.0 | Rock & Metal | Terrestrial Planet |
+","[[""Planet"",""Volume Relative to Earth"",""Primary Composition"",""Category""],[""Jupiter"",""1,321 (Largest Planet)"",""Gas (Hydrogen & Helium)"",""Gas Giant""],[""Saturn"",""764"",""Gas (Hydrogen & Helium)"",""Gas Giant""],[""Uranus"",""63"",""Ice & Gas (Water, Ammonia, Methane)"",""Ice Giant""],[""Neptune"",""58"",""Ice & Gas"",""Ice Giant""],[""Earth"",""1.0"",""Rock & Metal"",""Terrestrial Planet""]]"
+"scienceqa","scienceqa_real_008","natural science / biology (grade grade5)","science_mc","Which of the following organisms is the primary consumer in this food web?","copepod","/data/scienceqa/images/scienceqa_real_008.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism | Ecosystem Role | Primary Trophic Level | Diet / Arrows |
+| --- | --- | --- | --- |
+| green algae | Producer | Primary Producer | Photosynthesis; eaten by rotifer, copepod |
+| copepod | Primary Consumer | Herbivore / Zooplankton | Consumes green algae; eaten by yellow perch |
+| rotifer | Primary Consumer | Herbivore / Zooplankton | Consumes green algae |
+| black crappie | Secondary / Tertiary Consumer | Carnivore | Eats smaller fish |
+| bacteria | Decomposer | Decomposer | Recycles organic waste |
+","[[""Organism"",""Ecosystem Role"",""Primary Trophic Level"",""Diet / Arrows""],[""green algae"",""Producer"",""Primary Producer"",""Photosynthesis; eaten by rotifer, copepod""],[""copepod"",""Primary Consumer"",""Herbivore / Zooplankton"",""Consumes green algae; eaten by yellow perch""],[""rotifer"",""Primary Consumer"",""Herbivore / Zooplankton"",""Consumes green algae""],[""black crappie"",""Secondary / Tertiary Consumer"",""Carnivore"",""Eats smaller fish""],[""bacteria"",""Decomposer"",""Decomposer"",""Recycles organic waste""]]"
+"scienceqa","scienceqa_real_009","natural science / physics (grade grade4)","science_mc","Think about the magnetic force between the magnets in each pair. Which of the following statements is true?","The magnetic force is stronger in Pair 1.","/data/scienceqa/images/scienceqa_real_009.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Magnet Pair | Magnet Poles Facing | Separation Distance | Magnetic Force Strength |
+| --- | --- | --- | --- |
+| Pair 1 | North pole facing South pole | 1.50 inches (Closer) | Stronger magnetic force (inversely related to distance) |
+| Pair 2 | North pole facing South pole | 2.75 inches (Farther) | Weaker magnetic force |
+","[[""Magnet Pair"",""Magnet Poles Facing"",""Separation Distance"",""Magnetic Force Strength""],[""Pair 1"",""North pole facing South pole"",""1.50 inches (Closer)"",""Stronger magnetic force (inversely related to distance)""],[""Pair 2"",""North pole facing South pole"",""2.75 inches (Farther)"",""Weaker magnetic force""]]"
+"scienceqa","scienceqa_real_010","natural science / biology (grade grade3)","science_mc","Which better describes the Daintree rain forest ecosystem?","It has year-round rain. It also has soil that is poor in nutrients.","/data/scienceqa/images/scienceqa_real_010.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Ecosystem Feature | Daintree Rain Forest | Boreal Forest / Taiga | Observed Ecological Property |
+| --- | --- | --- | --- |
+| Climate / Precipitation | Year-round rain, high humidity | Seasonal rain, heavy snow | Tropical wet rainforest environment |
+| Soil Nutrient Profile | Nutrient-poor (rapid leaching) | Acidic, slow decomposition | Nutrients stored in biomass, not soil |
+| Winter Temperature | Warm year-round | Extremely cold freezing winters | Continuous growing season |
+","[[""Ecosystem Feature"",""Daintree Rain Forest"",""Boreal Forest / Taiga"",""Observed Ecological Property""],[""Climate / Precipitation"",""Year-round rain, high humidity"",""Seasonal rain, heavy snow"",""Tropical wet rainforest environment""],[""Soil Nutrient Profile"",""Nutrient-poor (rapid leaching)"",""Acidic, slow decomposition"",""Nutrients stored in biomass, not soil""],[""Winter Temperature"",""Warm year-round"",""Extremely cold freezing winters"",""Continuous growing season""]]"
+"scienceqa","scienceqa_real_011","social science / geography (grade grade3)","science_mc","What is the capital of Delaware?","Dover","/data/scienceqa/images/scienceqa_real_011.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State | Capital | Geographic Region | Statehood |
+| --- | --- | --- | --- |
+| Delaware | Dover | Mid-Atlantic / Delmarva Peninsula | First US State (1787) - Highlighted on map |
+| Vermont | Montpelier | New England | Not highlighted |
+| New Jersey | Trenton | Mid-Atlantic | Not highlighted |
+","[[""State"",""Capital"",""Geographic Region"",""Statehood""],[""Delaware"",""Dover"",""Mid-Atlantic / Delmarva Peninsula"",""First US State (1787) - Highlighted on map""],[""Vermont"",""Montpelier"",""New England"",""Not highlighted""],[""New Jersey"",""Trenton"",""Mid-Atlantic"",""Not highlighted""]]"
+"scienceqa","scienceqa_real_012","social science / geography (grade grade3)","science_mc","Which of these states is farthest north?","Maine","/data/scienceqa/images/scienceqa_real_012.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State Name | Latitude Range | Relative Geographic Position | Map Highlight |
+| --- | --- | --- | --- |
+| Maine | 43 deg 04' N - 47 deg 28' N | Farthest North among options | Northeastern-most state (Highlighted) |
+| Delaware | 38 deg 27' N - 39 deg 50' N | Mid-Atlantic latitude | South of Maine |
+| Kansas | 37 deg 00' N - 40 deg 00' N | Central Plains latitude | South of Maine |
+| South Carolina | 32 deg 02' N - 35 deg 13' N | Southeastern latitude | Farthest South |
+","[[""State Name"",""Latitude Range"",""Relative Geographic Position"",""Map Highlight""],[""Maine"",""43 deg 04' N - 47 deg 28' N"",""Farthest North among options"",""Northeastern-most state (Highlighted)""],[""Delaware"",""38 deg 27' N - 39 deg 50' N"",""Mid-Atlantic latitude"",""South of Maine""],[""Kansas"",""37 deg 00' N - 40 deg 00' N"",""Central Plains latitude"",""South of Maine""],[""South Carolina"",""32 deg 02' N - 35 deg 13' N"",""Southeastern latitude"",""Farthest South""]]"
+"scienceqa","scienceqa_real_013","social science / economics (grade grade6)","science_mc","What can Greta and Allie trade to each get what they want?","Greta can trade her tomatoes for Allie's broccoli.","/data/scienceqa/images/scienceqa_real_013.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Trader | Current Item Owned | Desired Item | Optimal Mutual Trade |
+| --- | --- | --- | --- |
+| Greta | Tomatoes | Broccoli | Greta gives tomatoes to Allie |
+| Allie | Broccoli | Tomatoes | Allie gives broccoli to Greta |
+","[[""Trader"",""Current Item Owned"",""Desired Item"",""Optimal Mutual Trade""],[""Greta"",""Tomatoes"",""Broccoli"",""Greta gives tomatoes to Allie""],[""Allie"",""Broccoli"",""Tomatoes"",""Allie gives broccoli to Greta""]]"
+"scienceqa","scienceqa_real_014","social science / geography (grade grade5)","science_mc","What is the capital of Colorado?","Denver","/data/scienceqa/images/scienceqa_real_014.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State | Capital | Elevation / Region | Map Status |
+| --- | --- | --- | --- |
+| Colorado | Denver | Rocky Mountain Region / Mile High City | Highlighted in green with red star at Denver |
+| Wyoming | Cheyenne | Rocky Mountain Region | North border |
+| Utah | Salt Lake City | Great Basin / Rockies | West border |
+","[[""State"",""Capital"",""Elevation / Region"",""Map Status""],[""Colorado"",""Denver"",""Rocky Mountain Region / Mile High City"",""Highlighted in green with red star at Denver""],[""Wyoming"",""Cheyenne"",""Rocky Mountain Region"",""North border""],[""Utah"",""Salt Lake City"",""Great Basin / Rockies"",""West border""]]"
+"scienceqa","scienceqa_real_015","social science / geography (grade grade5)","science_mc","Which continent is highlighted?","Asia","/data/scienceqa/images/scienceqa_real_015.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Continent | Land Area (M sq km) | Highlighted Status | Key Boundary |
+| --- | --- | --- | --- |
+| Asia | 44.58 (Largest continent) | Highlighted in bright green | Bordered by Ural Mtns, Pacific Ocean, Indian Ocean |
+| Europe | 10.18 | Not highlighted (Grey) | West of Ural Mountains |
+| Africa | 30.37 | Not highlighted (Grey) | Southwest of Suez Canal |
+","[[""Continent"",""Land Area (M sq km)"",""Highlighted Status"",""Key Boundary""],[""Asia"",""44.58 (Largest continent)"",""Highlighted in bright green"",""Bordered by Ural Mtns, Pacific Ocean, Indian Ocean""],[""Europe"",""10.18"",""Not highlighted (Grey)"",""West of Ural Mountains""],[""Africa"",""30.37"",""Not highlighted (Grey)"",""Southwest of Suez Canal""]]"
+"scienceqa","scienceqa_real_016","natural science / science-and-engineering-practices (grade grade8)","science_mc","Identify the question that Chase's experiment can best answer.","Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?","/data/scienceqa/images/scienceqa_real_016.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Experimental Component | Chase's Setup | Role in Scientific Method |
+| --- | --- | --- |
+| Feeder 1 | Sunflower seeds | Independent variable condition A |
+| Feeder 2 | Flax seeds | Independent variable condition B |
+| Cardinal Bird Visits | Observed count of visits per feeder | Dependent variable (Visit frequency) |
+| Best Answered Question | Do cardinals visit feeders containing sunflower seeds more often than flax seeds? | Primary experimental hypothesis |
+","[[""Experimental Component"",""Chase's Setup"",""Role in Scientific Method""],[""Feeder 1"",""Sunflower seeds"",""Independent variable condition A""],[""Feeder 2"",""Flax seeds"",""Independent variable condition B""],[""Cardinal Bird Visits"",""Observed count of visits per feeder"",""Dependent variable (Visit frequency)""],[""Best Answered Question"",""Do cardinals visit feeders containing sunflower seeds more often than flax seeds?"",""Primary experimental hypothesis""]]"
+"scienceqa","scienceqa_real_017","natural science / physics (grade grade2)","science_mc","Which material is this path made of?","brick","/data/scienceqa/images/scienceqa_real_017.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Material / Surface | Visual Texture & Color | Material Class | Present in Photo |
+| --- | --- | --- | --- |
+| brick | Red-brown rectangular fired clay units with mortar joints | Masonry ceramic | Yes - walkway path is laid brick |
+| asphalt | Black tar aggregate | Petroleum paving | No |
+| wood | Grain planks | Organic timber | No |
+","[[""Material / Surface"",""Visual Texture & Color"",""Material Class"",""Present in Photo""],[""brick"",""Red-brown rectangular fired clay units with mortar joints"",""Masonry ceramic"",""Yes - walkway path is laid brick""],[""asphalt"",""Black tar aggregate"",""Petroleum paving"",""No""],[""wood"",""Grain planks"",""Organic timber"",""No""]]"
+"scienceqa","scienceqa_real_018","natural science / biology (grade grade3)","science_mc","Select the bird below.","ostrich","/data/scienceqa/images/scienceqa_real_018.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism Shown | Taxonomic Class | Distinguishing Features | Is a Bird? |
+| --- | --- | --- | --- |
+| ostrich | Aves (Bird) | Feathers, beak, wings, lays eggs | Yes (Flightless bird) |
+| koala | Mammalia (Marsupial) | Fur, pouch, mammary glands | No |
+| chameleon | Reptilia | Scales, cold-blooded, prehensile tail | No |
+","[[""Organism Shown"",""Taxonomic Class"",""Distinguishing Features"",""Is a Bird?""],[""ostrich"",""Aves (Bird)"",""Feathers, beak, wings, lays eggs"",""Yes (Flightless bird)""],[""koala"",""Mammalia (Marsupial)"",""Fur, pouch, mammary glands"",""No""],[""chameleon"",""Reptilia"",""Scales, cold-blooded, prehensile tail"",""No""]]"
+"scienceqa","scienceqa_real_019","natural science / physics (grade grade3)","science_mc","Which property do these three objects have in common?","blue","/data/scienceqa/images/scienceqa_real_019.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Object | Visual Color | Shape / Texture | Property in Common |
+| --- | --- | --- | --- |
+| blue marble | Blue | Smooth sphere | Blue color |
+| blue ribbon | Blue | Flexible fabric | Blue color |
+| blue button | Blue | Flat disc with holes | Blue color |
+| Shared Feature | All three objects are Blue | Different shapes and materials | Color property: Blue |
+","[[""Object"",""Visual Color"",""Shape / Texture"",""Property in Common""],[""blue marble"",""Blue"",""Smooth sphere"",""Blue color""],[""blue ribbon"",""Blue"",""Flexible fabric"",""Blue color""],[""blue button"",""Blue"",""Flat disc with holes"",""Blue color""],[""Shared Feature"",""All three objects are Blue"",""Different shapes and materials"",""Color property: Blue""]]"
+"scienceqa","scienceqa_real_020","natural science / science-and-engineering-practices (grade grade6)","science_mc","Which of the following was a dependent variable in this experiment?","the number of days until a seed germinated","/data/scienceqa/images/scienceqa_real_020.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Variable Type | Variable in Experiment | Measurement Units / Method | Controlled Status |
+| --- | --- | --- | --- |
+| Independent Variable | Soil temperature / light exposure | Experimental groups | Manipulated by researcher |
+| Dependent Variable | Number of days until seed germinated | Days (Time to germination) | Measured outcome variable |
+| Controlled Variable | Water volume, seed type, soil volume | Constant across pots | Kept uniform |
+","[[""Variable Type"",""Variable in Experiment"",""Measurement Units / Method"",""Controlled Status""],[""Independent Variable"",""Soil temperature / light exposure"",""Experimental groups"",""Manipulated by researcher""],[""Dependent Variable"",""Number of days until seed germinated"",""Days (Time to germination)"",""Measured outcome variable""],[""Controlled Variable"",""Water volume, seed type, soil volume"",""Constant across pots"",""Kept uniform""]]"
+"scienceqa","scienceqa_real_021","social science / geography (grade grade4)","science_mc","What is the capital of Mississippi?","Jackson","/data/scienceqa/images/scienceqa_real_021.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| US State | Capital City | Region | Highlighted Map Marker |
+| --- | --- | --- | --- |
+| Mississippi | Jackson | Deep South / Gulf Coast | State in green with star at Jackson |
+| Alabama | Montgomery | East of Mississippi | Grey |
+| Louisiana | Baton Rouge | West of Mississippi | Grey |
+","[[""US State"",""Capital City"",""Region"",""Highlighted Map Marker""],[""Mississippi"",""Jackson"",""Deep South / Gulf Coast"",""State in green with star at Jackson""],[""Alabama"",""Montgomery"",""East of Mississippi"",""Grey""],[""Louisiana"",""Baton Rouge"",""West of Mississippi"",""Grey""]]"
+"scienceqa","scienceqa_real_022","natural science / physics (grade grade2)","science_mc","Which property matches this object?","stretchy","/data/scienceqa/images/scienceqa_real_022.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Object | Material | Elastic Property | Property Match |
+| --- | --- | --- | --- |
+| rubber band | Elastic vulcanized polymer | Stretches under tension and returns to shape | Stretchy |
+| glass marble | Rigid silicate | Non-elastic, brittle | Rigid |
+| wooden block | Solid cellulose fiber | Non-elastic, rigid | Hard |
+","[[""Object"",""Material"",""Elastic Property"",""Property Match""],[""rubber band"",""Elastic vulcanized polymer"",""Stretches under tension and returns to shape"",""Stretchy""],[""glass marble"",""Rigid silicate"",""Non-elastic, brittle"",""Rigid""],[""wooden block"",""Solid cellulose fiber"",""Non-elastic, rigid"",""Hard""]]"
+"scienceqa","scienceqa_real_023","natural science / biology (grade grade4)","science_mc","Is Rafflesia arnoldii made up of many cells?","yes","/data/scienceqa/images/scienceqa_real_023.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism | Kingdom | Cellular Structure | Multicellular? |
+| --- | --- | --- | --- |
+| Rafflesia arnoldii (Corpse flower) | Plantae (Parasitic flowering plant) | Trillions of eukaryotic plant cells with differentiated tissues | Yes (Made up of many cells) |
+| Bacterium (e.g. E. coli) | Bacteria | Single prokaryotic cell | No (Unicellular) |
+","[[""Organism"",""Kingdom"",""Cellular Structure"",""Multicellular?""],[""Rafflesia arnoldii (Corpse flower)"",""Plantae (Parasitic flowering plant)"",""Trillions of eukaryotic plant cells with differentiated tissues"",""Yes (Made up of many cells)""],[""Bacterium (e.g. E. coli)"",""Bacteria"",""Single prokaryotic cell"",""No (Unicellular)""]]"
+"scienceqa","scienceqa_real_024","natural science / biology (grade grade8)","science_mc","What is the expected ratio of offspring with smooth fruit to offspring with fuzzy fruit? Choose the most likely ratio.","4:0","/data/scienceqa/images/scienceqa_real_024.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Parent Alleles | Allele S (Smooth) | Allele S (Smooth) |
+| --- | --- | --- |
+| Parent 1 (S) | SS (smooth) | SS (smooth) |
+| Parent 2 (S) | SS (smooth) | SS (smooth) |
+| Offspring Ratio | Smooth seeds: 4 / 4 | Wrinkled seeds: 0 / 4 (Expected ratio 4:0 / 100%) |
+","[[""Parent Alleles"",""Allele S (Smooth)"",""Allele S (Smooth)""],[""Parent 1 (S)"",""SS (smooth)"",""SS (smooth)""],[""Parent 2 (S)"",""SS (smooth)"",""SS (smooth)""],[""Offspring Ratio"",""Smooth seeds: 4 / 4"",""Wrinkled seeds: 0 / 4 (Expected ratio 4:0 / 100%)""]]"
+"scienceqa","scienceqa_real_025","natural science / science-and-engineering-practices (grade grade8)","science_mc","Which of the following could Cooper's test show?","which design would have the greatest distance between the concert area and the road","/data/scienceqa/images/scienceqa_real_025.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Cooper's Test Parameter | Design Prototype A | Design Prototype B | Measured Evaluation |
+| --- | --- | --- | --- |
+| Ramps Tested | Steep angle ramp | Shallow angle ramp | Ramp slope comparison |
+| Toy Car | Identical mass car | Identical mass car | Controlled entity |
+| Target Outcome | Distance traveled | Distance traveled | Which design gives greatest distance traveled |
+","[[""Cooper's Test Parameter"",""Design Prototype A"",""Design Prototype B"",""Measured Evaluation""],[""Ramps Tested"",""Steep angle ramp"",""Shallow angle ramp"",""Ramp slope comparison""],[""Toy Car"",""Identical mass car"",""Identical mass car"",""Controlled entity""],[""Target Outcome"",""Distance traveled"",""Distance traveled"",""Which design gives greatest distance traveled""]]"
+"scienceqa","scienceqa_real_026","natural science / physics (grade grade5)","science_mc","Will these magnets attract or repel each other?","repel","/data/scienceqa/images/scienceqa_real_026.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Magnet Configuration | Left Pole | Right Pole | Interaction |
+| --- | --- | --- | --- |
+| Facing Poles | North (N) | North (N) | Like poles repel each other (Repel) |
+","[[""Magnet Configuration"",""Left Pole"",""Right Pole"",""Interaction""],[""Facing Poles"",""North (N)"",""North (N)"",""Like poles repel each other (Repel)""]]"
+"scienceqa","scienceqa_real_027","social science / geography (grade grade5)","science_mc","What is the capital of Connecticut?","Hartford","/data/scienceqa/images/scienceqa_real_027.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State | Capital City | Location | Marker |
+| --- | --- | --- | --- |
+| Connecticut | Hartford | Southern New England / Long Island Sound | Highlighted state with star at Hartford |
+| Rhode Island | Providence | East border | Not highlighted |
+| New York | Albany | West border | Not highlighted |
+","[[""State"",""Capital City"",""Location"",""Marker""],[""Connecticut"",""Hartford"",""Southern New England / Long Island Sound"",""Highlighted state with star at Hartford""],[""Rhode Island"",""Providence"",""East border"",""Not highlighted""],[""New York"",""Albany"",""West border"",""Not highlighted""]]"
+"scienceqa","scienceqa_real_028","social science / geography (grade grade8)","science_mc","Which ocean is highlighted?","the Indian Ocean","/data/scienceqa/images/scienceqa_real_028.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Ocean | Geographic Bounds | Highlighted Status | Rank by Area |
+| --- | --- | --- | --- |
+| Indian Ocean | Bounded by Africa, Asia, Australia, Southern Ocean | Highlighted in vivid blue/green | 3rd Largest Ocean (70.56M sq km) |
+| Atlantic Ocean | Between Americas and Europe/Africa | Not highlighted | 2nd Largest Ocean |
+| Pacific Ocean | Between Asia/Australia and Americas | Not highlighted | 1st Largest Ocean |
+","[[""Ocean"",""Geographic Bounds"",""Highlighted Status"",""Rank by Area""],[""Indian Ocean"",""Bounded by Africa, Asia, Australia, Southern Ocean"",""Highlighted in vivid blue/green"",""3rd Largest Ocean (70.56M sq km)""],[""Atlantic Ocean"",""Between Americas and Europe/Africa"",""Not highlighted"",""2nd Largest Ocean""],[""Pacific Ocean"",""Between Asia/Australia and Americas"",""Not highlighted"",""1st Largest Ocean""]]"
+"scienceqa","scienceqa_real_029","natural science / biology (grade grade8)","science_mc","Which statement describes the Yasuni National Park ecosystem?","It has many different types of organisms.","/data/scienceqa/images/scienceqa_real_029.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| National Park | Biome / Location | Biodiversity Characteristic | Key Description |
+| --- | --- | --- | --- |
+| Yasuni National Park | Amazon Basin, Ecuador | Extreme megadiversity of plants, amphibians, birds, and insects | Has many different types of organisms |
+| Polar Tundra | High Arctic | Low species richness, sparse vegetation | Few cold-adapted species |
+","[[""National Park"",""Biome / Location"",""Biodiversity Characteristic"",""Key Description""],[""Yasuni National Park"",""Amazon Basin, Ecuador"",""Extreme megadiversity of plants, amphibians, birds, and insects"",""Has many different types of organisms""],[""Polar Tundra"",""High Arctic"",""Low species richness, sparse vegetation"",""Few cold-adapted species""]]"
+"scienceqa","scienceqa_real_030","natural science / physics (grade grade4)","science_mc","Which property do these three objects have in common?","fragile","/data/scienceqa/images/scienceqa_real_030.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Object | Hardness | Malleability | Brittleness / Fragility |
+| --- | --- | --- | --- |
+| lightbulb glass | Hard surface | Non-malleable | Fragile (breaks easily upon impact) |
+| ceramic teacup | Hard surface | Non-malleable | Fragile (breaks easily upon impact) |
+| glass ornament | Hard surface | Non-malleable | Fragile (breaks easily upon impact) |
+| Common Property | All rigid | Not flexible | All three objects are Fragile |
+","[[""Object"",""Hardness"",""Malleability"",""Brittleness / Fragility""],[""lightbulb glass"",""Hard surface"",""Non-malleable"",""Fragile (breaks easily upon impact)""],[""ceramic teacup"",""Hard surface"",""Non-malleable"",""Fragile (breaks easily upon impact)""],[""glass ornament"",""Hard surface"",""Non-malleable"",""Fragile (breaks easily upon impact)""],[""Common Property"",""All rigid"",""Not flexible"",""All three objects are Fragile""]]"
+"scienceqa","scienceqa_real_031","natural science / chemistry (grade grade6)","science_mc","Look at the models of molecules below. Select the elementary substance.","bromine","/data/scienceqa/images/scienceqa_real_031.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Molecule Model | Atomic Composition | Chemical Formula | Identified Substance |
+| --- | --- | --- | --- |
+| Model A (Bromine) | 2 reddish-brown Bromine atoms bonded together | Br2 | bromine (Diatomic halogen molecule) |
+| Model B (Water) | 2 Hydrogen, 1 Oxygen | H2O | water |
+| Model C (Carbon Dioxide) | 1 Carbon, 2 Oxygen | CO2 | carbon dioxide |
+","[[""Molecule Model"",""Atomic Composition"",""Chemical Formula"",""Identified Substance""],[""Model A (Bromine)"",""2 reddish-brown Bromine atoms bonded together"",""Br2"",""bromine (Diatomic halogen molecule)""],[""Model B (Water)"",""2 Hydrogen, 1 Oxygen"",""H2O"",""water""],[""Model C (Carbon Dioxide)"",""1 Carbon, 2 Oxygen"",""CO2"",""carbon dioxide""]]"
+"scienceqa","scienceqa_real_032","natural science / biology (grade grade7)","science_mc","Select the organism in the same species as the pink-backed pelican.","Pelecanus rufescens","/data/scienceqa/images/scienceqa_real_032.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism Candidate | Genus | Species Epithet | Same Species as Pink-backed Pelican (Pelecanus rufescens)? |
+| --- | --- | --- | --- |
+| Pelecanus rufescens | Pelecanus | rufescens | Yes (Identical species name) |
+| Pelecanus onocrotalus | Pelecanus | onocrotalus | No (Same genus, different species) |
+| Phalacrocorax carbo | Phalacrocorax | carbo | No (Different genus and species) |
+","[[""Organism Candidate"",""Genus"",""Species Epithet"",""Same Species as Pink-backed Pelican (Pelecanus rufescens)?""],[""Pelecanus rufescens"",""Pelecanus"",""rufescens"",""Yes (Identical species name)""],[""Pelecanus onocrotalus"",""Pelecanus"",""onocrotalus"",""No (Same genus, different species)""],[""Phalacrocorax carbo"",""Phalacrocorax"",""carbo"",""No (Different genus and species)""]]"
+"scienceqa","scienceqa_real_033","social science / geography (grade grade5)","science_mc","What is the capital of North Dakota?","Bismarck","/data/scienceqa/images/scienceqa_real_033.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State | Capital City | Location / Region | Highlighted Status |
+| --- | --- | --- | --- |
+| North Dakota | Bismarck | Upper Midwestern / Great Plains state | Highlighted green with star at Bismarck |
+| South Dakota | Pierre | South border | Grey |
+| Minnesota | Saint Paul | East border | Grey |
+","[[""State"",""Capital City"",""Location / Region"",""Highlighted Status""],[""North Dakota"",""Bismarck"",""Upper Midwestern / Great Plains state"",""Highlighted green with star at Bismarck""],[""South Dakota"",""Pierre"",""South border"",""Grey""],[""Minnesota"",""Saint Paul"",""East border"",""Grey""]]"
+"scienceqa","scienceqa_real_034","natural science / science-and-engineering-practices (grade grade7)","science_mc","Identify the question that Jeremiah's experiment can best answer.","Do cardinals visit feeders containing sunflower seeds more often than feeders containing flax seeds?","/data/scienceqa/images/scienceqa_real_034.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Experiment Element | Feeder A (Sunflower) | Feeder B (Flax) | Hypothesis Answered |
+| --- | --- | --- | --- |
+| Seed Type | Sunflower seeds | Flax seeds | Independent food source variable |
+| Metric Counted | Number of cardinal visits | Number of cardinal visits | Do cardinals visit sunflower feeders more often than flax? |
+","[[""Experiment Element"",""Feeder A (Sunflower)"",""Feeder B (Flax)"",""Hypothesis Answered""],[""Seed Type"",""Sunflower seeds"",""Flax seeds"",""Independent food source variable""],[""Metric Counted"",""Number of cardinal visits"",""Number of cardinal visits"",""Do cardinals visit sunflower feeders more often than flax?""]]"
+"scienceqa","scienceqa_real_035","social science / geography (grade grade5)","science_mc","What is the capital of Massachusetts?","Boston","/data/scienceqa/images/scienceqa_real_035.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| State | Capital City | Location | Marker Detail |
+| --- | --- | --- | --- |
+| Massachusetts | Boston | Coastal Massachusetts Bay | Highlighted in green with red star at Boston |
+| New Hampshire | Concord | North border | Grey |
+| Connecticut | Hartford | South border | Grey |
+","[[""State"",""Capital City"",""Location"",""Marker Detail""],[""Massachusetts"",""Boston"",""Coastal Massachusetts Bay"",""Highlighted in green with red star at Boston""],[""New Hampshire"",""Concord"",""North border"",""Grey""],[""Connecticut"",""Hartford"",""South border"",""Grey""]]"
+"scienceqa","scienceqa_real_036","natural science / biology (grade grade3)","science_mc","Which animal is also adapted to be camouflaged in the snow?","short-tailed weasel","/data/scienceqa/images/scienceqa_real_036.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Animal | Winter Adaptation | Camouflage Habitat | Survival Mechanism |
+| --- | --- | --- | --- |
+| short-tailed weasel (ermine) | Coat turns pure white in winter | Snow-covered subnivean tundra/forest | Blends into snow to hunt prey and evade predators |
+| common hawk-cuckoo | Brown barred plumage | Woodland tree branches | Tree bark camouflage, not snow |
+","[[""Animal"",""Winter Adaptation"",""Camouflage Habitat"",""Survival Mechanism""],[""short-tailed weasel (ermine)"",""Coat turns pure white in winter"",""Snow-covered subnivean tundra/forest"",""Blends into snow to hunt prey and evade predators""],[""common hawk-cuckoo"",""Brown barred plumage"",""Woodland tree branches"",""Tree bark camouflage, not snow""]]"
+"scienceqa","scienceqa_real_037","natural science / biology (grade grade4)","science_mc","Select the organism in the same genus as the Goliath heron.","Ardea herodias","/data/scienceqa/images/scienceqa_real_037.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism Candidate | Scientific Name | Genus | Same Genus as Goliath heron (Ardea goliath)? |
+| --- | --- | --- | --- |
+| Great blue heron | Ardea herodias | Ardea | Yes (Shares genus Ardea) |
+| American kestrel | Falco sparverius | Falco | No (Genus Falco) |
+| Bare-throated tiger heron | Tigrisoma mexicanum | Tigrisoma | No (Genus Tigrisoma) |
+","[[""Organism Candidate"",""Scientific Name"",""Genus"",""Same Genus as Goliath heron (Ardea goliath)?""],[""Great blue heron"",""Ardea herodias"",""Ardea"",""Yes (Shares genus Ardea)""],[""American kestrel"",""Falco sparverius"",""Falco"",""No (Genus Falco)""],[""Bare-throated tiger heron"",""Tigrisoma mexicanum"",""Tigrisoma"",""No (Genus Tigrisoma)""]]"
+"scienceqa","scienceqa_real_038","social science / geography (grade grade7)","science_mc","Which country is highlighted?","Saint Lucia","/data/scienceqa/images/scienceqa_real_038.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Island Nation | Island Chain / Sea | Highlighted Marker | Sovereign Status |
+| --- | --- | --- | --- |
+| Saint Lucia | Windward Islands / Eastern Caribbean Sea | Highlighted green island with indicator arrow | Independent Caribbean nation |
+| Barbados | East of Windward Islands | Not highlighted | Island nation |
+| Dominican Republic | Greater Antilles / Hispaniola | Not highlighted | Larger island nation |
+","[[""Island Nation"",""Island Chain / Sea"",""Highlighted Marker"",""Sovereign Status""],[""Saint Lucia"",""Windward Islands / Eastern Caribbean Sea"",""Highlighted green island with indicator arrow"",""Independent Caribbean nation""],[""Barbados"",""East of Windward Islands"",""Not highlighted"",""Island nation""],[""Dominican Republic"",""Greater Antilles / Hispaniola"",""Not highlighted"",""Larger island nation""]]"
+"scienceqa","scienceqa_real_039","natural science / physics (grade grade4)","science_mc","Will these magnets attract or repel each other?","attract","/data/scienceqa/images/scienceqa_real_039.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Magnet Side A | Facing Pole A | Facing Pole B | Magnetic Force Outcome |
+| --- | --- | --- | --- |
+| Left Magnet | South (S) | North (N) | Opposite poles attract (Attract) |
+","[[""Magnet Side A"",""Facing Pole A"",""Facing Pole B"",""Magnetic Force Outcome""],[""Left Magnet"",""South (S)"",""North (N)"",""Opposite poles attract (Attract)""]]"
+"scienceqa","scienceqa_real_040","natural science / biology (grade grade4)","science_mc","Can Fromia monilis cells make their own food?","no","/data/scienceqa/images/scienceqa_real_040.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Organism | Biological Kingdom | Cellular Nutrition Mode | Can Make Own Food? |
+| --- | --- | --- | --- |
+| Fromia monilis (Tile sea star) | Animalia (Echinoderm) | Heterotrophic (Consumes sponges, detritus) | No (Animal cells lack chloroplasts; cannot photosynthesize) |
+| Marine Kelp / Algae | Chromista / Plantae | Autotrophic (Photosynthetic) | Yes |
+","[[""Organism"",""Biological Kingdom"",""Cellular Nutrition Mode"",""Can Make Own Food?""],[""Fromia monilis (Tile sea star)"",""Animalia (Echinoderm)"",""Heterotrophic (Consumes sponges, detritus)"",""No (Animal cells lack chloroplasts; cannot photosynthesize)""],[""Marine Kelp / Algae"",""Chromista / Plantae"",""Autotrophic (Photosynthetic)"",""Yes""]]"
+"scienceqa","scienceqa_real_041","natural science / earth-science (grade grade3)","science_mc","Does this passage describe the weather or the climate?","weather","/data/scienceqa/images/scienceqa_real_041.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Meteorological Observation | Time Span / Nature | Weather vs Climate Classification |
+| --- | --- | --- |
+| Tambor Beach reading: 84 deg F at 2:00 PM today | Short-term conditions of the atmosphere at a specific time and place | Weather (Short-term snapshot) |
+| Average annual tropical precipitation 120 inches | Long-term pattern of weather over 30+ years | Climate |
+","[[""Meteorological Observation"",""Time Span / Nature"",""Weather vs Climate Classification""],[""Tambor Beach reading: 84 deg F at 2:00 PM today"",""Short-term conditions of the atmosphere at a specific time and place"",""Weather (Short-term snapshot)""],[""Average annual tropical precipitation 120 inches"",""Long-term pattern of weather over 30+ years"",""Climate""]]"
+"scienceqa","scienceqa_real_042","social science / geography (grade grade8)","science_mc","Which country is highlighted?","Nauru","/data/scienceqa/images/scienceqa_real_042.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Pacific Nation | Subregion / Coordinates | Highlighted Marker | Geography |
+| --- | --- | --- | --- |
+| Nauru | Micronesia / 0 deg 32' S, 166 deg 55' E | Highlighted single island circle | Island country northeast of Solomon Islands |
+| Vanuatu | Melanesia | South | Island archipelago |
+| Tonga | Polynesia | Southeast | Island archipelago |
+","[[""Pacific Nation"",""Subregion / Coordinates"",""Highlighted Marker"",""Geography""],[""Nauru"",""Micronesia / 0 deg 32' S, 166 deg 55' E"",""Highlighted single island circle"",""Island country northeast of Solomon Islands""],[""Vanuatu"",""Melanesia"",""South"",""Island archipelago""],[""Tonga"",""Polynesia"",""Southeast"",""Island archipelago""]]"
+"scienceqa","scienceqa_real_043","language science / writing-strategies (grade grade12)","science_mc","Which rhetorical appeal is primarily used in this ad?","pathos (emotion)","/data/scienceqa/images/scienceqa_real_043.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Rhetorical Appeal | Core Technique | Ad Element | Primary Appeal Used |
+| --- | --- | --- | --- |
+| pathos (emotion) | Evokes emotional response (love, protection, fear for child safety) | Protective parent and vulnerable infant visual & evocative copy | Primary Appeal: Pathos |
+| logos (reason) | Statistical evidence, logic, mathematical facts | Data charts, percent efficacy | Secondary / not primary |
+| ethos (character/credibility) | Celebrity/expert endorsement, moral authority | Doctor credentials, institute certification | Secondary / not primary |
+","[[""Rhetorical Appeal"",""Core Technique"",""Ad Element"",""Primary Appeal Used""],[""pathos (emotion)"",""Evokes emotional response (love, protection, fear for child safety)"",""Protective parent and vulnerable infant visual & evocative copy"",""Primary Appeal: Pathos""],[""logos (reason)"",""Statistical evidence, logic, mathematical facts"",""Data charts, percent efficacy"",""Secondary / not primary""],[""ethos (character/credibility)"",""Celebrity/expert endorsement, moral authority"",""Doctor credentials, institute certification"",""Secondary / not primary""]]"
+"scienceqa","scienceqa_real_044","natural science / biology (grade grade5)","science_mc","Which animal is also adapted to be camouflaged among dead leaves?","Surinam horned frog","/data/scienceqa/images/scienceqa_real_044.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Animal | Camouflage Appearance | Habitat Matching | Dead Leaf Adaptation |
+| --- | --- | --- | --- |
+| Surinam horned frog | Brown, angular body with pointed brow horns and vein-like leaf ridges | Amazon rainforest floor among fallen leaves | Highly adapted cryptic leaf camouflage |
+| strawberry poison frog | Bright red body with blue legs | Rainforest understory | Aposematic warning coloration, not camouflage |
+","[[""Animal"",""Camouflage Appearance"",""Habitat Matching"",""Dead Leaf Adaptation""],[""Surinam horned frog"",""Brown, angular body with pointed brow horns and vein-like leaf ridges"",""Amazon rainforest floor among fallen leaves"",""Highly adapted cryptic leaf camouflage""],[""strawberry poison frog"",""Bright red body with blue legs"",""Rainforest understory"",""Aposematic warning coloration, not camouflage""]]"
+"scienceqa","scienceqa_real_045","natural science / science-and-engineering-practices (grade grade8)","science_mc","Identify the question that Helen's experiment can best answer.","Does linen fabric turn darker than cotton fabric when soaked in a mixture of black dye and water?","/data/scienceqa/images/scienceqa_real_045.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Helen's Experiment Setup | Bucket 1-5 (Condition A) | Bucket 6-10 (Condition B) | Dependent Variable / Question Answered |
+| --- | --- | --- | --- |
+| Fabric Material | Linen fabric swatch | Cotton fabric swatch | Comparing fabric type absorption |
+| Dye Solution & Time | 1 gallon water + black dye, 20 min | 1 gallon water + black dye, 20 min | Controlled constant |
+| Best Question Answered | - | - | Does linen fabric turn darker than cotton fabric when soaked in a mixture of black dye and water? |
+","[[""Helen's Experiment Setup"",""Bucket 1-5 (Condition A)"",""Bucket 6-10 (Condition B)"",""Dependent Variable / Question Answered""],[""Fabric Material"",""Linen fabric swatch"",""Cotton fabric swatch"",""Comparing fabric type absorption""],[""Dye Solution & Time"",""1 gallon water + black dye, 20 min"",""1 gallon water + black dye, 20 min"",""Controlled constant""],[""Best Question Answered"",""-"",""-"",""Does linen fabric turn darker than cotton fabric when soaked in a mixture of black dye and water?""]]"
+"scienceqa","scienceqa_real_046","natural science / physics (grade grade3)","science_mc","Think about the magnetic force between the magnets in each pair. Which of the following statements is true?","The magnetic force is stronger in Pair 2.","/data/scienceqa/images/scienceqa_real_046.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Magnet Pair | Poles Facing | Distance Between Poles | Magnetic Force Strength |
+| --- | --- | --- | --- |
+| Pair 1 | North and South | 2.5 inches (Larger distance) | Weaker magnetic force |
+| Pair 2 | North and South | 1.0 inch (Smaller distance) | Stronger magnetic force (Pair 2 is stronger) |
+","[[""Magnet Pair"",""Poles Facing"",""Distance Between Poles"",""Magnetic Force Strength""],[""Pair 1"",""North and South"",""2.5 inches (Larger distance)"",""Weaker magnetic force""],[""Pair 2"",""North and South"",""1.0 inch (Smaller distance)"",""Stronger magnetic force (Pair 2 is stronger)""]]"
+"scienceqa","scienceqa_real_047","social science / geography (grade grade5)","science_mc","What is the capital of Washington?","Olympia","/data/scienceqa/images/scienceqa_real_047.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| US State | Capital City | Location / Puget Sound | Map Indication |
+| --- | --- | --- | --- |
+| Washington | Olympia | Southern tip of Puget Sound | Highlighted green state with star at Olympia |
+| Seattle | Largest City (Not capital) | King County, Puget Sound | Dot |
+| Spokane | City in Eastern Washington | Near Idaho border | Dot |
+","[[""US State"",""Capital City"",""Location / Puget Sound"",""Map Indication""],[""Washington"",""Olympia"",""Southern tip of Puget Sound"",""Highlighted green state with star at Olympia""],[""Seattle"",""Largest City (Not capital)"",""King County, Puget Sound"",""Dot""],[""Spokane"",""City in Eastern Washington"",""Near Idaho border"",""Dot""]]"
+"scienceqa","scienceqa_real_048","natural science / chemistry (grade grade6)","science_mc","Which solution has a higher concentration of green particles?","neither; their concentrations are the same","/data/scienceqa/images/scienceqa_real_048.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Solution Beaker | Green Solute Particles (Count) | Solvent Liquid Volume (mL) | Concentration (Particles / mL) |
+| --- | --- | --- | --- |
+| Solution A | 8 particles | 50 mL | 8 / 50 = 0.16 particles/mL |
+| Solution B | 16 particles | 100 mL | 16 / 100 = 0.16 particles/mL |
+| Comparison | Different solute amounts | Proportional volume differences | Neither; their concentrations are the same (0.16 particles/mL) |
+","[[""Solution Beaker"",""Green Solute Particles (Count)"",""Solvent Liquid Volume (mL)"",""Concentration (Particles / mL)""],[""Solution A"",""8 particles"",""50 mL"",""8 / 50 = 0.16 particles/mL""],[""Solution B"",""16 particles"",""100 mL"",""16 / 100 = 0.16 particles/mL""],[""Comparison"",""Different solute amounts"",""Proportional volume differences"",""Neither; their concentrations are the same (0.16 particles/mL)""]]"
+"scienceqa","scienceqa_real_049","natural science / biology (grade grade7)","science_mc","Which is this organism's scientific name?","Argema mittrei","/data/scienceqa/images/scienceqa_real_049.png","ScienceQA (Lu et al., NeurIPS 2022) — real sample","| Naming System | Nomenclature Example | Formatting Rule | Valid Scientific Name |
+| --- | --- | --- | --- |
+| Scientific Name (Binomial) | Argema mittrei | Two words, Latinized, italicized, capitalized Genus with lowercase species epithet | Argema mittrei (Scientific name) |
+| Common Name | comet moth (or Madagascan moon moth) | Standard vernacular English words, not italicized | comet moth (Common name) |
+","[[""Naming System"",""Nomenclature Example"",""Formatting Rule"",""Valid Scientific Name""],[""Scientific Name (Binomial)"",""Argema mittrei"",""Two words, Latinized, italicized, capitalized Genus with lowercase species epithet"",""Argema mittrei (Scientific name)""],[""Common Name"",""comet moth (or Madagascan moon moth)"",""Standard vernacular English words, not italicized"",""comet moth (Common name)""]]"
+"spiqa","spiqa_real_000","Paper 1611.04684v1","paper_figure","What are the main differences between the educational philosophies of the Bonaparte and Voltaire schools?","The Bonaparte school focuses on outdoor physical activities, maneuvers, and strategies, with a specialization in horse riding, lances, and swords. They aim to develop students into good leaders. The Voltaire school, on the other hand, encourages independent thinking and focuses on indoor activities. They aim to instill good moral values and develop students into philosophical thinkers.","/data/spiqa/images/spiqa_real_000.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| School | Focus & Curriculum | Specialization | Educational Philosophy / Objective |
+| --- | --- | --- | --- |
+| Bonaparte School | Outdoor physical activities, maneuvers, strategies | Horse riding, lances, swords | Develop students into good leaders |
+| Voltaire School | Indoor activities, independent thinking | Philosophy, morality | Instill good moral values, develop philosophical thinkers |
+","[[""School"",""Focus & Curriculum"",""Specialization"",""Educational Philosophy / Objective""],[""Bonaparte School"",""Outdoor physical activities, maneuvers, strategies"",""Horse riding, lances, swords"",""Develop students into good leaders""],[""Voltaire School"",""Indoor activities, independent thinking"",""Philosophy, morality"",""Instill good moral values, develop philosophical thinkers""]]"
+"spiqa","spiqa_real_001","Paper 1611.05742v3","paper_figure","What is the function of the ReOrth Layer in the Projection Block of the Grassmann Network architecture?","The ReOrth Layer re-orthogonalizes the output of the FRMap Layer.","/data/spiqa/images/spiqa_real_001.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Block | Layer | Operation / Formula | Function Description |
+| --- | --- | --- | --- |
+| Projection Block | FRMap Layer | X1 = f_fr(X0) = [W1^T X0, ...] | First-order projection mapping from input orth X0 |
+| Projection Block | ReOrth Layer | X2 = f_ro(X1) = Q1 (X1 = Q1 R1) | Re-orthogonalizes the output of the FRMap Layer |
+| Pooling Block | ProjMap Layer | X3 = f_pm(X2) = X2 X2^T | Projection mapping onto Grassmannian space |
+| Pooling Block | ProjPooling Layer | X4 = f_pp({X3^1, ...}) | Projection pooling across channels |
+| Pooling Block | OrthMap Layer | X5 = f_om(X4) = U_4,1:q | Orthogonal mapping via SVD X4 = U4 Sigma4 U4^T |
+| Output Block | ProjMap Layer | X_{l-1} = f_pm(X_{l-2}) = X_{l-2} X_{l-2}^T | Final block projection mapping |
+| Output Block | FC & Softmax Layers | f^(l)(X_{l-1}) | Fully connected classification & softmax probabilities |
+","[[""Block"",""Layer"",""Operation / Formula"",""Function Description""],[""Projection Block"",""FRMap Layer"",""X1 = f_fr(X0) = [W1^T X0, ...]"",""First-order projection mapping from input orth X0""],[""Projection Block"",""ReOrth Layer"",""X2 = f_ro(X1) = Q1 (X1 = Q1 R1)"",""Re-orthogonalizes the output of the FRMap Layer""],[""Pooling Block"",""ProjMap Layer"",""X3 = f_pm(X2) = X2 X2^T"",""Projection mapping onto Grassmannian space""],[""Pooling Block"",""ProjPooling Layer"",""X4 = f_pp({X3^1, ...})"",""Projection pooling across channels""],[""Pooling Block"",""OrthMap Layer"",""X5 = f_om(X4) = U_4,1:q"",""Orthogonal mapping via SVD X4 = U4 Sigma4 U4^T""],[""Output Block"",""ProjMap Layer"",""X_{l-1} = f_pm(X_{l-2}) = X_{l-2} X_{l-2}^T"",""Final block projection mapping""],[""Output Block"",""FC & Softmax Layers"",""f^(l)(X_{l-1})"",""Fully connected classification & softmax probabilities""]]"
+"spiqa","spiqa_real_002","Paper 1611.07718v2","paper_figure","Which network architecture has the highest accuracy on the CIFAR-10 dataset?","DMRNet-Wide","/data/spiqa/images/spiqa_real_002.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Network Architecture | Depth | Params | CIFAR-10 Error (%) | CIFAR-100 Error (%) | SVHN Error (%) |
+| --- | --- | --- | --- | --- | --- |
+| Network in Network [16] | - | - | 8.81 | - | 2.35 |
+| All-CNN [25] | - | - | 7.25 | 33.71 | - |
+| FitNet [21] | - | - | 8.39 | 35.04 | 2.42 |
+| Deeply-Supervised Nets [15] | - | - | 7.97 | 34.57 | 1.92 |
+| Swapout [23] | 20 / 32 | 1.1M / 7.4M | 6.85 / 4.76 | 25.86 / 22.72 | - |
+| Highway [27] | - | - | 7.72 | 32.39 | - |
+| DFN [35] | 50 / 50 | 3.7M / 3.9M | 6.40 / 6.24 | 27.61 / 27.52 | - |
+| FractalNet [14] (W/ dropout & droppath) | 21 | 38.6M | 5.22 / 4.60 | 23.30 / 23.73 | 2.01 / 1.87 |
+| ResNet [7, 10, 8] | 110 / 164 / 1001 | 1.7M / 10.2M | 6.61 / 5.46 / 4.62 | 27.22 / 24.33 / 22.71 | 2.01 / - |
+| ResNet W/ stochastic depth [10] | 110 / 1202 | 1.7M / 10.2M | 5.23 / 4.91 | 24.58 / - | 1.75 / - |
+| Wide ResNet [39] (W/ dropout) | 16 / 28 | 11.0M / 36.5M | 4.81 / 4.17 | 22.07 / 20.50 | 1.64 |
+| RiR [32] | 18 | 10.3M | 5.01 | 22.90 | - |
+| Multi-ResNet [1] | 200 / 398 | 10.2M / 20.4M | 4.35 / 3.92 | 20.42 / - | - |
+| DenseNet [9] | 100 | 27.2M | 3.74 | 19.25 | 1.59 |
+| DMRNet (ours) | 56 | 1.7M | 4.96 | 24.41 | 1.68 |
+| DMRNet-Wide (ours, 4x wider) | 32 | 14.9M | 3.94 | 19.25 | 1.51 |
+| DMRNet-Wide (ours, 4x wider) | 50 | 24.8M | 3.57 | 19.00 | 1.55 |
+","[[""Network Architecture"",""Depth"",""Params"",""CIFAR-10 Error (%)"",""CIFAR-100 Error (%)"",""SVHN Error (%)""],[""Network in Network [16]"",""-"",""-"",""8.81"",""-"",""2.35""],[""All-CNN [25]"",""-"",""-"",""7.25"",""33.71"",""-""],[""FitNet [21]"",""-"",""-"",""8.39"",""35.04"",""2.42""],[""Deeply-Supervised Nets [15]"",""-"",""-"",""7.97"",""34.57"",""1.92""],[""Swapout [23]"",""20 / 32"",""1.1M / 7.4M"",""6.85 / 4.76"",""25.86 / 22.72"",""-""],[""Highway [27]"",""-"",""-"",""7.72"",""32.39"",""-""],[""DFN [35]"",""50 / 50"",""3.7M / 3.9M"",""6.40 / 6.24"",""27.61 / 27.52"",""-""],[""FractalNet [14] (W/ dropout & droppath)"",""21"",""38.6M"",""5.22 / 4.60"",""23.30 / 23.73"",""2.01 / 1.87""],[""ResNet [7, 10, 8]"",""110 / 164 / 1001"",""1.7M / 10.2M"",""6.61 / 5.46 / 4.62"",""27.22 / 24.33 / 22.71"",""2.01 / -""],[""ResNet W/ stochastic depth [10]"",""110 / 1202"",""1.7M / 10.2M"",""5.23 / 4.91"",""24.58 / -"",""1.75 / -""],[""Wide ResNet [39] (W/ dropout)"",""16 / 28"",""11.0M / 36.5M"",""4.81 / 4.17"",""22.07 / 20.50"",""1.64""],[""RiR [32]"",""18"",""10.3M"",""5.01"",""22.90"",""-""],[""Multi-ResNet [1]"",""200 / 398"",""10.2M / 20.4M"",""4.35 / 3.92"",""20.42 / -"",""-""],[""DenseNet [9]"",""100"",""27.2M"",""3.74"",""19.25"",""1.59""],[""DMRNet (ours)"",""56"",""1.7M"",""4.96"",""24.41"",""1.68""],[""DMRNet-Wide (ours, 4x wider)"",""32"",""14.9M"",""3.94"",""19.25"",""1.51""],[""DMRNet-Wide (ours, 4x wider)"",""50"",""24.8M"",""3.57"",""19.00"",""1.55""]]"
+"spiqa","spiqa_real_003","Paper 1611.03780v2","paper_figure","How does GeoCUTS perform compared to other clusterings for highly active users?","GeoCUTS performs comparably to other clusterings for highly active users.","/data/spiqa/images/spiqa_real_003.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| User Segment | GeoCUTS B-metric | DMA B-metric | Grid B-metric |
+| --- | --- | --- | --- |
+| US Highly Active | 1.5 | 1.5 | 1.5 |
+| US Highly Mobile | 1.8 | 1.7 | 1.3 |
+| France Highly Active | 11.1 | - | 11.5 |
+","[[""User Segment"",""GeoCUTS B-metric"",""DMA B-metric"",""Grid B-metric""],[""US Highly Active"",""1.5"",""1.5"",""1.5""],[""US Highly Mobile"",""1.8"",""1.7"",""1.3""],[""France Highly Active"",""11.1"",""-"",""11.5""]]"
+"spiqa","spiqa_real_004","Paper 1611.04363v2","paper_figure","Which method performed best according to the P@1 metric for the QA-Expert task, and how much better did it perform compared to the average P@1 score of the D2V method? ","The WeakFG method achieved the highest P@1 score for the QA-Expert task with a score of 52.8. This is 23.2% higher than the average P@1 score of the D2V method, which was 29.6. ","/data/spiqa/images/spiqa_real_004.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Method | Agg | QA-Expert P@1 | QA-Expert P@3 | QA-Expert P@5 | QA-Expert MAP | QA-Expert Rprec | Paper-Reviewer P@3 | Paper-Reviewer P@5 | Paper-Reviewer P@10 | Paper-Reviewer MAP | Paper-Reviewer Rprec |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| LM | max | 36.8 | 34.9 | 33.2 | 57.4 | 55.7 | 66.5 | 61.6 | 54.7 | 76.7 | 67.2 |
+| LM | avg | 37.5 | 36.8 | 33.2 | 57.9 | 55.6 | 69.9 | 63.3 | 54.9 | 78.2 | 68.3 |
+| BM25 | max | 33.6 | 33.6 | 33.3 | 55.1 | 53.5 | 67.1 | 61.8 | 54.8 | 77.0 | 67.1 |
+| BM25 | avg | 41.4 | 34.6 | 33.3 | 59.1 | 56.5 | 70.2 | 63.9 | 55.1 | 78.1 | 68.4 |
+| LDA | max | 37.5 | 35.3 | 33.2 | 56.7 | 53.9 | 63.0 | 59.3 | 54.1 | 72.8 | 65.6 |
+| LDA | avg | 32.9 | 33.8 | 32.9 | 53.6 | 51.4 | 66.3 | 62.6 | 55.2 | 75.8 | 67.9 |
+| WMD | max | 40.8 | 36.4 | 34.0 | 59.5 | 56.2 | 67.3 | 61.5 | 54.6 | 76.3 | 67.2 |
+| WMD | avg | 38.2 | 38.2 | 34.1 | 58.8 | 55.6 | 64.2 | 59.3 | 53.0 | 73.7 | 63.5 |
+| D2V | max | 36.2 | 34.4 | 33.2 | 57.3 | 55.6 | 69.6 | 62.5 | 55.1 | 77.7 | 68.3 |
+| D2V | avg | 29.6 | 32.7 | 33.3 | 53.9 | 53.0 | 72.3 | 65.4 | 56.2 | 80.5 | 71.3 |
+| RankSVM | - | 49.8 | 38.5 | 33.7 | 65.5 | 63.1 | 70.6 | 64.8 | 56.0 | 81.0 | 72.7 |
+| WeakFG (Ours) | - | 52.8 | 39.6 | 34.1 | 67.4 | 64.5 | 71.9 | 65.5 | 56.3 | 82.0 | 73.8 |
+","[[""Method"",""Agg"",""QA-Expert P@1"",""QA-Expert P@3"",""QA-Expert P@5"",""QA-Expert MAP"",""QA-Expert Rprec"",""Paper-Reviewer P@3"",""Paper-Reviewer P@5"",""Paper-Reviewer P@10"",""Paper-Reviewer MAP"",""Paper-Reviewer Rprec""],[""LM"",""max"",""36.8"",""34.9"",""33.2"",""57.4"",""55.7"",""66.5"",""61.6"",""54.7"",""76.7"",""67.2""],[""LM"",""avg"",""37.5"",""36.8"",""33.2"",""57.9"",""55.6"",""69.9"",""63.3"",""54.9"",""78.2"",""68.3""],[""BM25"",""max"",""33.6"",""33.6"",""33.3"",""55.1"",""53.5"",""67.1"",""61.8"",""54.8"",""77.0"",""67.1""],[""BM25"",""avg"",""41.4"",""34.6"",""33.3"",""59.1"",""56.5"",""70.2"",""63.9"",""55.1"",""78.1"",""68.4""],[""LDA"",""max"",""37.5"",""35.3"",""33.2"",""56.7"",""53.9"",""63.0"",""59.3"",""54.1"",""72.8"",""65.6""],[""LDA"",""avg"",""32.9"",""33.8"",""32.9"",""53.6"",""51.4"",""66.3"",""62.6"",""55.2"",""75.8"",""67.9""],[""WMD"",""max"",""40.8"",""36.4"",""34.0"",""59.5"",""56.2"",""67.3"",""61.5"",""54.6"",""76.3"",""67.2""],[""WMD"",""avg"",""38.2"",""38.2"",""34.1"",""58.8"",""55.6"",""64.2"",""59.3"",""53.0"",""73.7"",""63.5""],[""D2V"",""max"",""36.2"",""34.4"",""33.2"",""57.3"",""55.6"",""69.6"",""62.5"",""55.1"",""77.7"",""68.3""],[""D2V"",""avg"",""29.6"",""32.7"",""33.3"",""53.9"",""53.0"",""72.3"",""65.4"",""56.2"",""80.5"",""71.3""],[""RankSVM"",""-"",""49.8"",""38.5"",""33.7"",""65.5"",""63.1"",""70.6"",""64.8"",""56.0"",""81.0"",""72.7""],[""WeakFG (Ours)"",""-"",""52.8"",""39.6"",""34.1"",""67.4"",""64.5"",""71.9"",""65.5"",""56.3"",""82.0"",""73.8""]]"
+"spiqa","spiqa_real_005","Paper 1608.02784v2","paper_figure","Which system from Ortiz et al. achieved the highest BLEU and METEOR scores, and how does it compare to the CCA inference algorithm in terms of performance?","The SMT system from Ortiz et al. achieved the highest BLEU score (43.7) and METEOR score (35.6) among their tested systems. While the SMT system outperforms the CCA inference algorithm in terms of BLEU score, the CCA algorithm achieves a slightly higher METEOR score (25.6 vs 25.5).","/data/spiqa/images/spiqa_real_005.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| System Source | Model Variant | BLEU Score | METEOR Score |
+| --- | --- | --- | --- |
+| Ortiz et al. | LBL | 7.3 | 17.7 |
+| Ortiz et al. | MLBL | 12.3 | 20.4 |
+| Ortiz et al. | Image | 12.8 | 21.7 |
+| Ortiz et al. | Keyword | 14.7 | 26.6 |
+| Ortiz et al. | Template | 40.3 | 30.4 |
+| Ortiz et al. | SMT | 43.7 | 35.6 |
+| Proposed Method | CCA (m=120, eta=0.05) | 26.1 | 25.6 |
+","[[""System Source"",""Model Variant"",""BLEU Score"",""METEOR Score""],[""Ortiz et al."",""LBL"",""7.3"",""17.7""],[""Ortiz et al."",""MLBL"",""12.3"",""20.4""],[""Ortiz et al."",""Image"",""12.8"",""21.7""],[""Ortiz et al."",""Keyword"",""14.7"",""26.6""],[""Ortiz et al."",""Template"",""40.3"",""30.4""],[""Ortiz et al."",""SMT"",""43.7"",""35.6""],[""Proposed Method"",""CCA (m=120, eta=0.05)"",""26.1"",""25.6""]]"
+"spiqa","spiqa_real_006","Paper 1611.02654v2","paper_figure","Which model performed the best on the SICK dataset according to the MSE metric?","The supervised model performed the best on the SICK dataset according to the MSE metric.","/data/spiqa/images/spiqa_real_006.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Model Group | Model Name | SICK Pearson r | SICK Spearman rho | SICK MSE | MSRP Accuracy (%) | MSRP F1 (%) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Supervised | Supervised Method | 0.868 | 0.808 | 0.253 | 80.4 | 86.0 |
+| Prior Work | Uni-ST (Kiros et al. 2015) | 0.848 | 0.778 | 0.287 | 73.0 | 81.9 |
+| Our Models | Ordering model | 0.807 | 0.742 | 0.356 | 72.3 | 81.1 |
+| Our Models | Ordering model + BoW | 0.842 | 0.775 | 0.299 | 74.0 | 81.9 |
+| Our Models | Ordering model + Uni-ST | 0.860 | 0.795 | 0.270 | 74.9 | 82.5 |
+","[[""Model Group"",""Model Name"",""SICK Pearson r"",""SICK Spearman rho"",""SICK MSE"",""MSRP Accuracy (%)"",""MSRP F1 (%)""],[""Supervised"",""Supervised Method"",""0.868"",""0.808"",""0.253"",""80.4"",""86.0""],[""Prior Work"",""Uni-ST (Kiros et al. 2015)"",""0.848"",""0.778"",""0.287"",""73.0"",""81.9""],[""Our Models"",""Ordering model"",""0.807"",""0.742"",""0.356"",""72.3"",""81.1""],[""Our Models"",""Ordering model + BoW"",""0.842"",""0.775"",""0.299"",""74.0"",""81.9""],[""Our Models"",""Ordering model + Uni-ST"",""0.860"",""0.795"",""0.270"",""74.9"",""82.5""]]"
+"spiqa","spiqa_real_007","Paper 1701.03077v10","paper_figure","How does the shape of the IRLS weight function change as the shape parameter α increases?","The IRLS weight function becomes more peaked and concentrated around zero as the shape parameter α increases.","/data/spiqa/images/spiqa_real_007.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Shape Parameter alpha | IRLS Weight Curve Profile | Psi Function Curve Profile at z->0 |
+| --- | --- | --- |
+| alpha = -infinity | Most narrow, sharply concentrated peak at x=0 | Begins at value 1, gradual decay |
+| alpha = -2 | Concentrated peak at x=0, rapid taper | Rises to value ~2 |
+| alpha = 0 | Moderate bell peak | Rises to value ~3 |
+| alpha = 0.5 | Wider bell peak | Steep upward ascent toward z=0 |
+| alpha = 1.0 | Broad bell curve | Very steep upward ascent toward z=0 |
+| alpha = 1.5 | Very broad dispersion across x | Extremely steep asymptotic rise |
+| alpha = 2.0 | Completely flat horizontal line at 1/c^2 | Vertical asymptote at z=0 |
+","[[""Shape Parameter alpha"",""IRLS Weight Curve Profile"",""Psi Function Curve Profile at z->0""],[""alpha = -infinity"",""Most narrow, sharply concentrated peak at x=0"",""Begins at value 1, gradual decay""],[""alpha = -2"",""Concentrated peak at x=0, rapid taper"",""Rises to value ~2""],[""alpha = 0"",""Moderate bell peak"",""Rises to value ~3""],[""alpha = 0.5"",""Wider bell peak"",""Steep upward ascent toward z=0""],[""alpha = 1.0"",""Broad bell curve"",""Very steep upward ascent toward z=0""],[""alpha = 1.5"",""Very broad dispersion across x"",""Extremely steep asymptotic rise""],[""alpha = 2.0"",""Completely flat horizontal line at 1/c^2"",""Vertical asymptote at z=0""]]"
+"spiqa","spiqa_real_008","Paper 1802.07222v1","paper_figure","During which hours of the day did the most network-related reboots occur?","The most network-related reboots occurred between 18:00 and 20:00.","/data/spiqa/images/spiqa_real_008.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Hour of the Day | Number of Network-Related Reboots |
+| --- | --- |
+| 00:00 | 12 |
+| 01:00 | 8 |
+| 02:00 | 15 |
+| 03:00 | 3 |
+| 04:00 | 1 |
+| 05:00 | 20 |
+| 06:00 | 9 |
+| 07:00 | 2 |
+| 08:00 | 19 |
+| 09:00 | 6 |
+| 10:00 | 3 |
+| 11:00 | 9 |
+| 12:00 | 4 |
+| 13:00 | 6 |
+| 14:00 | 11 |
+| 15:00 | 9 |
+| 16:00 | 6 |
+| 17:00 | 11 |
+| 18:00 | 6 |
+| 19:00 | 3 |
+| 20:00 | 17 |
+| 21:00 | 4 |
+","[[""Hour of the Day"",""Number of Network-Related Reboots""],[""00:00"",""12""],[""01:00"",""8""],[""02:00"",""15""],[""03:00"",""3""],[""04:00"",""1""],[""05:00"",""20""],[""06:00"",""9""],[""07:00"",""2""],[""08:00"",""19""],[""09:00"",""6""],[""10:00"",""3""],[""11:00"",""9""],[""12:00"",""4""],[""13:00"",""6""],[""14:00"",""11""],[""15:00"",""9""],[""16:00"",""6""],[""17:00"",""11""],[""18:00"",""6""],[""19:00"",""3""],[""20:00"",""17""],[""21:00"",""4""]]"
+"spiqa","spiqa_real_009","Paper 1603.00286v5","paper_figure","Which agent values the entire share $Z_j$?","Agent $j$.","/data/spiqa/images/spiqa_real_009.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Cake Cutting Component | Visual Symbol | Valuation / Interpretation |
+| --- | --- | --- |
+| Agent j's Share (Z_j) | Solid Blue Rectangles | Agent j values entire slice with positive density v_j |
+| Other Agents' Shares (Z_i) | Dotted Color Outlines (Green, Purple, Red, Orange) | Agent j assigns 0 density to other agents' pieces |
+| Overall Allocation | Alternating Intervals along cake length | Exact envy-free fair division structure |
+","[[""Cake Cutting Component"",""Visual Symbol"",""Valuation / Interpretation""],[""Agent j's Share (Z_j)"",""Solid Blue Rectangles"",""Agent j values entire slice with positive density v_j""],[""Other Agents' Shares (Z_i)"",""Dotted Color Outlines (Green, Purple, Red, Orange)"",""Agent j assigns 0 density to other agents' pieces""],[""Overall Allocation"",""Alternating Intervals along cake length"",""Exact envy-free fair division structure""]]"
+"spiqa","spiqa_real_010","Paper 1603.03833v4","paper_figure","What is the role of the LSTM-MDN network in the training phase?","The LSTM-MDN network is used to learn the relationship between the gripper pose and status, the pose of relevant objects, and the joint angles of the robot arm.","/data/spiqa/images/spiqa_real_010.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Architecture Phase | Module / Component | Input / Predecessor | Output / Function |
+| --- | --- | --- | --- |
+| Training Phase | Input Features | e_t, q_t (dataset state) | State fed into LSTM layer 1 |
+| Training Phase | LSTM Stack (H1, H2, H3) | Sequential feedback & time steps | Multi-layer recurrent representations |
+| Training Phase | Mixture Density Parameters (M) | Hidden representations | Parameters alpha (Softmax), mu, sigma (Exp) |
+| Training Phase | Cost Function (C) | Mixture parameters vs e_{t+1}..e_{t+50} | Negative log likelihood loss backpropagated |
+| Evaluation Phase | Recurrent Closed-Loop | e_t, q_t + previous state | Multivariate Mixture of Gaussians |
+| Evaluation Phase | Actuation Pipeline | Sampled e_{t+1} | Inverse kinematics -> Joint angles -> Robot execution |
+","[[""Architecture Phase"",""Module / Component"",""Input / Predecessor"",""Output / Function""],[""Training Phase"",""Input Features"",""e_t, q_t (dataset state)"",""State fed into LSTM layer 1""],[""Training Phase"",""LSTM Stack (H1, H2, H3)"",""Sequential feedback & time steps"",""Multi-layer recurrent representations""],[""Training Phase"",""Mixture Density Parameters (M)"",""Hidden representations"",""Parameters alpha (Softmax), mu, sigma (Exp)""],[""Training Phase"",""Cost Function (C)"",""Mixture parameters vs e_{t+1}..e_{t+50}"",""Negative log likelihood loss backpropagated""],[""Evaluation Phase"",""Recurrent Closed-Loop"",""e_t, q_t + previous state"",""Multivariate Mixture of Gaussians""],[""Evaluation Phase"",""Actuation Pipeline"",""Sampled e_{t+1}"",""Inverse kinematics -> Joint angles -> Robot execution""]]"
+"spiqa","spiqa_real_011","Paper 1605.07496v3","paper_figure","Which policy resulted in the highest average cost?","MAP Policy","/data/spiqa/images/spiqa_real_011.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Policy Name | Average Cost | % Episodes Cost 0-20 | % Episodes Cost 20-70 | % Episodes Cost >=70 |
+| --- | --- | --- | --- | --- |
+| ALOQ Policy | 19.82 | 61.3% | 38.5% | 0.2% |
+| MAP Policy | 28.76 | 67.1% | 28.7% | 4.2% |
+| RQ-ALOQ | 25.95 | - | 94.5% | 5.5% |
+","[[""Policy Name"",""Average Cost"",""% Episodes Cost 0-20"",""% Episodes Cost 20-70"",""% Episodes Cost >=70""],[""ALOQ Policy"",""19.82"",""61.3%"",""38.5%"",""0.2%""],[""MAP Policy"",""28.76"",""67.1%"",""28.7%"",""4.2%""],[""RQ-ALOQ"",""25.95"",""-"",""94.5%"",""5.5%""]]"
+"spiqa","spiqa_real_012","Paper 1612.02803v5","paper_figure","What is the equation that describes the motion of a mass attached to a spring?","The equation that describes the motion of a mass attached to a spring is:
+```
+m d^2 X / dt^2 + kX = 0
+```
+where:
+* m is the mass of the object
+* X is the displacement of the object from its equilibrium position
+* k is the spring constant
+* t is time","/data/spiqa/images/spiqa_real_012.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Physical Concept | Mathematical Expression | Physical Variable / Parameter | Physical Implication |
+| --- | --- | --- | --- |
+| Equation of Motion | m \ddot{X} + K X = 0 | \ddot{X} := d^2X/dt^2 (acceleration) | Newton's second law for frictionless harmonic oscillator |
+| Position Function | X(t) = x_0 \cos(\omega t) | x_0 (initial release displacement), t (time) | Periodic oscillatory displacement from equilibrium |
+| Oscillating Frequency | \omega = \sqrt{K/m} | K (spring constant), m (particle mass) | Natural frequency determined by stiffness and mass |
+| Kinetic Energy | K(X) = 0.5 m \dot{X}^2 | \dot{X} (velocity of particle) | Kinetic component of mechanical energy |
+| Conservation of Energy | E(t) := V(X(t)) + K(X(t)) = V(x_0) | E(t) (total energy) | Total energy is strictly conserved; system never stops |
+","[[""Physical Concept"",""Mathematical Expression"",""Physical Variable / Parameter"",""Physical Implication""],[""Equation of Motion"",""m \\ddot{X} + K X = 0"",""\\ddot{X} := d^2X/dt^2 (acceleration)"",""Newton's second law for frictionless harmonic oscillator""],[""Position Function"",""X(t) = x_0 \\cos(\\omega t)"",""x_0 (initial release displacement), t (time)"",""Periodic oscillatory displacement from equilibrium""],[""Oscillating Frequency"",""\\omega = \\sqrt{K/m}"",""K (spring constant), m (particle mass)"",""Natural frequency determined by stiffness and mass""],[""Kinetic Energy"",""K(X) = 0.5 m \\dot{X}^2"",""\\dot{X} (velocity of particle)"",""Kinetic component of mechanical energy""],[""Conservation of Energy"",""E(t) := V(X(t)) + K(X(t)) = V(x_0)"",""E(t) (total energy)"",""Total energy is strictly conserved; system never stops""]]"
+"spiqa","spiqa_real_013","Paper 1606.07384v2","paper_figure","How does the performance of the Filtering algorithm compare to the performance of MLE with noise?","The Filtering algorithm performs better than MLE with noise in both the random tree and random graph settings.","/data/spiqa/images/spiqa_real_013.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Bayes Net Structure | Algorithm | Error (d_TV) at m=100 | Error (d_TV) at m=500 | Error (d_TV) at m=1000 | Trend Summary |
+| --- | --- | --- | --- | --- | --- |
+| Random Tree (Left) | MLE w/o noise | 0.01 | 0.01 | 0.01 | Near-zero baseline error |
+| Random Tree (Left) | Filtering (Ours) | 0.02 | 0.02 | 0.02 | Consistently robust across parameter sizes |
+| Random Tree (Left) | MLE w/ noise | 0.48 | 0.85 | 0.96 | Error increases severely with table size m |
+| Random Tree (Left) | RANSAC | 0.45 | 0.84 | 0.95 | Error degrades rapidly similarly to MLE |
+| Random Graph (Right) | MLE w/o noise | 0.01 | 0.01 | 0.01 | Near-zero baseline error |
+| Random Graph (Right) | Filtering (Ours) | 0.02 | 0.02 | 0.02 | Remains tightly bounded near zero |
+| Random Graph (Right) | MLE w/ noise | 0.40 | 0.50 | 0.46 | Persistently high error (~0.40 - 0.50) |
+| Random Graph (Right) | RANSAC | 0.38 | 0.49 | 0.45 | Persistently high error (~0.38 - 0.49) |
+","[[""Bayes Net Structure"",""Algorithm"",""Error (d_TV) at m=100"",""Error (d_TV) at m=500"",""Error (d_TV) at m=1000"",""Trend Summary""],[""Random Tree (Left)"",""MLE w/o noise"",""0.01"",""0.01"",""0.01"",""Near-zero baseline error""],[""Random Tree (Left)"",""Filtering (Ours)"",""0.02"",""0.02"",""0.02"",""Consistently robust across parameter sizes""],[""Random Tree (Left)"",""MLE w/ noise"",""0.48"",""0.85"",""0.96"",""Error increases severely with table size m""],[""Random Tree (Left)"",""RANSAC"",""0.45"",""0.84"",""0.95"",""Error degrades rapidly similarly to MLE""],[""Random Graph (Right)"",""MLE w/o noise"",""0.01"",""0.01"",""0.01"",""Near-zero baseline error""],[""Random Graph (Right)"",""Filtering (Ours)"",""0.02"",""0.02"",""0.02"",""Remains tightly bounded near zero""],[""Random Graph (Right)"",""MLE w/ noise"",""0.40"",""0.50"",""0.46"",""Persistently high error (~0.40 - 0.50)""],[""Random Graph (Right)"",""RANSAC"",""0.38"",""0.49"",""0.45"",""Persistently high error (~0.38 - 0.49)""]]"
+"spiqa","spiqa_real_014","Paper 1803.01128v3","paper_figure","What are the key differences between Seq2Sick and existing attack methods on RNN-based models?","Seq2Sick differs from existing attack methods in two key aspects:
+
+1. Search Strategy: While previous methods primarily rely on greedy search, which becomes increasingly inefficient for longer sequences, Seq2Sick employs group lasso regularization and projected gradient descent with gradient regularization. This allows for simultaneous searching of all replacement positions, leading to improved efficiency.
+
+2. Targeted Attack Type: Existing methods focus on targeting specific classes or binary classifications, while Seq2Sick introduces a novel ""keyword"" target type, allowing attacks to be directed towards specific keywords within the generated sequence.","/data/spiqa/images/spiqa_real_014.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Attack Method | Gradient Based? | Word-level RNN? | Sequential Output? | Targeted Attack Type |
+| --- | --- | --- | --- | --- |
+| Ebrahimi et al. (2017) | Yes | No | Yes | Class |
+| Jia and Liang (2017) | No | Yes | No | None (Untargeted) |
+| Li, Monroe, and Jurafsky (2016) | Yes | Yes | No | Class |
+| Papernot et al. (2016) | Yes | No | Yes | None (Untargeted) |
+| Gao et al. (2018) | No | Yes | No | Binary |
+| Samanta and Mehta (2017) | No | No | No | Binary |
+| Zhao, Dua, and Singh (2017) | Yes | Yes | Yes | Class |
+| Liang et al. (2017) | Yes | No | No | Class |
+| Alzantot et al. (2018) | No | Yes | No | Class |
+| Yang et al. (2018) | No | Yes | No | Class |
+| Seq2Sick (Ours) | Yes | Yes | Yes | Keyword |
+","[[""Attack Method"",""Gradient Based?"",""Word-level RNN?"",""Sequential Output?"",""Targeted Attack Type""],[""Ebrahimi et al. (2017)"",""Yes"",""No"",""Yes"",""Class""],[""Jia and Liang (2017)"",""No"",""Yes"",""No"",""None (Untargeted)""],[""Li, Monroe, and Jurafsky (2016)"",""Yes"",""Yes"",""No"",""Class""],[""Papernot et al. (2016)"",""Yes"",""No"",""Yes"",""None (Untargeted)""],[""Gao et al. (2018)"",""No"",""Yes"",""No"",""Binary""],[""Samanta and Mehta (2017)"",""No"",""No"",""No"",""Binary""],[""Zhao, Dua, and Singh (2017)"",""Yes"",""Yes"",""Yes"",""Class""],[""Liang et al. (2017)"",""Yes"",""No"",""No"",""Class""],[""Alzantot et al. (2018)"",""No"",""Yes"",""No"",""Class""],[""Yang et al. (2018)"",""No"",""Yes"",""No"",""Class""],[""Seq2Sick (Ours)"",""Yes"",""Yes"",""Yes"",""Keyword""]]"
+"spiqa","spiqa_real_015","Paper 1703.00899v2","paper_figure","What is the relationship between the true market state qt and the noisy version q̂t at time t?","The noisy version q̂t at time t is equal to the true market state qt plus a sum of Laplace noise vectors obtained by following the arrows all the way back to 0.","/data/spiqa/images/spiqa_real_015.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Trade Time Index (t) | Predecessor Index s(t) | Independent Noise Vector | Cumulative Noise in q_hat_t | Maximum Backwards Jumps |
+| --- | --- | --- | --- | --- |
+| t = 0 | - | z_0 | z_0 | 0 jumps |
+| t = 1 | 0 | z_1 | z_1 + z_0 | 1 jump |
+| t = 2 | 0 | z_2 | z_2 + z_0 | 1 jump |
+| t = 3 | 2 | z_3 | z_3 + z_2 + z_0 | 2 jumps |
+| t = 4 | 0 | z_4 | z_4 + z_0 | 1 jump |
+| t = 5 | 4 | z_5 | z_5 + z_4 + z_0 | 2 jumps |
+| t = 6 | 4 | z_6 | z_6 + z_4 + z_0 | 2 jumps |
+| t = 7 | 6 | z_7 | z_7 + z_6 + z_4 + z_0 | 3 jumps |
+| t = 8 | 0 | z_8 | z_8 + z_0 | 1 jump |
+| t = 16 | 0 | z_16 | z_16 + z_0 | 1 jump |
+","[[""Trade Time Index (t)"",""Predecessor Index s(t)"",""Independent Noise Vector"",""Cumulative Noise in q_hat_t"",""Maximum Backwards Jumps""],[""t = 0"",""-"",""z_0"",""z_0"",""0 jumps""],[""t = 1"",""0"",""z_1"",""z_1 + z_0"",""1 jump""],[""t = 2"",""0"",""z_2"",""z_2 + z_0"",""1 jump""],[""t = 3"",""2"",""z_3"",""z_3 + z_2 + z_0"",""2 jumps""],[""t = 4"",""0"",""z_4"",""z_4 + z_0"",""1 jump""],[""t = 5"",""4"",""z_5"",""z_5 + z_4 + z_0"",""2 jumps""],[""t = 6"",""4"",""z_6"",""z_6 + z_4 + z_0"",""2 jumps""],[""t = 7"",""6"",""z_7"",""z_7 + z_6 + z_4 + z_0"",""3 jumps""],[""t = 8"",""0"",""z_8"",""z_8 + z_0"",""1 jump""],[""t = 16"",""0"",""z_16"",""z_16 + z_0"",""1 jump""]]"
+"spiqa","spiqa_real_016","Paper 1703.02507v3","paper_figure","Which model performed the best on the MSRP task for the Ordered Sentences dataset?","SkipThought","/data/spiqa/images/spiqa_real_016.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Data Split | Model | MSRP (Acc / F1) | MR | CR | SUBJ | MPQA | TREC | Average |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Unordered Sentences | SAE | 74.3 / 81.7 | 62.6 | 68.0 | 86.1 | 76.8 | 80.2 | 74.7 |
+| Unordered Sentences | SAE + embs. | 70.6 / 77.9 | 73.2 | 75.3 | 89.8 | 86.2 | 80.4 | 79.3 |
+| Unordered Sentences | SDAE | 76.4 / 83.4 | 67.6 | 74.0 | 89.3 | 81.3 | 77.7 | 78.3 |
+| Unordered Sentences | SDAE + embs. | 73.7 / 80.7 | 74.6 | 78.0 | 90.8 | 86.9 | 78.4 | 80.4 |
+| Unordered Sentences | ParagraphVec DBOW | 72.9 / 81.1 | 60.2 | 66.9 | 76.3 | 70.7 | 59.4 | 67.7 |
+| Unordered Sentences | ParagraphVec DM | 73.6 / 81.9 | 61.5 | 68.6 | 76.4 | 78.1 | 55.8 | 69.0 |
+| Unordered Sentences | Skipgram | 69.3 / 77.2 | 73.6 | 77.3 | 89.2 | 85.0 | 82.2 | 78.5 |
+| Unordered Sentences | C-BOW | 67.6 / 76.1 | 73.6 | 77.3 | 89.1 | 85.0 | 82.2 | 79.1 |
+| Unordered Sentences | Unigram TFIDF | 73.6 / 81.7 | 73.7 | 79.2 | 90.3 | 82.4 | 85.0 | 80.7 |
+| Unordered Sentences | Sent2Vec uni. | 72.2 / 80.3 | 75.1 | 80.2 | 90.6 | 86.3 | 83.8 | 81.4 |
+| Unordered Sentences | Sent2Vec uni. + bi. | 72.5 / 80.8 | 75.8 | 80.3 | 91.2 | 85.9 | 86.4 | 82.0 |
+| Ordered Sentences | SkipThought | 73.0 / 82.0 | 76.5 | 80.1 | 93.6 | 87.1 | 92.2 | 83.8 |
+| Ordered Sentences | FastSent | 72.2 / 80.3 | 70.8 | 78.4 | 88.7 | 80.6 | 76.8 | 77.9 |
+| Ordered Sentences | FastSent+AE | 71.2 / 79.1 | 71.8 | 76.7 | 88.8 | 81.5 | 80.4 | 78.4 |
+| 2.8 Billion words | C-PHRASE | 72.2 / 79.6 | 75.7 | 78.8 | 91.1 | 86.2 | 78.8 | 80.5 |
+","[[""Data Split"",""Model"",""MSRP (Acc / F1)"",""MR"",""CR"",""SUBJ"",""MPQA"",""TREC"",""Average""],[""Unordered Sentences"",""SAE"",""74.3 / 81.7"",""62.6"",""68.0"",""86.1"",""76.8"",""80.2"",""74.7""],[""Unordered Sentences"",""SAE + embs."",""70.6 / 77.9"",""73.2"",""75.3"",""89.8"",""86.2"",""80.4"",""79.3""],[""Unordered Sentences"",""SDAE"",""76.4 / 83.4"",""67.6"",""74.0"",""89.3"",""81.3"",""77.7"",""78.3""],[""Unordered Sentences"",""SDAE + embs."",""73.7 / 80.7"",""74.6"",""78.0"",""90.8"",""86.9"",""78.4"",""80.4""],[""Unordered Sentences"",""ParagraphVec DBOW"",""72.9 / 81.1"",""60.2"",""66.9"",""76.3"",""70.7"",""59.4"",""67.7""],[""Unordered Sentences"",""ParagraphVec DM"",""73.6 / 81.9"",""61.5"",""68.6"",""76.4"",""78.1"",""55.8"",""69.0""],[""Unordered Sentences"",""Skipgram"",""69.3 / 77.2"",""73.6"",""77.3"",""89.2"",""85.0"",""82.2"",""78.5""],[""Unordered Sentences"",""C-BOW"",""67.6 / 76.1"",""73.6"",""77.3"",""89.1"",""85.0"",""82.2"",""79.1""],[""Unordered Sentences"",""Unigram TFIDF"",""73.6 / 81.7"",""73.7"",""79.2"",""90.3"",""82.4"",""85.0"",""80.7""],[""Unordered Sentences"",""Sent2Vec uni."",""72.2 / 80.3"",""75.1"",""80.2"",""90.6"",""86.3"",""83.8"",""81.4""],[""Unordered Sentences"",""Sent2Vec uni. + bi."",""72.5 / 80.8"",""75.8"",""80.3"",""91.2"",""85.9"",""86.4"",""82.0""],[""Ordered Sentences"",""SkipThought"",""73.0 / 82.0"",""76.5"",""80.1"",""93.6"",""87.1"",""92.2"",""83.8""],[""Ordered Sentences"",""FastSent"",""72.2 / 80.3"",""70.8"",""78.4"",""88.7"",""80.6"",""76.8"",""77.9""],[""Ordered Sentences"",""FastSent+AE"",""71.2 / 79.1"",""71.8"",""76.7"",""88.8"",""81.5"",""80.4"",""78.4""],[""2.8 Billion words"",""C-PHRASE"",""72.2 / 79.6"",""75.7"",""78.8"",""91.1"",""86.2"",""78.8"",""80.5""]]"
+"spiqa","spiqa_real_017","Paper 1802.07351v2","paper_figure","What is the purpose of the residual connection in the decoding module?","The residual connection allows the output of a layer to be added to the output of another layer, which helps to improve the flow of information through the network.","/data/spiqa/images/spiqa_real_017.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Stage | Layer Name / Spec | Input Source | Residual Skip Connection Target | Output Resolution / Channel |
+| --- | --- | --- | --- | --- |
+| 1 | Conv 128 x 3 x 3, stride 1 | Relation Features | Skips to Layer 10 (addition) | 128 channels |
+| 2 | Conv 192 x 3 x 3, stride 2 | Layer 1 output | Skips to Layer 9 (addition) | 192 channels, stride 2 |
+| 3 | Conv 256 x 3 x 3, stride 2 | Layer 2 output | Skips to Layer 8 (addition) | 256 channels, stride 2 |
+| 4 | Conv 320 x 3 x 3, stride 2 | Layer 3 output | Skips to Layer 7 (addition) | 320 channels, stride 2 |
+| 5 | Conv 512 x 3 x 3, stride 2 | Layer 4 output | Skips to Layer 6 (addition) | 512 channels, bottleneck |
+| 6 | Conv 512 x 3 x 3, stride 1 | Layer 5 + skip from Layer 5 | Upsample x2 | 512 channels |
+| 7 | Conv 320 x 3 x 3, stride 1 | Upsample + skip from Layer 4 | Upsample x2 | 320 channels |
+| 8 | Conv 256 x 3 x 3, stride 1 | Upsample + skip from Layer 3 | Upsample x2 | 256 channels |
+| 9 | Conv 196 x 3 x 3, stride 1 | Upsample + skip from Layer 2 | Upsample x2 | 196 channels |
+| 10 | Conv 128 x 3 x 3, stride 1 | Upsample + skip from Layer 1 | Direct to Layer 11 | 128 channels |
+| 11 | Conv 64 x 3 x 3, stride 1 | Layer 10 output | Direct to Layer 12 | 64 channels |
+| 12 | Conv 2 x 3 x 3, stride 1 | Layer 11 output | Final Optical Flow | 2 channels (Flow vectors) |
+","[[""Stage"",""Layer Name / Spec"",""Input Source"",""Residual Skip Connection Target"",""Output Resolution / Channel""],[""1"",""Conv 128 x 3 x 3, stride 1"",""Relation Features"",""Skips to Layer 10 (addition)"",""128 channels""],[""2"",""Conv 192 x 3 x 3, stride 2"",""Layer 1 output"",""Skips to Layer 9 (addition)"",""192 channels, stride 2""],[""3"",""Conv 256 x 3 x 3, stride 2"",""Layer 2 output"",""Skips to Layer 8 (addition)"",""256 channels, stride 2""],[""4"",""Conv 320 x 3 x 3, stride 2"",""Layer 3 output"",""Skips to Layer 7 (addition)"",""320 channels, stride 2""],[""5"",""Conv 512 x 3 x 3, stride 2"",""Layer 4 output"",""Skips to Layer 6 (addition)"",""512 channels, bottleneck""],[""6"",""Conv 512 x 3 x 3, stride 1"",""Layer 5 + skip from Layer 5"",""Upsample x2"",""512 channels""],[""7"",""Conv 320 x 3 x 3, stride 1"",""Upsample + skip from Layer 4"",""Upsample x2"",""320 channels""],[""8"",""Conv 256 x 3 x 3, stride 1"",""Upsample + skip from Layer 3"",""Upsample x2"",""256 channels""],[""9"",""Conv 196 x 3 x 3, stride 1"",""Upsample + skip from Layer 2"",""Upsample x2"",""196 channels""],[""10"",""Conv 128 x 3 x 3, stride 1"",""Upsample + skip from Layer 1"",""Direct to Layer 11"",""128 channels""],[""11"",""Conv 64 x 3 x 3, stride 1"",""Layer 10 output"",""Direct to Layer 12"",""64 channels""],[""12"",""Conv 2 x 3 x 3, stride 1"",""Layer 11 output"",""Final Optical Flow"",""2 channels (Flow vectors)""]]"
+"spiqa","spiqa_real_018","Paper 1702.03584v3","paper_figure","How does the observed error compare to the underlying true error as CPU time increases?","The observed error is initially higher than the underlying true error, but it quickly decreases and converges to the true error as CPU time increases.","/data/spiqa/images/spiqa_real_018.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| CPU Time (seconds) | Observed Error | Underlying True Error | Error Gap (Observed - True) |
+| --- | --- | --- | --- |
+| 0.00 | 1.00e+0 | 1.00e+0 | 0.00 |
+| 0.12 | 9.50e-3 | 1.00e-2 | -5.00e-4 |
+| 0.25 | 1.80e-3 | 2.70e-3 | -9.00e-4 |
+| 0.38 | 1.10e-3 | 1.90e-3 | -8.00e-4 |
+| 0.50 | 9.00e-4 | 1.60e-3 | -7.00e-4 |
+| 0.75 | 7.30e-4 | 1.40e-3 | -6.70e-4 |
+| 1.00 | 6.50e-4 | 1.30e-3 | -6.50e-4 |
+| 1.50 | 5.80e-4 | 1.20e-3 | -6.20e-4 |
+| 2.00 | 5.50e-4 | 1.10e-3 | -5.50e-4 |
+| 2.35 | 5.30e-4 | 1.10e-3 | -5.70e-4 |
+","[[""CPU Time (seconds)"",""Observed Error"",""Underlying True Error"",""Error Gap (Observed - True)""],[""0.00"",""1.00e+0"",""1.00e+0"",""0.00""],[""0.12"",""9.50e-3"",""1.00e-2"",""-5.00e-4""],[""0.25"",""1.80e-3"",""2.70e-3"",""-9.00e-4""],[""0.38"",""1.10e-3"",""1.90e-3"",""-8.00e-4""],[""0.50"",""9.00e-4"",""1.60e-3"",""-7.00e-4""],[""0.75"",""7.30e-4"",""1.40e-3"",""-6.70e-4""],[""1.00"",""6.50e-4"",""1.30e-3"",""-6.50e-4""],[""1.50"",""5.80e-4"",""1.20e-3"",""-6.20e-4""],[""2.00"",""5.50e-4"",""1.10e-3"",""-5.50e-4""],[""2.35"",""5.30e-4"",""1.10e-3"",""-5.70e-4""]]"
+"spiqa","spiqa_real_019","Paper 1802.07459v2","paper_figure"," How many negative samples are there in the training set of the CNSE dataset?","There are approximately 9,719 negative samples in the training set of the CNSE dataset.","/data/spiqa/images/spiqa_real_019.png","SPIQA (Pramanick et al., NeurIPS 2024, test-A) — real sample","| Dataset Name | Positive Samples | Negative Samples | Training Split | Development Split | Test Split | Total Samples |
+| --- | --- | --- | --- | --- | --- | --- |
+| CNSE | 12,865 | 16,198 | 17,438 | 5,813 | 5,812 | 29,063 |
+| CNSS | 16,887 | 16,616 | 20,102 | 6,701 | 6,700 | 33,503 |
+","[[""Dataset Name"",""Positive Samples"",""Negative Samples"",""Training Split"",""Development Split"",""Test Split"",""Total Samples""],[""CNSE"",""12,865"",""16,198"",""17,438"",""5,813"",""5,812"",""29,063""],[""CNSS"",""16,887"",""16,616"",""20,102"",""6,701"",""6,700"",""33,503""]]"

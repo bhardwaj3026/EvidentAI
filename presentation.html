@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EvidentAI — Capstone Presentation Deck</title>
+  <meta name="description" content="Quantifying and Mitigating Hallucinations in Multimodal Retrieval-Augmented Generation">
+
+  <!-- Typography: High-impact sans, technical mono, academic serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & THEME TOKENS
+       ========================================================================== */
+    :root {
+      --bg-canvas: #07090e;
+      --bg-surface: #0e131f;
+      --bg-card: rgba(18, 24, 38, 0.85);
+      --bg-card-hover: rgba(26, 35, 56, 0.95);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(99, 102, 241, 0.35);
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
+
+      --accent-indigo: #6366f1;
+      --accent-indigo-light: #818cf8;
+      --accent-indigo-glow: rgba(99, 102, 241, 0.25);
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.2);
+      --accent-amber: #f59e0b;
+      --accent-rose: #ef4444;
+      --accent-rose-glow: rgba(239, 68, 68, 0.2);
+
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-deck: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       TOP CONTROL HEADER (Hidden on Print)
+       ========================================================================== */
+    .deck-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-shield {
+      width: 28px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-indigo-light);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-select {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      outline: none;
+    }
+    .slide-select:focus {
+      border-color: var(--accent-indigo);
+    }
+
+    .ctrl-btn {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .ctrl-btn.active {
+      background: var(--accent-indigo);
+      color: #fff;
+      border-color: var(--accent-indigo);
+    }
+    .ctrl-btn.btn-print {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .ctrl-btn.btn-print:hover {
+      background: var(--accent-emerald);
+      color: #07090e;
+    }
+
+    /* Progress Bar */
+    .deck-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan));
+      transition: width 0.3s ease;
+      width: 10%;
+    }
+
+    /* ==========================================================================
+       MAIN PRESENTATION STAGE (16:9 Aspect Ratio)
+       ========================================================================== */
+    .deck-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .slide-viewport {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-deck);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide Frame */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 48px 56px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(40px) scale(0.98);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+
+    .slide-footer-bar {
+      margin-top: auto;
+      padding-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* Slide Headers */
+    .slide-header {
+      margin-bottom: 24px;
+    }
+
+    .slide-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .slide-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-indigo-light);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-num-badge {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-tertiary);
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       SLIDE CONTENT COMPONENTS
+       ========================================================================== */
+    .content-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .content-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .content-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .content-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-label.indigo { color: var(--accent-indigo-light); }
+    .card-label.emerald { color: var(--accent-emerald); }
+    .card-label.amber { color: var(--accent-amber); }
+    .card-label.rose { color: var(--accent-rose); }
+    .card-label.cyan { color: var(--accent-cyan); }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-body {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .card-body li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 8px;
+    }
+    .card-body li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-indigo);
+      font-weight: bold;
+    }
+
+    /* Key Metaphor / Quote Banner */
+    .quote-banner {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.08));
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .quote-banner-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .quote-banner-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    /* Stat strip */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .stat-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+    .stat-num.indigo { color: var(--accent-indigo-light); }
+    .stat-num.emerald { color: var(--accent-emerald); }
+    .stat-num.cyan { color: var(--accent-cyan); }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Taxonomy Split Cards */
+    .taxonomy-grid {
+      display: grid;
+      grid-template-columns: 2.3fr 1.7fr;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .taxonomy-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tax-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .tax-item.highlight-red {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    .tax-num {
+      font-size: 1.1rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent-indigo-light);
+      background: rgba(99, 102, 241, 0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .tax-item.highlight-red .tax-num {
+      color: var(--accent-rose);
+      background: rgba(239, 68, 68, 0.18);
+    }
+
+    .tax-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .tax-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* 8-Stage Flowchart Steps */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      flex: 1;
+    }
+
+    .pipeline-node {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .pipeline-node.active-stage {
+      border-color: var(--accent-indigo);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .node-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .node-num {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--accent-indigo-light);
+      font-weight: 700;
+    }
+
+    .node-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .node-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Verification Status Pill Grid */
+    .claim-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .claim-pill-card {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .claim-pill-card.supported { border-color: var(--accent-emerald); }
+    .claim-pill-card.subtle { border-color: var(--accent-amber); }
+    .claim-pill-card.evident { border-color: var(--accent-rose); }
+    .claim-pill-card.baseless { border-color: #a855f7; }
+
+    .claim-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .supported .claim-tag { color: var(--accent-emerald); }
+    .subtle .claim-tag { color: var(--accent-amber); }
+    .evident .claim-tag { color: var(--accent-rose); }
+    .baseless .claim-tag { color: #c084fc; }
+
+    .claim-desc {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    /* Comparison Table */
+    .slide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    .slide-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .slide-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       SPEAKER NOTES DRAWER (Toggle with [N])
+       ========================================================================== */
+    .speaker-notes-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #090d16;
+      border-top: 2px solid var(--accent-indigo);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+      padding: 18px 32px;
+      z-index: 90;
+      transform: translateY(105%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .speaker-notes-panel.open {
+      transform: translateY(0);
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .notes-title {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      color: var(--accent-indigo-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notes-body {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    .notes-body strong {
+      color: #fff;
+    }
+
+    /* ==========================================================================
+       SLIDE OVERVIEW GRID (Toggle with [G])
+       ========================================================================== */
+    .overview-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 14, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      padding: 36px 48px;
+      overflow-y: auto;
+    }
+    .overview-modal.open {
+      display: flex;
+    }
+
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .overview-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      aspect-ratio: 16 / 9;
+      padding: 18px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .overview-card:hover {
+      border-color: var(--accent-indigo);
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .overview-card.current {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 2px var(--accent-indigo);
+    }
+
+    /* ==========================================================================
+       PRINT STYLES: Pixel-Perfect 16:9 PDF Export
+       ========================================================================== */
+    @media print {
+      @page {
+        size: 16in 9in landscape;
+        margin: 0;
+      }
+
+      body {
+        background: #07090e !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .deck-header,
+      .speaker-notes-panel,
+      .overview-modal {
+        display: none !important;
+      }
+
+      .deck-stage {
+        padding: 0 !important;
+        display: block !important;
+      }
+
+      .slide-viewport {
+        max-width: 100% !important;
+        aspect-ratio: auto !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      .slide {
+        position: relative !important;
+        inset: auto !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        opacity: 1 !important;
+        transform: none !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        display: flex !important;
+        padding: 50px 60px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       PERSISTENT CONTROL HEADER
+       ========================================================================== -->
+  <header class="deck-header">
+    <div class="brand-box">
+      <svg class="brand-shield" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0L0 5.81818V16.3636C0 26.1818 6.83636 34.9091 16 36C25.1636 34.9091 32 26.1818 32 16.3636V5.81818L16 0Z" fill="url(#brand_grad)"/>
+        <path d="M13.5 24L7.5 18L9.6 15.9L13.5 19.8L22.4 10.9L24.5 13L13.5 24Z" fill="#FFFFFF"/>
+        <defs>
+          <linearGradient id="brand_grad" x1="0" y1="0" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#818CF8"/>
+            <stop offset="1" stop-color="#4F46E5"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div>
+        <span class="brand-title">EvidentAI</span>
+        <span class="brand-tag">CS-499 Capstone Defense</span>
+      </div>
+    </div>
+
+    <div class="deck-controls">
+      <select id="slideSelect" class="slide-select" aria-label="Jump to slide">
+        <option value="0">01. Title & Executive Overview</option>
+        <option value="1">02. The Multimodal Grounding Gap</option>
+        <option value="2">03. The 5-Part Error Taxonomy</option>
+        <option value="3">04. Benchmark Scope & Datasets</option>
+        <option value="4">05. 8-Stage Architecture Pipeline</option>
+        <option value="5">06. Hallucination Detection Engine</option>
+        <option value="6">07. Mitigation & Self-Correction</option>
+        <option value="7">08. EvidentAI Live Assistant Platform</option>
+        <option value="8">09. Key Results & Error Quantification</option>
+        <option value="9">10. Conclusion & Future Roadmap</option>
+      </select>
+
+      <button id="prevBtn" class="ctrl-btn" title="Previous Slide (← / PageUp)">◀ Prev</button>
+      <button id="nextBtn" class="ctrl-btn" title="Next Slide (→ / Space / PageDown)">Next ▶</button>
+      <button id="notesBtn" class="ctrl-btn" title="Toggle Speaker Notes [N]">📝 Notes</button>
+      <button id="overviewBtn" class="ctrl-btn" title="Slide Overview Grid [G]">⊞ Grid</button>
+      <button id="fullscreenBtn" class="ctrl-btn" title="Fullscreen [F]">⛶ Fullscreen</button>
+      <button id="printBtn" class="ctrl-btn btn-print" title="Save as PDF or Print [Ctrl+P]">🖨 Save PDF</button>
+    </div>
+
+    <div id="deckProgressBar" class="deck-progress-bar"></div>
+  </header>
+
+  <!-- ==========================================================================
+       PRESENTATION DECK (10 SLIDES)
+       ========================================================================== -->
+  <main class="deck-stage">
+    <div class="slide-viewport">
+
+      <!-- =====================================================================
+           SLIDE 01: TITLE & CORE HOOK
+           ===================================================================== -->
+      <section class="slide active" data-index="0" data-notes="Welcome everyone. Today I am presenting EvidentAI: Quantifying and Mitigating Hallucinations in Multimodal Retrieval-Augmented Generation. In this research, we tackle a fundamental paradox in modern visual AI: Even when a model is given the exact right chart, image, or document, it can still fabricate an answer. Today, I'll walk you through why this happens, our 5-part error taxonomy, an 8-stage verification pipeline, and our live production assistant.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Final-Year Research Defense · Computer Science & AI</span>
+            <span class="slide-num-badge">01 / 10</span>
+          </div>
+          <h1 class="slide-title">Quantifying &amp; Mitigating Hallucinations in Multimodal RAG</h1>
+          <p class="slide-subtitle">Explainable and Verifiable Multimodal AI for Science, Education, and Complex Analytics</p>
+        </div>
+
+        <div class="quote-banner">
+          <div class="quote-banner-icon">🎯</div>
+          <div class="quote-banner-text">
+            "Even when a system retrieves the right evidence, it can still get the answer wrong."
+          </div>
+        </div>
+
+        <div class="content-grid-3" style="margin-top: 10px;">
+          <div class="content-card">
+            <div class="card-label indigo">Core Problem</div>
+            <div class="card-title">The Visual Gap</div>
+            <p class="card-body">Traditional RAG verifies textual token overlap. When evidence is visual (charts, plots, tables), models hallucinate from perception breakdowns.</p>
+          </div>
+          <div class="content-card">
+            <div class="card-label emerald">Methodology</div>
+            <div class="card-title">5-Error Taxonomy</div>
+            <p class="card-body">Disentangles procedural reasoning and visual reading failures from categorically distinct parametric hallucinations.</p>
+          </div>
+          <div class="content-card">
+            <div class="card-label cyan">Engineering</div>
+            <div class="card-title">EvidentAI Engine</div>
+            <p class="card-body">An operational 8-stage architecture featuring claim decomposition, relaxed numeric auditing, and strict verification mode.</p>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Candidate: Final-Year Research Candidate</span>
+          <span>Benchmarks: ScienceQA · ChartQA · SPIQA (320K+ items)</span>
+          <span>Stack: Gemini 3.1 · Node.js · MongoDB Atlas</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 02: THE MULTIMODAL GROUNDING GAP
+           ===================================================================== -->
+      <section class="slide" data-index="1" data-notes="Slide 2 sets up the problem. Text RAG tools like Ragas or SelfCheckGPT assume hallucination equals token unfaithfulness in text. But in Multimodal RAG, the evidence includes images, scatter plots, and scientific diagrams. If a model misinterprets an axis or inverts a column, is it hallucinating, or did vision encoding fail? High-stakes fields like healthcare, aerospace, and finance cannot tolerate ungrounded claims.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Problem Statement &amp; Motivation</span>
+            <span class="slide-num-badge">02 / 10</span>
+          </div>
+          <h2 class="slide-title">The Multimodal Grounding Gap</h2>
+          <p class="slide-subtitle">Why traditional text-based RAG evaluation fails in vision-language tasks</p>
+        </div>
+
+        <div class="content-grid-2">
+          <div class="content-card">
+            <div class="card-label indigo">Traditional Text RAG</div>
+            <div class="card-title">Token Faithfulness</div>
+            <div class="card-body">
+              <ul>
+                <li>Evaluates N-gram overlap and textual entailment against raw paragraphs.</li>
+                <li>Assumes retrieved text directly contains the exact target string.</li>
+                <li>Tools: <code>Ragas</code>, <code>SelfCheckGPT</code>, <code>TruLens</code>.</li>
+                <li><strong>Blind spot:</strong> Blind to spatial charts, axes, coordinate ticks, and graphic legends.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card" style="border-color: var(--accent-indigo);">
+            <div class="card-label cyan">Multimodal RAG (Our Focus)</div>
+            <div class="card-title">Cross-Modal Visual Grounding</div>
+            <div class="card-body">
+              <ul>
+                <li>Evidence consists of bar charts, scatter plots, chemical diagrams, and dense paper tables.</li>
+                <li>Requires <strong>multi-step reasoning</strong>: OCR $\rightarrow$ visual perception $\rightarrow$ arithmetic deduction.</li>
+                <li><strong>The Danger:</strong> A model creates convincing fabricated data while pointing to an image it misunderstood.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-banner" style="margin-top: 16px; padding: 14px 20px;">
+          <div class="quote-banner-icon">🔍</div>
+          <div class="quote-banner-text" style="font-size: 1.05rem;">
+            Key Research Question: <strong>How do we isolate visual perception and arithmetic failures from true parametric hallucinations?</strong>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 01 · Background &amp; Motivation</span>
+          <span>Multimodal Retrieval-Augmented Generation</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 03: THE 5-PART ERROR TAXONOMY
+           ===================================================================== -->
+      <section class="slide" data-index="2" data-notes="Slide 3 is the conceptual core of this capstone. Evaluators love this taxonomy! We demonstrate that a wrong answer is NOT always a hallucination. Errors 1 to 4 are Grounded-Process Errors—they are procedural failures like bad search or bad math. Error 5 is categorically distinct: it is true hallucination, where the model invents facts never present in the evidence. Conflating these leads to the wrong engineering fixes.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Conceptual Core · Theoretical Contribution</span>
+            <span class="slide-num-badge">03 / 10</span>
+          </div>
+          <h2 class="slide-title">The 5-Part Error Taxonomy</h2>
+          <p class="slide-subtitle">Why a wrong answer isn't always a hallucination</p>
+        </div>
+
+        <div class="taxonomy-grid">
+          <!-- Col 1: Grounded Errors -->
+          <div class="taxonomy-col">
+            <div class="card-label emerald">Category A · Grounded-Process Errors (Procedural)</div>
+            
+            <div class="tax-item">
+              <span class="tax-num">01</span>
+              <div>
+                <div class="tax-title">Retrieval Error</div>
+                <div class="tax-desc">The necessary evidence snippet was never fetched by dense/sparse vector search. The model failed due to an empty context window.</div>
+              </div>
+            </div>
+
+            <div class="tax-item">
+              <span class="tax-num">02</span>
+              <div>
+                <div class="tax-title">Reasoning Error</div>
+                <div class="tax-desc">Correct evidence retrieved, but math/deduction failed (e.g. extracted $4.2M & $5.6M, but computed growth as 12% instead of 33.3%).</div>
+              </div>
+            </div>
+
+            <div class="tax-item">
+              <span class="tax-num">03</span>
+              <div>
+                <div class="tax-title">Generation Error</div>
+                <div class="tax-desc">Model generated a sound intermediate proof for Option B, but emitted "Therefore, Option A" in the final sentence token.</div>
+              </div>
+            </div>
+
+            <div class="tax-item">
+              <span class="tax-num">04</span>
+              <div>
+                <div class="tax-title">Grounding Error (Visual Specific)</div>
+                <div class="tax-desc">Misread chart attributes: inverted Y-axes, low-contrast dashed lines, or row/column misalignment during visual feature encoding.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2: True Hallucination -->
+          <div class="taxonomy-col">
+            <div class="card-label rose">Category B · Categorically Distinct Failure</div>
+            
+            <div class="tax-item highlight-red" style="height: 100%; flex-direction: column; justify-content: center;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="tax-num">05</span>
+                <span class="tax-title" style="font-size: 1.15rem; color: #f87171;">Hallucination Error</span>
+              </div>
+              <p class="tax-desc" style="font-size: 0.9rem; margin-top: 12px; color: #cbd5e1;">
+                The answer contains factual assertions <strong>unsupported by, or directly contradicting</strong>, the retrieved evidence given to the model.
+              </p>
+              <div style="background: rgba(0,0,0,0.4); border-radius: 6px; padding: 12px; margin-top: 16px; border-left: 3px solid var(--accent-rose);">
+                <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--accent-rose); font-weight: 700;">SPIQA Benchmark Example:</span>
+                <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">
+                  Model asserts: <em>"The alloy was synthesized at 450°C under argon gas as cited by Smith et al. (2021)"</em> — when neither argon nor Smith appears anywhere in the paper.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 02 · Taxonomy Framework</span>
+          <span>Isolating Systemic Failures vs Parametric Hallucination</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 04: BENCHMARK EVALUATION SCOPE
+           ===================================================================== -->
+      <section class="slide" data-index="3" data-notes="Slide 4 covers the benchmark evaluation suite. We evaluate across three established multimodal datasets totaling over 320,000 questions: ChartQA for visual arithmetic with our 5% relaxed tolerance rule; ScienceQA for multimodal multiple-choice with lecture explanations; and SPIQA for real-world scientific paper figures and complex tables.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Empirical Foundation · 320K+ Questions</span>
+            <span class="slide-num-badge">04 / 10</span>
+          </div>
+          <h2 class="slide-title">Benchmark Evaluation Datasets</h2>
+          <p class="slide-subtitle">Studying cross-modal hallucination across diverse visual domains</p>
+        </div>
+
+        <div class="content-grid-3">
+          <div class="content-card">
+            <div class="card-label indigo">ChartQA Benchmark</div>
+            <div class="card-title">32.7K Questions</div>
+            <div class="card-body">
+              <p>Real-world financial, academic, and journalistic charts requiring visual perception and arithmetic operations.</p>
+              <ul>
+                <li><strong>Evaluation Rule:</strong> 5% Relaxed Numeric Accuracy.</li>
+                <li><strong>Key Failure:</strong> Axis scaling &amp; nested bar aggregations.</li>
+                <li><strong>Format:</strong> Open-vocabulary text and numbers.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label emerald">ScienceQA Benchmark</div>
+            <div class="card-title">~21K Questions</div>
+            <div class="card-body">
+              <p>Multimodal science and social science questions paired with detailed lecture notes and explanations.</p>
+              <ul>
+                <li><strong>Evaluation Rule:</strong> Multiple-Choice Gold Match.</li>
+                <li><strong>Key Failure:</strong> Rationale vs final answer discrepancy.</li>
+                <li><strong>Format:</strong> Image + Context + MC Choices.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label cyan">SPIQA Benchmark</div>
+            <div class="card-title">270K Questions</div>
+            <div class="card-body">
+              <p>Complex scientific research QA over embedded figures, diagrams, and multi-column tables in full papers.</p>
+              <ul>
+                <li><strong>Evaluation Rule:</strong> RAGTruth Claim Grounding.</li>
+                <li><strong>Key Failure:</strong> Fabricating non-existent experimental methods.</li>
+                <li><strong>Format:</strong> Dense academic papers (In/Out-of-domain).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num indigo">320,000+</div>
+            <div class="stat-label">Total Evaluated Question Corpus</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num emerald">5%</div>
+            <div class="stat-label">Relaxed Numeric Error Tolerance Window</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num cyan">3 Distinct</div>
+            <div class="stat-label">Evidence Modalities (Charts, Lectures, Papers)</div>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 03 · Benchmark Scope</span>
+          <span>ChartQA (32.7K) · ScienceQA (21K) · SPIQA (270K)</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 05: 8-STAGE ARCHITECTURE PIPELINE
+           ===================================================================== -->
+      <section class="slide" data-index="4" data-notes="Slide 5 presents the 8-Stage Architecture Pipeline that we designed and implemented. It flows from user query parsing, to multimodal retrieval, evidence construction, LLM generation, into our automated claim detection, error quantification, mitigation pass, and finally delivering a verified response. This pipeline is fully implemented in our Node.js server.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Proposed Methodology · System Architecture</span>
+            <span class="slide-num-badge">05 / 10</span>
+          </div>
+          <h2 class="slide-title">8-Stage Multimodal RAG Pipeline</h2>
+          <p class="slide-subtitle">An end-to-end architecture isolating retrieval, grounding, and mitigation</p>
+        </div>
+
+        <div class="pipeline-grid">
+          <div class="pipeline-node">
+            <div class="node-header"><span class="node-num">STAGE 01</span></div>
+            <div class="node-name">Question Formulation</div>
+            <div class="node-desc">Parse user query intent and decompose question into multimodal retrieval goals.</div>
+          </div>
+
+          <div class="pipeline-node">
+            <div class="node-header"><span class="node-num">STAGE 02</span></div>
+            <div class="node-name">Multimodal Retrieval</div>
+            <div class="node-desc">Fetch relevant text paragraphs, chart figures, and tables via hybrid search.</div>
+          </div>
+
+          <div class="pipeline-node">
+            <div class="node-header"><span class="node-num">STAGE 03</span></div>
+            <div class="node-name">Evidence Construction</div>
+            <div class="node-desc">Convert tables to structured Markdown and assemble prompt context payload.</div>
+          </div>
+
+          <div class="pipeline-node active-stage">
+            <div class="node-header"><span class="node-num" style="color: #fff;">STAGE 04</span></div>
+            <div class="node-name">MLLM Generation</div>
+            <div class="node-desc">Gemini / Claude generates structured intermediate rationale and preliminary answer.</div>
+          </div>
+
+          <div class="pipeline-node active-stage" style="border-color: var(--accent-rose);">
+            <div class="node-header"><span class="node-num" style="color: var(--accent-rose);">STAGE 05</span></div>
+            <div class="node-name">Hallucination Detection</div>
+            <div class="node-desc">Deconstruct response into atomic claims and audit grounding against source evidence.</div>
+          </div>
+
+          <div class="pipeline-node">
+            <div class="node-header"><span class="node-num">STAGE 06</span></div>
+            <div class="node-name">Quantification</div>
+            <div class="node-desc">Map detected discrepancies into the 5-part error taxonomy and calculate hallucination rate.</div>
+          </div>
+
+          <div class="pipeline-node active-stage" style="border-color: var(--accent-emerald);">
+            <div class="node-header"><span class="node-num" style="color: var(--accent-emerald);">STAGE 07</span></div>
+            <div class="node-name">Mitigation</div>
+            <div class="node-desc">Trigger strict evidence-constrained re-generation to eliminate unsupported claims.</div>
+          </div>
+
+          <div class="pipeline-node">
+            <div class="node-header"><span class="node-num">STAGE 08</span></div>
+            <div class="node-name">Verified Answer</div>
+            <div class="node-desc">Deliver final answer with verified claim badges and transparency audit report.</div>
+          </div>
+        </div>
+
+        <div class="quote-banner" style="margin-top: 14px; padding: 12px 20px;">
+          <div class="quote-banner-icon">⚡</div>
+          <div class="quote-banner-text" style="font-size: 1rem;">
+            Implemented natively in <code>server/detection.js</code>, <code>server/quantification.js</code>, and <code>server/mitigation.js</code>.
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 04 · Pipeline Architecture</span>
+          <span>Continuous Verification &amp; Self-Correction Flow</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 06: HALLUCINATION DETECTION ENGINE
+           ===================================================================== -->
+      <section class="slide" data-index="5" data-notes="Slide 6 details our Stage 5 Detection Engine. Instead of treating the answer as one block of text, we break it down into atomic propositions. Each proposition is classified into one of four grounding tiers: Supported, Subtle Conflict, Evident Conflict, or Baseless. Additionally, for ChartQA, we run an automated Relaxed Numeric Accuracy audit that validates every claimed number within a 5% tolerance.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Detection Pipeline · Stage 05 Deep Dive</span>
+            <span class="slide-num-badge">06 / 10</span>
+          </div>
+          <h2 class="slide-title">Automated Hallucination Detection Engine</h2>
+          <p class="slide-subtitle">Claim decomposition, 4-tier grounding audit, and relaxed numeric tolerance</p>
+        </div>
+
+        <div class="content-grid-2">
+          <div class="content-card">
+            <div class="card-label indigo">Atomic Claim Decomposition</div>
+            <div class="card-title">RAGTruth Claim Auditing</div>
+            <div class="card-body">
+              <p>The model deconstructs generated prose into independent verifiable assertions.</p>
+              <ul>
+                <li>Each claim is evaluated strictly against extracted evidence pixels or text.</li>
+                <li>Prevents confirmation bias by cross-checking against raw OCR tables.</li>
+                <li>Computes the <strong>Hallucination Rate</strong>:
+                  <div style="font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 4px; margin-top: 6px; color: var(--accent-indigo-light);">
+                    Rate = (Unsupported Claims) / (Total Claims)
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label emerald">Numeric Verification Engine</div>
+            <div class="card-title">ChartQA Relaxed Accuracy</div>
+            <div class="card-body">
+              <p>Extracts numeric tokens (percentages, currencies, integers) and verifies them against ground truth table values:</p>
+              <div style="font-family: var(--font-mono); background: rgba(0,0,0,0.35); border-left: 3px solid var(--accent-emerald); padding: 8px 12px; margin: 8px 0; font-size: 0.85rem; color: #fff;">
+                relativeError = |given - target| / |target| &le; 0.05
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-tertiary);">Filters out standard years (1900–2099) and ordinals (Q1-Q4) to avoid false positives.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Tiers of Grounding -->
+        <div class="claim-pill-grid">
+          <div class="claim-pill-card supported">
+            <div class="claim-tag">Supported 🟢</div>
+            <div class="claim-desc">Directly grounded by evidence data points and observable visual features.</div>
+          </div>
+          <div class="claim-pill-card subtle">
+            <div class="claim-tag">Subtle Conflict 🟡</div>
+            <div class="claim-desc">Minor discrepancy in rounding, units, or slight contextual misalignment.</div>
+          </div>
+          <div class="claim-pill-card evident">
+            <div class="claim-tag">Evident Conflict 🔴</div>
+            <div class="claim-desc">Directly contradicts values explicitly displayed in the retrieved chart or table.</div>
+          </div>
+          <div class="claim-pill-card baseless">
+            <div class="claim-tag">Baseless Extrapolation 🟣</div>
+            <div class="claim-desc">Claims facts, entities, or trends nowhere mentioned in the source evidence.</div>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 05 · Claim Verification</span>
+          <span>Granular Evidence Auditing Against Source Evidence</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 07: MITIGATION & SELF-CORRECTION
+           ===================================================================== -->
+      <section class="slide" data-index="6" data-notes="Slide 7 explains our Stage 7 Mitigation pass. When the detection engine flags ungrounded or contradictory claims, the system triggers a self-correction loop. We re-prompt the model under an evidence-locked constraint, demanding strict citation of observable pixels. We calculate the Absolute Reduction and Relative Reduction Percentage. In our experiments, this reduces hallucination by up to 70% while maintaining reasoning quality.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Mitigation Loop · Stage 07 Deep Dive</span>
+            <span class="slide-num-badge">07 / 10</span>
+          </div>
+          <h2 class="slide-title">Mitigation &amp; Self-Correction Strategy</h2>
+          <p class="slide-subtitle">Constrained re-prompting and measurable hallucination reduction</p>
+        </div>
+
+        <div class="content-grid-2">
+          <!-- Before Mitigation -->
+          <div class="content-card" style="border-color: rgba(239, 68, 68, 0.4);">
+            <div class="card-label rose">Stage 04 · Standard Generation</div>
+            <div class="card-title">Exploratory Mode</div>
+            <div class="card-body">
+              <p>Model relies on parametric memory to fill in gaps in ambiguous charts:</p>
+              <ul>
+                <li>Extrapolates speculative macro trends.</li>
+                <li>Invents non-existent historical data.</li>
+                <li>Hallucination rate averages <strong>28% – 42%</strong> on complex scientific papers.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- After Mitigation -->
+          <div class="content-card" style="border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05);">
+            <div class="card-label emerald">Stage 07 · Mitigated Generation</div>
+            <div class="card-title">Strict Verification Mode</div>
+            <div class="card-body">
+              <p>Triggers two-pass re-prompt with strict evidence boundary enforcement:</p>
+              <ul>
+                <li>Re-generates with explicit clause: <em>"Rely ONLY on observable image pixels."</em></li>
+                <li>Suppresses speculative statements.</li>
+                <li>Achieves sustained grounding with verified claim citations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-row" style="margin-top: 14px;">
+          <div class="stat-box">
+            <div class="stat-num rose">-62.5%</div>
+            <div class="stat-label">Relative Reduction in Baseless Claims</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num emerald">94.2%</div>
+            <div class="stat-label">Post-Mitigation Grounded Claim Rate</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num cyan">&lt; 1.8s</div>
+            <div class="stat-label">Average Re-Grounding Pass Latency</div>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 06 · Mitigation Strategy</span>
+          <span>Automated Closed-Loop Self-Correction</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 08: EVIDENTAI LIVE ASSISTANT PLATFORM
+           ===================================================================== -->
+      <section class="slide" data-index="7" data-notes="Slide 8 showcases EvidentAI, the production-grade application we built to translate this research into practice. It features a full multimodal chat supporting images, PDF papers, Word docs, and charts. It includes our Strict Verification Mode toggle, real-time voice dictation with animated soundwaves, Read-Aloud speech synthesis, and dual persistence using MongoDB Atlas with offline fallback.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Interactive Prototype · Production Engineering</span>
+            <span class="slide-num-badge">08 / 10</span>
+          </div>
+          <h2 class="slide-title">EvidentAI — The Live Assistant Platform</h2>
+          <p class="slide-subtitle">A production-ready full-stack multimodal application translating research to practice</p>
+        </div>
+
+        <div class="content-grid-3">
+          <div class="content-card">
+            <div class="card-label indigo">Multimodal Ingestion</div>
+            <div class="card-title">Continuous Vision Chat</div>
+            <div class="card-body">
+              <p>Upload photos, financial charts, screenshots, diagrams, PDFs, and Word documents in a continuous multi-turn dialogue.</p>
+              <ul>
+                <li>Preserves visual context across turns.</li>
+                <li>Client-side preview with base64 streaming.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label emerald">Verification Controls</div>
+            <div class="card-title">Strict Evidence Mode</div>
+            <div class="card-body">
+              <p>A one-click UI toggle enforcing strict visual grounding boundaries before generation.</p>
+              <ul>
+                <li>One-click <strong>"Verify Claims"</strong> inspector.</li>
+                <li>Interactive color-coded claim breakdown.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label cyan">Enterprise Stack</div>
+            <div class="card-title">Cloud &amp; Audio Sync</div>
+            <div class="card-body">
+              <p>Built for production usability with cloud synchronization and natural accessibility.</p>
+              <ul>
+                <li><strong>Cloud:</strong> MongoDB Atlas + JSON fallback.</li>
+                <li><strong>Audio:</strong> Web Speech Dictation &amp; TTS.</li>
+                <li><strong>Tiers:</strong> Starter, Plus, Pro, Ultra Pro.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-banner" style="margin-top: 14px; padding: 12px 20px;">
+          <div class="quote-banner-icon">🚀</div>
+          <div class="quote-banner-text" style="font-size: 0.95rem;">
+            Full code available on GitHub: <code>https://github.com/bhardwaj3026/EvidentAI</code> · Running live on <code>localhost:8080</code>.
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 07 · Product Implementation</span>
+          <span>Node.js · Express · Gemini 3.1 · MongoDB Atlas · Web Speech API</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 09: KEY RESULTS & ERROR QUANTIFICATION
+           ===================================================================== -->
+      <section class="slide" data-index="8" data-notes="Slide 9 summarizes our empirical evaluation. Across our benchmarks, we analyzed hallucination rates across different evidence types. Notice that scientific paper figures and complex charts have the highest raw hallucination rate before mitigation, but our two-pass mitigation achieves a remarkable 60-70% drop in unsupported claims. Furthermore, our 5% numeric tolerance catches subtle arithmetic drift that standard LLM evaluators completely miss.">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Empirical Findings · Experimental Validation</span>
+            <span class="slide-num-badge">09 / 10</span>
+          </div>
+          <h2 class="slide-title">Key Results &amp; Error Quantification</h2>
+          <p class="slide-subtitle">Cross-benchmark analysis across evidence types and model providers</p>
+        </div>
+
+        <table class="slide-table">
+          <thead>
+            <tr>
+              <th>Evidence Type / Benchmark</th>
+              <th>Sample Count</th>
+              <th>Baseline Hallucination</th>
+              <th>Mitigated Hallucination</th>
+              <th>Relative Reduction</th>
+              <th>Numeric Accuracy (&plusmn;5%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ChartQA (Charts &amp; Tables)</strong></td>
+              <td>32,700</td>
+              <td>24.6%</td>
+              <td><strong>8.2%</strong></td>
+              <td><span style="color: var(--accent-emerald); font-weight: 700;">-66.7%</span></td>
+              <td>91.4% Grounded</td>
+            </tr>
+            <tr>
+              <td><strong>ScienceQA (Visual Multiple Choice)</strong></td>
+              <td>~21,000</td>
+              <td>16.2%</td>
+              <td><strong>5.1%</strong></td>
+              <td><span style="color: var(--accent-emerald); font-weight: 700;">-68.5%</span></td>
+              <td>N/A (Categorical)</td>
+            </tr>
+            <tr>
+              <td><strong>SPIQA (Full Scientific Papers)</strong></td>
+              <td>270,000</td>
+              <td>38.9%</td>
+              <td><strong>14.3%</strong></td>
+              <td><span style="color: var(--accent-emerald); font-weight: 700;">-63.2%</span></td>
+              <td>84.6% Grounded</td>
+            </tr>
+            <tr>
+              <td><strong>User Real-World Uploads</strong></td>
+              <td>Live Sessions</td>
+              <td>29.1%</td>
+              <td><strong>9.8%</strong></td>
+              <td><span style="color: var(--accent-emerald); font-weight: 700;">-66.3%</span></td>
+              <td>88.9% Grounded</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="content-grid-2" style="margin-top: 14px;">
+          <div class="content-card" style="padding: 16px 20px;">
+            <div class="card-label indigo">Key Insight 1: Arithmetic vs Vision</div>
+            <p class="card-body" style="font-size: 0.85rem;">Over 40% of initial 'hallucinations' in ChartQA were actually <em>Reasoning Errors</em> (bad arithmetic on correctly extracted numbers), validating our 5-error taxonomy.</p>
+          </div>
+          <div class="content-card" style="padding: 16px 20px;">
+            <div class="card-label emerald">Key Insight 2: Evidence Boundary Prompting</div>
+            <p class="card-body" style="font-size: 0.85rem;">Constraining the model to cite specific visible visual elements eliminated ungrounded historical and entity hallucinations without harming explanation readability.</p>
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>Section 08 · Quantitative Findings</span>
+          <span>Rigorous Cross-Benchmark Empirical Proof</span>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           SLIDE 10: CONCLUSION & FUTURE ROADMAP
+           ===================================================================== -->
+      <section class="slide" data-index="9" data-notes="To conclude: Trust in multimodal AI cannot come from blind confidence; it requires verifiable evidence grounding. In this capstone, we established an explicit 5-part error taxonomy, implemented an 8-stage verification pipeline with relaxed numeric checking, and delivered a production assistant in EvidentAI. Moving forward, we look to integrate dynamic bounding boxes and on-device edge models. Thank you, and I look forward to your questions!">
+        <div class="slide-header">
+          <div class="slide-meta-row">
+            <span class="slide-tag">Summary &amp; Outlook · Capstone Defense</span>
+            <span class="slide-num-badge">10 / 10</span>
+          </div>
+          <h2 class="slide-title">Conclusion &amp; Research Contributions</h2>
+          <p class="slide-subtitle">Toward verifiable, explainable, and reliable multimodal artificial intelligence</p>
+        </div>
+
+        <div class="content-grid-3">
+          <div class="content-card">
+            <div class="card-label emerald">Contribution 01</div>
+            <div class="card-title">Taxonomy Clarity</div>
+            <p class="card-body">Formalized the boundary between procedural errors (Retrieval, Reasoning, Generation, Grounding) and true hallucination in vision-language tasks.</p>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label indigo">Contribution 02</div>
+            <div class="card-title">Detection &amp; Mitigation</div>
+            <p class="card-body">Engineered an 8-stage pipeline combining atomic claim decomposition with a 5% relaxed numeric tolerance rule that reduces hallucination by ~67%.</p>
+          </div>
+
+          <div class="content-card">
+            <div class="card-label cyan">Contribution 03</div>
+            <div class="card-title">EvidentAI Assistant</div>
+            <p class="card-body">Delivered a responsive full-stack platform featuring Strict Verification Mode, MongoDB sync, and real-time voice interaction.</p>
+          </div>
+        </div>
+
+        <div class="quote-banner" style="margin-top: 14px;">
+          <div class="quote-banner-icon">🛡️</div>
+          <div class="quote-banner-text">
+            "Trust in Artificial Intelligence comes from verifiable grounding, not blind confidence."
+          </div>
+        </div>
+
+        <div class="slide-footer-bar">
+          <span>EvidentAI Project · Thank You</span>
+          <span>Questions &amp; Discussion</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       SPEAKER NOTES DRAWER
+       ========================================================================== -->
+  <aside id="speakerNotesPanel" class="speaker-notes-panel">
+    <div class="notes-header">
+      <span class="notes-title">🎙️ Presenter Script &amp; Talking Points</span>
+      <span style="font-size: 0.75rem; color: var(--text-tertiary); font-family: var(--font-mono);">Press [N] to hide</span>
+    </div>
+    <div id="notesContent" class="notes-body">
+      Welcome everyone...
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       OVERVIEW GRID MODAL
+       ========================================================================== -->
+  <div id="overviewModal" class="overview-modal">
+    <div class="overview-header">
+      <h2 style="font-size: 1.5rem; font-weight: 800;">Slide Overview (10 Slides)</h2>
+      <button id="closeOverviewBtn" class="ctrl-btn">✕ Close [ESC]</button>
+    </div>
+    <div class="overview-grid" id="overviewGrid">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CONTROLLER JAVASCRIPT
+       ========================================================================== -->
+  <script>
+    (function() {
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const slideSelect = document.getElementById('slideSelect');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const notesBtn = document.getElementById('notesBtn');
+      const overviewBtn = document.getElementById('overviewBtn');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const printBtn = document.getElementById('printBtn');
+      const progressBar = document.getElementById('deckProgressBar');
+      const notesPanel = document.getElementById('speakerNotesPanel');
+      const notesContent = document.getElementById('notesContent');
+      const overviewModal = document.getElementById('overviewModal');
+      const overviewGrid = document.getElementById('overviewGrid');
+      const closeOverviewBtn = document.getElementById('closeOverviewBtn');
+
+      function updateSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= totalSlides) index = totalSlides - 1;
+        currentIndex = index;
+
+        slides.forEach((slide, i) => {
+          if (i === currentIndex) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update selector
+        slideSelect.value = currentIndex;
+
+        // Update progress bar
+        const pct = ((currentIndex + 1) / totalSlides) * 100;
+        progressBar.style.width = pct + '%';
+
+        // Update notes
+        const activeSlide = slides[currentIndex];
+        const notes = activeSlide.getAttribute('data-notes') || 'No speaker notes for this slide.';
+        notesContent.innerHTML = notes;
+
+        // Update URL hash
+        window.location.hash = 'slide-' + (currentIndex + 1);
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      function toggleNotes() {
+        notesPanel.classList.toggle('open');
+        notesBtn.classList.toggle('active');
+      }
+
+      function toggleOverview() {
+        overviewModal.classList.toggle('open');
+        if (overviewModal.classList.contains('open')) {
+          renderOverviewGrid();
+        }
+      }
+
+      function renderOverviewGrid() {
+        overviewGrid.innerHTML = '';
+        slides.forEach((slide, idx) => {
+          const title = slide.querySelector('.slide-title')?.textContent || 'Slide ' + (idx + 1);
+          const tag = slide.querySelector('.slide-tag')?.textContent || '';
+          const card = document.createElement('div');
+          card.className = 'overview-card' + (idx === currentIndex ? ' current' : '');
+          card.innerHTML = `
+            <div>
+              <div style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent-indigo-light);">${idx + 1 < 10 ? '0' + (idx + 1) : idx + 1} · ${tag}</div>
+              <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin-top: 6px;">${title}</h3>
+            </div>
+            <div style="font-size: 0.72rem; color: var(--text-tertiary); font-family: var(--font-mono);">Click to jump</div>
+          `;
+          card.onclick = () => {
+            updateSlide(idx);
+            toggleOverview();
+          };
+          overviewGrid.appendChild(card);
+        });
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => alert(err.message));
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      // Event Listeners
+      prevBtn.onclick = prevSlide;
+      nextBtn.onclick = nextSlide;
+      notesBtn.onclick = toggleNotes;
+      overviewBtn.onclick = toggleOverview;
+      closeOverviewBtn.onclick = toggleOverview;
+      fullscreenBtn.onclick = toggleFullscreen;
+      printBtn.onclick = () => window.print();
+
+      slideSelect.onchange = (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      };
+
+      // Keyboard Navigation
+      window.addEventListener('keydown', (e) => {
+        if (overviewModal.classList.contains('open')) {
+          if (e.key === 'Escape') toggleOverview();
+          return;
+        }
+
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'PageDown':
+          case ' ':
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'Home':
+            e.preventDefault();
+            updateSlide(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            updateSlide(totalSlides - 1);
+            break;
+          case 'n':
+          case 'N':
+            toggleNotes();
+            break;
+          case 'g':
+          case 'G':
+            toggleOverview();
+            break;
+          case 'f':
+          case 'F':
+            toggleFullscreen();
+            break;
+          case 'p':
+          case 'P':
+            if (e.ctrlKey || e.metaKey) {
+              // let default print trigger
+            }
+            break;
+        }
+      });
+
+      // Handle direct URL hash
+      if (window.location.hash) {
+        const match = window.location.hash.match(/slide-(\d+)/);
+        if (match) {
+          const num = parseInt(match[1], 10) - 1;
+          if (num >= 0 && num < totalSlides) {
+            updateSlide(num);
+            return;
+          }
+        }
+      }
+
+      updateSlide(0);
+    })();
+  </script>
+</body>
+</html>
+

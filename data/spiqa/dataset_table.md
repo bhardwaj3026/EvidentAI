@@ -1,0 +1,501 @@
+# SPIQA — Benchmark Dataset Table
+
+Total samples: **20** | Tabular representations converted from benchmark images.
+
+| ID | Title / Concept | Question | Answer | Extracted Image Table |
+| :--- | :--- | :--- | :--- | :--- |
+| `spiqa_real_000` | Paper 1611.04684v1 | What are the main differences between the educational philosophies of the Bonaparte and Voltaire schools? | **The Bonaparte school focuses on outdoor physical activities, maneuvers, and strategies, with a specialization in horse riding, lances, and swords. They aim to develop students into good leaders. The Voltaire school, on the other hand, encourages independent thinking and focuses on indoor activities. They aim to instill good moral values and develop students into philosophical thinkers.** | **School / Focus & Curriculum / Specialization / Educational Philosophy / Objective** (2 rows) |
+| `spiqa_real_001` | Paper 1611.05742v3 | What is the function of the ReOrth Layer in the Projection Block of the Grassmann Network architecture? | **The ReOrth Layer re-orthogonalizes the output of the FRMap Layer.** | **Block / Layer / Operation / Formula / Function Description** (7 rows) |
+| `spiqa_real_002` | Paper 1611.07718v2 | Which network architecture has the highest accuracy on the CIFAR-10 dataset? | **DMRNet-Wide** | **Network Architecture / Depth / Params / CIFAR-10 Error (%) / CIFAR-100 Error (%) / SVHN Error (%)** (17 rows) |
+| `spiqa_real_003` | Paper 1611.03780v2 | How does GeoCUTS perform compared to other clusterings for highly active users? | **GeoCUTS performs comparably to other clusterings for highly active users.** | **User Segment / GeoCUTS B-metric / DMA B-metric / Grid B-metric** (3 rows) |
+| `spiqa_real_004` | Paper 1611.04363v2 | Which method performed best according to the P@1 metric for the QA-Expert task, and how much better did it perform compared to the average P@1 score of the D2V method?  | **The WeakFG method achieved the highest P@1 score for the QA-Expert task with a score of 52.8. This is 23.2% higher than the average P@1 score of the D2V method, which was 29.6. ** | **Method / Agg / QA-Expert P@1 / QA-Expert P@3 / QA-Expert P@5 / QA-Expert MAP / QA-Expert Rprec / Paper-Reviewer P@3 / Paper-Reviewer P@5 / Paper-Reviewer P@10 / Paper-Reviewer MAP / Paper-Reviewer Rprec** (12 rows) |
+| `spiqa_real_005` | Paper 1608.02784v2 | Which system from Ortiz et al. achieved the highest BLEU and METEOR scores, and how does it compare to the CCA inference algorithm in terms of performance? | **The SMT system from Ortiz et al. achieved the highest BLEU score (43.7) and METEOR score (35.6) among their tested systems. While the SMT system outperforms the CCA inference algorithm in terms of BLEU score, the CCA algorithm achieves a slightly higher METEOR score (25.6 vs 25.5).** | **System Source / Model Variant / BLEU Score / METEOR Score** (7 rows) |
+| `spiqa_real_006` | Paper 1611.02654v2 | Which model performed the best on the SICK dataset according to the MSE metric? | **The supervised model performed the best on the SICK dataset according to the MSE metric.** | **Model Group / Model Name / SICK Pearson r / SICK Spearman rho / SICK MSE / MSRP Accuracy (%) / MSRP F1 (%)** (5 rows) |
+| `spiqa_real_007` | Paper 1701.03077v10 | How does the shape of the IRLS weight function change as the shape parameter α increases? | **The IRLS weight function becomes more peaked and concentrated around zero as the shape parameter α increases.** | **Shape Parameter alpha / IRLS Weight Curve Profile / Psi Function Curve Profile at z->0** (7 rows) |
+| `spiqa_real_008` | Paper 1802.07222v1 | During which hours of the day did the most network-related reboots occur? | **The most network-related reboots occurred between 18:00 and 20:00.** | **Hour of the Day / Number of Network-Related Reboots** (22 rows) |
+| `spiqa_real_009` | Paper 1603.00286v5 | Which agent values the entire share $Z_j$? | **Agent $j$.** | **Cake Cutting Component / Visual Symbol / Valuation / Interpretation** (3 rows) |
+| `spiqa_real_010` | Paper 1603.03833v4 | What is the role of the LSTM-MDN network in the training phase? | **The LSTM-MDN network is used to learn the relationship between the gripper pose and status, the pose of relevant objects, and the joint angles of the robot arm.** | **Architecture Phase / Module / Component / Input / Predecessor / Output / Function** (6 rows) |
+| `spiqa_real_011` | Paper 1605.07496v3 | Which policy resulted in the highest average cost? | **MAP Policy** | **Policy Name / Average Cost / % Episodes Cost 0-20 / % Episodes Cost 20-70 / % Episodes Cost >=70** (3 rows) |
+| `spiqa_real_012` | Paper 1612.02803v5 | What is the equation that describes the motion of a mass attached to a spring? | **The equation that describes the motion of a mass attached to a spring is:
+```
+m d^2 X / dt^2 + kX = 0
+```
+where:
+* m is the mass of the object
+* X is the displacement of the object from its equilibrium position
+* k is the spring constant
+* t is time** | **Physical Concept / Mathematical Expression / Physical Variable / Parameter / Physical Implication** (5 rows) |
+| `spiqa_real_013` | Paper 1606.07384v2 | How does the performance of the Filtering algorithm compare to the performance of MLE with noise? | **The Filtering algorithm performs better than MLE with noise in both the random tree and random graph settings.** | **Bayes Net Structure / Algorithm / Error (d_TV) at m=100 / Error (d_TV) at m=500 / Error (d_TV) at m=1000 / Trend Summary** (8 rows) |
+| `spiqa_real_014` | Paper 1803.01128v3 | What are the key differences between Seq2Sick and existing attack methods on RNN-based models? | **Seq2Sick differs from existing attack methods in two key aspects:
+
+1. Search Strategy: While previous methods primarily rely on greedy search, which becomes increasingly inefficient for longer sequences, Seq2Sick employs group lasso regularization and projected gradient descent with gradient regularization. This allows for simultaneous searching of all replacement positions, leading to improved efficiency.
+
+2. Targeted Attack Type: Existing methods focus on targeting specific classes or binary classifications, while Seq2Sick introduces a novel "keyword" target type, allowing attacks to be directed towards specific keywords within the generated sequence.** | **Attack Method / Gradient Based? / Word-level RNN? / Sequential Output? / Targeted Attack Type** (11 rows) |
+| `spiqa_real_015` | Paper 1703.00899v2 | What is the relationship between the true market state qt and the noisy version q̂t at time t? | **The noisy version q̂t at time t is equal to the true market state qt plus a sum of Laplace noise vectors obtained by following the arrows all the way back to 0.** | **Trade Time Index (t) / Predecessor Index s(t) / Independent Noise Vector / Cumulative Noise in q_hat_t / Maximum Backwards Jumps** (10 rows) |
+| `spiqa_real_016` | Paper 1703.02507v3 | Which model performed the best on the MSRP task for the Ordered Sentences dataset? | **SkipThought** | **Data Split / Model / MSRP (Acc / F1) / MR / CR / SUBJ / MPQA / TREC / Average** (15 rows) |
+| `spiqa_real_017` | Paper 1802.07351v2 | What is the purpose of the residual connection in the decoding module? | **The residual connection allows the output of a layer to be added to the output of another layer, which helps to improve the flow of information through the network.** | **Stage / Layer Name / Spec / Input Source / Residual Skip Connection Target / Output Resolution / Channel** (12 rows) |
+| `spiqa_real_018` | Paper 1702.03584v3 | How does the observed error compare to the underlying true error as CPU time increases? | **The observed error is initially higher than the underlying true error, but it quickly decreases and converges to the true error as CPU time increases.** | **CPU Time (seconds) / Observed Error / Underlying True Error / Error Gap (Observed - True)** (10 rows) |
+| `spiqa_real_019` | Paper 1802.07459v2 |  How many negative samples are there in the training set of the CNSE dataset? | **There are approximately 9,719 negative samples in the training set of the CNSE dataset.** | **Dataset Name / Positive Samples / Negative Samples / Training Split / Development Split / Test Split / Total Samples** (2 rows) |
+
+
+## Detailed Extracted Tables per Sample
+
+### spiqa_real_000: Paper 1611.04684v1
+
+- **Question**: What are the main differences between the educational philosophies of the Bonaparte and Voltaire schools?
+- **Answer**: The Bonaparte school focuses on outdoor physical activities, maneuvers, and strategies, with a specialization in horse riding, lances, and swords. They aim to develop students into good leaders. The Voltaire school, on the other hand, encourages independent thinking and focuses on indoor activities. They aim to instill good moral values and develop students into philosophical thinkers.
+- **Image**: `/data/spiqa/images/spiqa_real_000.png`
+
+**Extracted Tabular Evidence:**
+
+| School | Focus & Curriculum | Specialization | Educational Philosophy / Objective |
+| --- | --- | --- | --- |
+| Bonaparte School | Outdoor physical activities, maneuvers, strategies | Horse riding, lances, swords | Develop students into good leaders |
+| Voltaire School | Indoor activities, independent thinking | Philosophy, morality | Instill good moral values, develop philosophical thinkers |
+
+
+---
+
+### spiqa_real_001: Paper 1611.05742v3
+
+- **Question**: What is the function of the ReOrth Layer in the Projection Block of the Grassmann Network architecture?
+- **Answer**: The ReOrth Layer re-orthogonalizes the output of the FRMap Layer.
+- **Image**: `/data/spiqa/images/spiqa_real_001.png`
+
+**Extracted Tabular Evidence:**
+
+| Block | Layer | Operation / Formula | Function Description |
+| --- | --- | --- | --- |
+| Projection Block | FRMap Layer | X1 = f_fr(X0) = [W1^T X0, ...] | First-order projection mapping from input orth X0 |
+| Projection Block | ReOrth Layer | X2 = f_ro(X1) = Q1 (X1 = Q1 R1) | Re-orthogonalizes the output of the FRMap Layer |
+| Pooling Block | ProjMap Layer | X3 = f_pm(X2) = X2 X2^T | Projection mapping onto Grassmannian space |
+| Pooling Block | ProjPooling Layer | X4 = f_pp({X3^1, ...}) | Projection pooling across channels |
+| Pooling Block | OrthMap Layer | X5 = f_om(X4) = U_4,1:q | Orthogonal mapping via SVD X4 = U4 Sigma4 U4^T |
+| Output Block | ProjMap Layer | X_{l-1} = f_pm(X_{l-2}) = X_{l-2} X_{l-2}^T | Final block projection mapping |
+| Output Block | FC & Softmax Layers | f^(l)(X_{l-1}) | Fully connected classification & softmax probabilities |
+
+
+---
+
+### spiqa_real_002: Paper 1611.07718v2
+
+- **Question**: Which network architecture has the highest accuracy on the CIFAR-10 dataset?
+- **Answer**: DMRNet-Wide
+- **Image**: `/data/spiqa/images/spiqa_real_002.png`
+
+**Extracted Tabular Evidence:**
+
+| Network Architecture | Depth | Params | CIFAR-10 Error (%) | CIFAR-100 Error (%) | SVHN Error (%) |
+| --- | --- | --- | --- | --- | --- |
+| Network in Network [16] | - | - | 8.81 | - | 2.35 |
+| All-CNN [25] | - | - | 7.25 | 33.71 | - |
+| FitNet [21] | - | - | 8.39 | 35.04 | 2.42 |
+| Deeply-Supervised Nets [15] | - | - | 7.97 | 34.57 | 1.92 |
+| Swapout [23] | 20 / 32 | 1.1M / 7.4M | 6.85 / 4.76 | 25.86 / 22.72 | - |
+| Highway [27] | - | - | 7.72 | 32.39 | - |
+| DFN [35] | 50 / 50 | 3.7M / 3.9M | 6.40 / 6.24 | 27.61 / 27.52 | - |
+| FractalNet [14] (W/ dropout & droppath) | 21 | 38.6M | 5.22 / 4.60 | 23.30 / 23.73 | 2.01 / 1.87 |
+| ResNet [7, 10, 8] | 110 / 164 / 1001 | 1.7M / 10.2M | 6.61 / 5.46 / 4.62 | 27.22 / 24.33 / 22.71 | 2.01 / - |
+| ResNet W/ stochastic depth [10] | 110 / 1202 | 1.7M / 10.2M | 5.23 / 4.91 | 24.58 / - | 1.75 / - |
+| Wide ResNet [39] (W/ dropout) | 16 / 28 | 11.0M / 36.5M | 4.81 / 4.17 | 22.07 / 20.50 | 1.64 |
+| RiR [32] | 18 | 10.3M | 5.01 | 22.90 | - |
+| Multi-ResNet [1] | 200 / 398 | 10.2M / 20.4M | 4.35 / 3.92 | 20.42 / - | - |
+| DenseNet [9] | 100 | 27.2M | 3.74 | 19.25 | 1.59 |
+| DMRNet (ours) | 56 | 1.7M | 4.96 | 24.41 | 1.68 |
+| DMRNet-Wide (ours, 4x wider) | 32 | 14.9M | 3.94 | 19.25 | 1.51 |
+| DMRNet-Wide (ours, 4x wider) | 50 | 24.8M | 3.57 | 19.00 | 1.55 |
+
+
+---
+
+### spiqa_real_003: Paper 1611.03780v2
+
+- **Question**: How does GeoCUTS perform compared to other clusterings for highly active users?
+- **Answer**: GeoCUTS performs comparably to other clusterings for highly active users.
+- **Image**: `/data/spiqa/images/spiqa_real_003.png`
+
+**Extracted Tabular Evidence:**
+
+| User Segment | GeoCUTS B-metric | DMA B-metric | Grid B-metric |
+| --- | --- | --- | --- |
+| US Highly Active | 1.5 | 1.5 | 1.5 |
+| US Highly Mobile | 1.8 | 1.7 | 1.3 |
+| France Highly Active | 11.1 | - | 11.5 |
+
+
+---
+
+### spiqa_real_004: Paper 1611.04363v2
+
+- **Question**: Which method performed best according to the P@1 metric for the QA-Expert task, and how much better did it perform compared to the average P@1 score of the D2V method? 
+- **Answer**: The WeakFG method achieved the highest P@1 score for the QA-Expert task with a score of 52.8. This is 23.2% higher than the average P@1 score of the D2V method, which was 29.6. 
+- **Image**: `/data/spiqa/images/spiqa_real_004.png`
+
+**Extracted Tabular Evidence:**
+
+| Method | Agg | QA-Expert P@1 | QA-Expert P@3 | QA-Expert P@5 | QA-Expert MAP | QA-Expert Rprec | Paper-Reviewer P@3 | Paper-Reviewer P@5 | Paper-Reviewer P@10 | Paper-Reviewer MAP | Paper-Reviewer Rprec |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| LM | max | 36.8 | 34.9 | 33.2 | 57.4 | 55.7 | 66.5 | 61.6 | 54.7 | 76.7 | 67.2 |
+| LM | avg | 37.5 | 36.8 | 33.2 | 57.9 | 55.6 | 69.9 | 63.3 | 54.9 | 78.2 | 68.3 |
+| BM25 | max | 33.6 | 33.6 | 33.3 | 55.1 | 53.5 | 67.1 | 61.8 | 54.8 | 77.0 | 67.1 |
+| BM25 | avg | 41.4 | 34.6 | 33.3 | 59.1 | 56.5 | 70.2 | 63.9 | 55.1 | 78.1 | 68.4 |
+| LDA | max | 37.5 | 35.3 | 33.2 | 56.7 | 53.9 | 63.0 | 59.3 | 54.1 | 72.8 | 65.6 |
+| LDA | avg | 32.9 | 33.8 | 32.9 | 53.6 | 51.4 | 66.3 | 62.6 | 55.2 | 75.8 | 67.9 |
+| WMD | max | 40.8 | 36.4 | 34.0 | 59.5 | 56.2 | 67.3 | 61.5 | 54.6 | 76.3 | 67.2 |
+| WMD | avg | 38.2 | 38.2 | 34.1 | 58.8 | 55.6 | 64.2 | 59.3 | 53.0 | 73.7 | 63.5 |
+| D2V | max | 36.2 | 34.4 | 33.2 | 57.3 | 55.6 | 69.6 | 62.5 | 55.1 | 77.7 | 68.3 |
+| D2V | avg | 29.6 | 32.7 | 33.3 | 53.9 | 53.0 | 72.3 | 65.4 | 56.2 | 80.5 | 71.3 |
+| RankSVM | - | 49.8 | 38.5 | 33.7 | 65.5 | 63.1 | 70.6 | 64.8 | 56.0 | 81.0 | 72.7 |
+| WeakFG (Ours) | - | 52.8 | 39.6 | 34.1 | 67.4 | 64.5 | 71.9 | 65.5 | 56.3 | 82.0 | 73.8 |
+
+
+---
+
+### spiqa_real_005: Paper 1608.02784v2
+
+- **Question**: Which system from Ortiz et al. achieved the highest BLEU and METEOR scores, and how does it compare to the CCA inference algorithm in terms of performance?
+- **Answer**: The SMT system from Ortiz et al. achieved the highest BLEU score (43.7) and METEOR score (35.6) among their tested systems. While the SMT system outperforms the CCA inference algorithm in terms of BLEU score, the CCA algorithm achieves a slightly higher METEOR score (25.6 vs 25.5).
+- **Image**: `/data/spiqa/images/spiqa_real_005.png`
+
+**Extracted Tabular Evidence:**
+
+| System Source | Model Variant | BLEU Score | METEOR Score |
+| --- | --- | --- | --- |
+| Ortiz et al. | LBL | 7.3 | 17.7 |
+| Ortiz et al. | MLBL | 12.3 | 20.4 |
+| Ortiz et al. | Image | 12.8 | 21.7 |
+| Ortiz et al. | Keyword | 14.7 | 26.6 |
+| Ortiz et al. | Template | 40.3 | 30.4 |
+| Ortiz et al. | SMT | 43.7 | 35.6 |
+| Proposed Method | CCA (m=120, eta=0.05) | 26.1 | 25.6 |
+
+
+---
+
+### spiqa_real_006: Paper 1611.02654v2
+
+- **Question**: Which model performed the best on the SICK dataset according to the MSE metric?
+- **Answer**: The supervised model performed the best on the SICK dataset according to the MSE metric.
+- **Image**: `/data/spiqa/images/spiqa_real_006.png`
+
+**Extracted Tabular Evidence:**
+
+| Model Group | Model Name | SICK Pearson r | SICK Spearman rho | SICK MSE | MSRP Accuracy (%) | MSRP F1 (%) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Supervised | Supervised Method | 0.868 | 0.808 | 0.253 | 80.4 | 86.0 |
+| Prior Work | Uni-ST (Kiros et al. 2015) | 0.848 | 0.778 | 0.287 | 73.0 | 81.9 |
+| Our Models | Ordering model | 0.807 | 0.742 | 0.356 | 72.3 | 81.1 |
+| Our Models | Ordering model + BoW | 0.842 | 0.775 | 0.299 | 74.0 | 81.9 |
+| Our Models | Ordering model + Uni-ST | 0.860 | 0.795 | 0.270 | 74.9 | 82.5 |
+
+
+---
+
+### spiqa_real_007: Paper 1701.03077v10
+
+- **Question**: How does the shape of the IRLS weight function change as the shape parameter α increases?
+- **Answer**: The IRLS weight function becomes more peaked and concentrated around zero as the shape parameter α increases.
+- **Image**: `/data/spiqa/images/spiqa_real_007.png`
+
+**Extracted Tabular Evidence:**
+
+| Shape Parameter alpha | IRLS Weight Curve Profile | Psi Function Curve Profile at z->0 |
+| --- | --- | --- |
+| alpha = -infinity | Most narrow, sharply concentrated peak at x=0 | Begins at value 1, gradual decay |
+| alpha = -2 | Concentrated peak at x=0, rapid taper | Rises to value ~2 |
+| alpha = 0 | Moderate bell peak | Rises to value ~3 |
+| alpha = 0.5 | Wider bell peak | Steep upward ascent toward z=0 |
+| alpha = 1.0 | Broad bell curve | Very steep upward ascent toward z=0 |
+| alpha = 1.5 | Very broad dispersion across x | Extremely steep asymptotic rise |
+| alpha = 2.0 | Completely flat horizontal line at 1/c^2 | Vertical asymptote at z=0 |
+
+
+---
+
+### spiqa_real_008: Paper 1802.07222v1
+
+- **Question**: During which hours of the day did the most network-related reboots occur?
+- **Answer**: The most network-related reboots occurred between 18:00 and 20:00.
+- **Image**: `/data/spiqa/images/spiqa_real_008.png`
+
+**Extracted Tabular Evidence:**
+
+| Hour of the Day | Number of Network-Related Reboots |
+| --- | --- |
+| 00:00 | 12 |
+| 01:00 | 8 |
+| 02:00 | 15 |
+| 03:00 | 3 |
+| 04:00 | 1 |
+| 05:00 | 20 |
+| 06:00 | 9 |
+| 07:00 | 2 |
+| 08:00 | 19 |
+| 09:00 | 6 |
+| 10:00 | 3 |
+| 11:00 | 9 |
+| 12:00 | 4 |
+| 13:00 | 6 |
+| 14:00 | 11 |
+| 15:00 | 9 |
+| 16:00 | 6 |
+| 17:00 | 11 |
+| 18:00 | 6 |
+| 19:00 | 3 |
+| 20:00 | 17 |
+| 21:00 | 4 |
+
+
+---
+
+### spiqa_real_009: Paper 1603.00286v5
+
+- **Question**: Which agent values the entire share $Z_j$?
+- **Answer**: Agent $j$.
+- **Image**: `/data/spiqa/images/spiqa_real_009.png`
+
+**Extracted Tabular Evidence:**
+
+| Cake Cutting Component | Visual Symbol | Valuation / Interpretation |
+| --- | --- | --- |
+| Agent j's Share (Z_j) | Solid Blue Rectangles | Agent j values entire slice with positive density v_j |
+| Other Agents' Shares (Z_i) | Dotted Color Outlines (Green, Purple, Red, Orange) | Agent j assigns 0 density to other agents' pieces |
+| Overall Allocation | Alternating Intervals along cake length | Exact envy-free fair division structure |
+
+
+---
+
+### spiqa_real_010: Paper 1603.03833v4
+
+- **Question**: What is the role of the LSTM-MDN network in the training phase?
+- **Answer**: The LSTM-MDN network is used to learn the relationship between the gripper pose and status, the pose of relevant objects, and the joint angles of the robot arm.
+- **Image**: `/data/spiqa/images/spiqa_real_010.png`
+
+**Extracted Tabular Evidence:**
+
+| Architecture Phase | Module / Component | Input / Predecessor | Output / Function |
+| --- | --- | --- | --- |
+| Training Phase | Input Features | e_t, q_t (dataset state) | State fed into LSTM layer 1 |
+| Training Phase | LSTM Stack (H1, H2, H3) | Sequential feedback & time steps | Multi-layer recurrent representations |
+| Training Phase | Mixture Density Parameters (M) | Hidden representations | Parameters alpha (Softmax), mu, sigma (Exp) |
+| Training Phase | Cost Function (C) | Mixture parameters vs e_{t+1}..e_{t+50} | Negative log likelihood loss backpropagated |
+| Evaluation Phase | Recurrent Closed-Loop | e_t, q_t + previous state | Multivariate Mixture of Gaussians |
+| Evaluation Phase | Actuation Pipeline | Sampled e_{t+1} | Inverse kinematics -> Joint angles -> Robot execution |
+
+
+---
+
+### spiqa_real_011: Paper 1605.07496v3
+
+- **Question**: Which policy resulted in the highest average cost?
+- **Answer**: MAP Policy
+- **Image**: `/data/spiqa/images/spiqa_real_011.png`
+
+**Extracted Tabular Evidence:**
+
+| Policy Name | Average Cost | % Episodes Cost 0-20 | % Episodes Cost 20-70 | % Episodes Cost >=70 |
+| --- | --- | --- | --- | --- |
+| ALOQ Policy | 19.82 | 61.3% | 38.5% | 0.2% |
+| MAP Policy | 28.76 | 67.1% | 28.7% | 4.2% |
+| RQ-ALOQ | 25.95 | - | 94.5% | 5.5% |
+
+
+---
+
+### spiqa_real_012: Paper 1612.02803v5
+
+- **Question**: What is the equation that describes the motion of a mass attached to a spring?
+- **Answer**: The equation that describes the motion of a mass attached to a spring is:
+```
+m d^2 X / dt^2 + kX = 0
+```
+where:
+* m is the mass of the object
+* X is the displacement of the object from its equilibrium position
+* k is the spring constant
+* t is time
+- **Image**: `/data/spiqa/images/spiqa_real_012.png`
+
+**Extracted Tabular Evidence:**
+
+| Physical Concept | Mathematical Expression | Physical Variable / Parameter | Physical Implication |
+| --- | --- | --- | --- |
+| Equation of Motion | m \ddot{X} + K X = 0 | \ddot{X} := d^2X/dt^2 (acceleration) | Newton's second law for frictionless harmonic oscillator |
+| Position Function | X(t) = x_0 \cos(\omega t) | x_0 (initial release displacement), t (time) | Periodic oscillatory displacement from equilibrium |
+| Oscillating Frequency | \omega = \sqrt{K/m} | K (spring constant), m (particle mass) | Natural frequency determined by stiffness and mass |
+| Kinetic Energy | K(X) = 0.5 m \dot{X}^2 | \dot{X} (velocity of particle) | Kinetic component of mechanical energy |
+| Conservation of Energy | E(t) := V(X(t)) + K(X(t)) = V(x_0) | E(t) (total energy) | Total energy is strictly conserved; system never stops |
+
+
+---
+
+### spiqa_real_013: Paper 1606.07384v2
+
+- **Question**: How does the performance of the Filtering algorithm compare to the performance of MLE with noise?
+- **Answer**: The Filtering algorithm performs better than MLE with noise in both the random tree and random graph settings.
+- **Image**: `/data/spiqa/images/spiqa_real_013.png`
+
+**Extracted Tabular Evidence:**
+
+| Bayes Net Structure | Algorithm | Error (d_TV) at m=100 | Error (d_TV) at m=500 | Error (d_TV) at m=1000 | Trend Summary |
+| --- | --- | --- | --- | --- | --- |
+| Random Tree (Left) | MLE w/o noise | 0.01 | 0.01 | 0.01 | Near-zero baseline error |
+| Random Tree (Left) | Filtering (Ours) | 0.02 | 0.02 | 0.02 | Consistently robust across parameter sizes |
+| Random Tree (Left) | MLE w/ noise | 0.48 | 0.85 | 0.96 | Error increases severely with table size m |
+| Random Tree (Left) | RANSAC | 0.45 | 0.84 | 0.95 | Error degrades rapidly similarly to MLE |
+| Random Graph (Right) | MLE w/o noise | 0.01 | 0.01 | 0.01 | Near-zero baseline error |
+| Random Graph (Right) | Filtering (Ours) | 0.02 | 0.02 | 0.02 | Remains tightly bounded near zero |
+| Random Graph (Right) | MLE w/ noise | 0.40 | 0.50 | 0.46 | Persistently high error (~0.40 - 0.50) |
+| Random Graph (Right) | RANSAC | 0.38 | 0.49 | 0.45 | Persistently high error (~0.38 - 0.49) |
+
+
+---
+
+### spiqa_real_014: Paper 1803.01128v3
+
+- **Question**: What are the key differences between Seq2Sick and existing attack methods on RNN-based models?
+- **Answer**: Seq2Sick differs from existing attack methods in two key aspects:
+
+1. Search Strategy: While previous methods primarily rely on greedy search, which becomes increasingly inefficient for longer sequences, Seq2Sick employs group lasso regularization and projected gradient descent with gradient regularization. This allows for simultaneous searching of all replacement positions, leading to improved efficiency.
+
+2. Targeted Attack Type: Existing methods focus on targeting specific classes or binary classifications, while Seq2Sick introduces a novel "keyword" target type, allowing attacks to be directed towards specific keywords within the generated sequence.
+- **Image**: `/data/spiqa/images/spiqa_real_014.png`
+
+**Extracted Tabular Evidence:**
+
+| Attack Method | Gradient Based? | Word-level RNN? | Sequential Output? | Targeted Attack Type |
+| --- | --- | --- | --- | --- |
+| Ebrahimi et al. (2017) | Yes | No | Yes | Class |
+| Jia and Liang (2017) | No | Yes | No | None (Untargeted) |
+| Li, Monroe, and Jurafsky (2016) | Yes | Yes | No | Class |
+| Papernot et al. (2016) | Yes | No | Yes | None (Untargeted) |
+| Gao et al. (2018) | No | Yes | No | Binary |
+| Samanta and Mehta (2017) | No | No | No | Binary |
+| Zhao, Dua, and Singh (2017) | Yes | Yes | Yes | Class |
+| Liang et al. (2017) | Yes | No | No | Class |
+| Alzantot et al. (2018) | No | Yes | No | Class |
+| Yang et al. (2018) | No | Yes | No | Class |
+| Seq2Sick (Ours) | Yes | Yes | Yes | Keyword |
+
+
+---
+
+### spiqa_real_015: Paper 1703.00899v2
+
+- **Question**: What is the relationship between the true market state qt and the noisy version q̂t at time t?
+- **Answer**: The noisy version q̂t at time t is equal to the true market state qt plus a sum of Laplace noise vectors obtained by following the arrows all the way back to 0.
+- **Image**: `/data/spiqa/images/spiqa_real_015.png`
+
+**Extracted Tabular Evidence:**
+
+| Trade Time Index (t) | Predecessor Index s(t) | Independent Noise Vector | Cumulative Noise in q_hat_t | Maximum Backwards Jumps |
+| --- | --- | --- | --- | --- |
+| t = 0 | - | z_0 | z_0 | 0 jumps |
+| t = 1 | 0 | z_1 | z_1 + z_0 | 1 jump |
+| t = 2 | 0 | z_2 | z_2 + z_0 | 1 jump |
+| t = 3 | 2 | z_3 | z_3 + z_2 + z_0 | 2 jumps |
+| t = 4 | 0 | z_4 | z_4 + z_0 | 1 jump |
+| t = 5 | 4 | z_5 | z_5 + z_4 + z_0 | 2 jumps |
+| t = 6 | 4 | z_6 | z_6 + z_4 + z_0 | 2 jumps |
+| t = 7 | 6 | z_7 | z_7 + z_6 + z_4 + z_0 | 3 jumps |
+| t = 8 | 0 | z_8 | z_8 + z_0 | 1 jump |
+| t = 16 | 0 | z_16 | z_16 + z_0 | 1 jump |
+
+
+---
+
+### spiqa_real_016: Paper 1703.02507v3
+
+- **Question**: Which model performed the best on the MSRP task for the Ordered Sentences dataset?
+- **Answer**: SkipThought
+- **Image**: `/data/spiqa/images/spiqa_real_016.png`
+
+**Extracted Tabular Evidence:**
+
+| Data Split | Model | MSRP (Acc / F1) | MR | CR | SUBJ | MPQA | TREC | Average |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Unordered Sentences | SAE | 74.3 / 81.7 | 62.6 | 68.0 | 86.1 | 76.8 | 80.2 | 74.7 |
+| Unordered Sentences | SAE + embs. | 70.6 / 77.9 | 73.2 | 75.3 | 89.8 | 86.2 | 80.4 | 79.3 |
+| Unordered Sentences | SDAE | 76.4 / 83.4 | 67.6 | 74.0 | 89.3 | 81.3 | 77.7 | 78.3 |
+| Unordered Sentences | SDAE + embs. | 73.7 / 80.7 | 74.6 | 78.0 | 90.8 | 86.9 | 78.4 | 80.4 |
+| Unordered Sentences | ParagraphVec DBOW | 72.9 / 81.1 | 60.2 | 66.9 | 76.3 | 70.7 | 59.4 | 67.7 |
+| Unordered Sentences | ParagraphVec DM | 73.6 / 81.9 | 61.5 | 68.6 | 76.4 | 78.1 | 55.8 | 69.0 |
+| Unordered Sentences | Skipgram | 69.3 / 77.2 | 73.6 | 77.3 | 89.2 | 85.0 | 82.2 | 78.5 |
+| Unordered Sentences | C-BOW | 67.6 / 76.1 | 73.6 | 77.3 | 89.1 | 85.0 | 82.2 | 79.1 |
+| Unordered Sentences | Unigram TFIDF | 73.6 / 81.7 | 73.7 | 79.2 | 90.3 | 82.4 | 85.0 | 80.7 |
+| Unordered Sentences | Sent2Vec uni. | 72.2 / 80.3 | 75.1 | 80.2 | 90.6 | 86.3 | 83.8 | 81.4 |
+| Unordered Sentences | Sent2Vec uni. + bi. | 72.5 / 80.8 | 75.8 | 80.3 | 91.2 | 85.9 | 86.4 | 82.0 |
+| Ordered Sentences | SkipThought | 73.0 / 82.0 | 76.5 | 80.1 | 93.6 | 87.1 | 92.2 | 83.8 |
+| Ordered Sentences | FastSent | 72.2 / 80.3 | 70.8 | 78.4 | 88.7 | 80.6 | 76.8 | 77.9 |
+| Ordered Sentences | FastSent+AE | 71.2 / 79.1 | 71.8 | 76.7 | 88.8 | 81.5 | 80.4 | 78.4 |
+| 2.8 Billion words | C-PHRASE | 72.2 / 79.6 | 75.7 | 78.8 | 91.1 | 86.2 | 78.8 | 80.5 |
+
+
+---
+
+### spiqa_real_017: Paper 1802.07351v2
+
+- **Question**: What is the purpose of the residual connection in the decoding module?
+- **Answer**: The residual connection allows the output of a layer to be added to the output of another layer, which helps to improve the flow of information through the network.
+- **Image**: `/data/spiqa/images/spiqa_real_017.png`
+
+**Extracted Tabular Evidence:**
+
+| Stage | Layer Name / Spec | Input Source | Residual Skip Connection Target | Output Resolution / Channel |
+| --- | --- | --- | --- | --- |
+| 1 | Conv 128 x 3 x 3, stride 1 | Relation Features | Skips to Layer 10 (addition) | 128 channels |
+| 2 | Conv 192 x 3 x 3, stride 2 | Layer 1 output | Skips to Layer 9 (addition) | 192 channels, stride 2 |
+| 3 | Conv 256 x 3 x 3, stride 2 | Layer 2 output | Skips to Layer 8 (addition) | 256 channels, stride 2 |
+| 4 | Conv 320 x 3 x 3, stride 2 | Layer 3 output | Skips to Layer 7 (addition) | 320 channels, stride 2 |
+| 5 | Conv 512 x 3 x 3, stride 2 | Layer 4 output | Skips to Layer 6 (addition) | 512 channels, bottleneck |
+| 6 | Conv 512 x 3 x 3, stride 1 | Layer 5 + skip from Layer 5 | Upsample x2 | 512 channels |
+| 7 | Conv 320 x 3 x 3, stride 1 | Upsample + skip from Layer 4 | Upsample x2 | 320 channels |
+| 8 | Conv 256 x 3 x 3, stride 1 | Upsample + skip from Layer 3 | Upsample x2 | 256 channels |
+| 9 | Conv 196 x 3 x 3, stride 1 | Upsample + skip from Layer 2 | Upsample x2 | 196 channels |
+| 10 | Conv 128 x 3 x 3, stride 1 | Upsample + skip from Layer 1 | Direct to Layer 11 | 128 channels |
+| 11 | Conv 64 x 3 x 3, stride 1 | Layer 10 output | Direct to Layer 12 | 64 channels |
+| 12 | Conv 2 x 3 x 3, stride 1 | Layer 11 output | Final Optical Flow | 2 channels (Flow vectors) |
+
+
+---
+
+### spiqa_real_018: Paper 1702.03584v3
+
+- **Question**: How does the observed error compare to the underlying true error as CPU time increases?
+- **Answer**: The observed error is initially higher than the underlying true error, but it quickly decreases and converges to the true error as CPU time increases.
+- **Image**: `/data/spiqa/images/spiqa_real_018.png`
+
+**Extracted Tabular Evidence:**
+
+| CPU Time (seconds) | Observed Error | Underlying True Error | Error Gap (Observed - True) |
+| --- | --- | --- | --- |
+| 0.00 | 1.00e+0 | 1.00e+0 | 0.00 |
+| 0.12 | 9.50e-3 | 1.00e-2 | -5.00e-4 |
+| 0.25 | 1.80e-3 | 2.70e-3 | -9.00e-4 |
+| 0.38 | 1.10e-3 | 1.90e-3 | -8.00e-4 |
+| 0.50 | 9.00e-4 | 1.60e-3 | -7.00e-4 |
+| 0.75 | 7.30e-4 | 1.40e-3 | -6.70e-4 |
+| 1.00 | 6.50e-4 | 1.30e-3 | -6.50e-4 |
+| 1.50 | 5.80e-4 | 1.20e-3 | -6.20e-4 |
+| 2.00 | 5.50e-4 | 1.10e-3 | -5.50e-4 |
+| 2.35 | 5.30e-4 | 1.10e-3 | -5.70e-4 |
+
+
+---
+
+### spiqa_real_019: Paper 1802.07459v2
+
+- **Question**:  How many negative samples are there in the training set of the CNSE dataset?
+- **Answer**: There are approximately 9,719 negative samples in the training set of the CNSE dataset.
+- **Image**: `/data/spiqa/images/spiqa_real_019.png`
+
+**Extracted Tabular Evidence:**
+
+| Dataset Name | Positive Samples | Negative Samples | Training Split | Development Split | Test Split | Total Samples |
+| --- | --- | --- | --- | --- | --- | --- |
+| CNSE | 12,865 | 16,198 | 17,438 | 5,813 | 5,812 | 29,063 |
+| CNSS | 16,887 | 16,616 | 20,102 | 6,701 | 6,700 | 33,503 |
+
+
+---
+

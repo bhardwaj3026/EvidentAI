@@ -1,0 +1,381 @@
+id,title,type,question,answer,imagePath,source,markdownTable,rawTableJson
+"chartqa_001","Quarterly Revenue by Region (2023)","chart_table","What was the revenue for North America in Q3 2023?","$4.8M","/data/chartqa/images/chartqa_001.png","Financial Benchmark Suite","| Region | Q1 2023 | Q2 2023 | Q3 2023 | Q4 2023 |
+| --- | --- | --- | --- | --- |
+| North America | $3.2M | $4.1M | $4.8M | $5.2M |
+| Europe | $2.1M | $2.8M | $3.4M | $3.9M |
+| Asia Pacific | $1.8M | $2.5M | $3.1M | $3.7M |
+| Latin America | $0.9M | $1.2M | $1.5M | $1.8M |
+","[[""Region"",""Q1 2023"",""Q2 2023"",""Q3 2023"",""Q4 2023""],[""North America"",""$3.2M"",""$4.1M"",""$4.8M"",""$5.2M""],[""Europe"",""$2.1M"",""$2.8M"",""$3.4M"",""$3.9M""],[""Asia Pacific"",""$1.8M"",""$2.5M"",""$3.1M"",""$3.7M""],[""Latin America"",""$0.9M"",""$1.2M"",""$1.5M"",""$1.8M""]]"
+"chartqa_002","Global Renewable Energy Production (2019-2023)","chart_table","How many TWh of Solar energy were produced in 2022?","1280 TWh","/data/chartqa/images/chartqa_002.png","Global Energy Outlook","| Source | 2019 | 2020 | 2021 | 2022 | 2023 |
+| --- | --- | --- | --- | --- | --- |
+| Solar | 720 TWh | 890 TWh | 1050 TWh | 1280 TWh | 1540 TWh |
+| Wind | 1420 TWh | 1590 TWh | 1810 TWh | 2040 TWh | 2310 TWh |
+| Hydro | 4150 TWh | 4210 TWh | 4250 TWh | 4300 TWh | 4380 TWh |
+","[[""Source"",""2019"",""2020"",""2021"",""2022"",""2023""],[""Solar"",""720 TWh"",""890 TWh"",""1050 TWh"",""1280 TWh"",""1540 TWh""],[""Wind"",""1420 TWh"",""1590 TWh"",""1810 TWh"",""2040 TWh"",""2310 TWh""],[""Hydro"",""4150 TWh"",""4210 TWh"",""4250 TWh"",""4300 TWh"",""4380 TWh""]]"
+"chartqa_003","Smartphone OS Global Market Share (2023)","chart_table","What is Android's share of the global smartphone OS market?","70.5%","/data/chartqa/images/chartqa_003.png","Mobile Tech Analytics","| Operating System | Market Share |
+| --- | --- |
+| Android | 70.5% |
+| iOS | 28.8% |
+| KaiOS | 0.4% |
+| Others | 0.3% |
+","[[""Operating System"",""Market Share""],[""Android"",""70.5%""],[""iOS"",""28.8%""],[""KaiOS"",""0.4%""],[""Others"",""0.3%""]]"
+"chartqa_004","Electric Vehicle Battery Cost per kWh (2015-2023)","chart_table","What was the average EV battery pack cost in 2021?","$138/kWh","/data/chartqa/images/chartqa_004.png","Clean Energy Research","| Year | Cost ($/kWh) |
+| --- | --- |
+| 2015 | $384 |
+| 2017 | $221 |
+| 2019 | $161 |
+| 2021 | $138 |
+| 2023 | $128 |
+","[[""Year"",""Cost ($/kWh)""],[""2015"",""$384""],[""2017"",""$221""],[""2019"",""$161""],[""2021"",""$138""],[""2023"",""$128""]]"
+"chartqa_005","Cloud Provider Market Share Q4 2023","chart_table","Which cloud provider holds the largest market share?","AWS","/data/chartqa/images/chartqa_005.png","Enterprise Tech Index","| Provider | Market Share |
+| --- | --- |
+| AWS | 31% |
+| Microsoft Azure | 24% |
+| Google Cloud | 11% |
+| Alibaba Cloud | 4% |
+| IBM Cloud | 3% |
+| Others | 27% |
+","[[""Provider"",""Market Share""],[""AWS"",""31%""],[""Microsoft Azure"",""24%""],[""Google Cloud"",""11%""],[""Alibaba Cloud"",""4%""],[""IBM Cloud"",""3%""],[""Others"",""27%""]]"
+"chartqa_006","Global Semiconductor Revenue (2018-2023)","chart_table","What was total semiconductor revenue in 2021?","$555B","/data/chartqa/images/chartqa_006.png","Semiconductor Industry Assoc.","| Year | Revenue ($ Billion) |
+| --- | --- |
+| 2018 | $468B |
+| 2019 | $412B |
+| 2020 | $440B |
+| 2021 | $555B |
+| 2022 | $574B |
+| 2023 | $527B |
+","[[""Year"",""Revenue ($ Billion)""],[""2018"",""$468B""],[""2019"",""$412B""],[""2020"",""$440B""],[""2021"",""$555B""],[""2022"",""$574B""],[""2023"",""$527B""]]"
+"chartqa_007","Multimodal RAG Hallucination Rate by Vision Model","chart_table","Which model exhibits the lowest hallucination rate on ChartQA?","Claude 3.5 Sonnet","/data/chartqa/images/chartqa_007.png","Multimodal RAG Benchmark 2024","| Model | ChartQA Hallucination Rate | DocVQA Hallucination Rate |
+| --- | --- | --- |
+| GPT-4 Vision | 18.4% | 14.2% |
+| Claude 3.5 Sonnet | 8.6% | 6.1% |
+| Gemini 1.5 Pro | 11.2% | 9.5% |
+| Open-Source VLM-7B | 29.5% | 24.8% |
+","[[""Model"",""ChartQA Hallucination Rate"",""DocVQA Hallucination Rate""],[""GPT-4 Vision"",""18.4%"",""14.2%""],[""Claude 3.5 Sonnet"",""8.6%"",""6.1%""],[""Gemini 1.5 Pro"",""11.2%"",""9.5%""],[""Open-Source VLM-7B"",""29.5%"",""24.8%""]]"
+"chartqa_008","Average Household Income by Education Level (USA 2023)","chart_table","What is the median household income for individuals with a Master's degree?","$98,500","/data/chartqa/images/chartqa_008.png","US Census Bureau","| Education Level | Median Income |
+| --- | --- |
+| High School Diploma | $42,000 |
+| Bachelor's Degree | $74,200 |
+| Master's Degree | $98,500 |
+| Doctorate / Professional | $124,000 |
+","[[""Education Level"",""Median Income""],[""High School Diploma"",""$42,000""],[""Bachelor's Degree"",""$74,200""],[""Master's Degree"",""$98,500""],[""Doctorate / Professional"",""$124,000""]]"
+"chartqa_009","Global Carbon Emissions by Sector (2023)","chart_table","What percentage of carbon emissions comes from Electricity & Heat Production?","34%","/data/chartqa/images/chartqa_009.png","IPCC Climate Report","| Sector | Percentage |
+| --- | --- |
+| Electricity & Heat | 34% |
+| Industry | 24% |
+| Agriculture & Forestry | 21% |
+| Transportation | 15% |
+| Buildings | 6% |
+","[[""Sector"",""Percentage""],[""Electricity & Heat"",""34%""],[""Industry"",""24%""],[""Agriculture & Forestry"",""21%""],[""Transportation"",""15%""],[""Buildings"",""6%""]]"
+"chartqa_0010","Global E-Commerce Mobile vs Desktop Share (2020-2023)","chart_table","What was the mobile share of e-commerce sales in 2023?","73%","/data/chartqa/images/chartqa_0010.png","Global Digital Commerce Benchmark","| Year | Mobile Share | Desktop Share |
+| --- | --- | --- |
+| 2020 | 64% | 36% |
+| 2021 | 67% | 33% |
+| 2022 | 70% | 30% |
+| 2023 | 73% | 27% |
+","[[""Year"",""Mobile Share"",""Desktop Share""],[""2020"",""64%"",""36%""],[""2021"",""67%"",""33%""],[""2022"",""70%"",""30%""],[""2023"",""73%"",""27%""]]"
+"chartqa_0011","Autonomous Driving Miles (Millions)","chart_table","How many test miles were driven in 2019?","15 M Miles","/data/chartqa/images/chartqa_0011.png","ChartQA Research Dataset","| Category | Miles |
+| --- | --- |
+| 2019 | 15 M Miles |
+| 2020 | 18.5 M Miles |
+| 2021 | 22 M Miles |
+| 2022 | 25.5 M Miles |
+| 2023 | 29 M Miles |
+","[[""Category"",""Miles""],[""2019"",""15 M Miles""],[""2020"",""18.5 M Miles""],[""2021"",""22 M Miles""],[""2022"",""25.5 M Miles""],[""2023"",""29 M Miles""]]"
+"chartqa_0012","Global Crude Oil Output (Mbpd)","chart_table","What is the crude oil output for Saudi Arabia?","84.5 Mbpd","/data/chartqa/images/chartqa_0012.png","ChartQA Research Dataset","| Category | Production |
+| --- | --- |
+| US | 81 Mbpd |
+| Saudi Arabia | 84.5 Mbpd |
+| Russia | 88 Mbpd |
+| Canada | 91.5 Mbpd |
+| Iraq | 95 Mbpd |
+","[[""Category"",""Production""],[""US"",""81 Mbpd""],[""Saudi Arabia"",""84.5 Mbpd""],[""Russia"",""88 Mbpd""],[""Canada"",""91.5 Mbpd""],[""Iraq"",""95 Mbpd""]]"
+"chartqa_0013","Gaming Console Lifetime Sales","chart_table","What are the lifetime sales for Xbox Series X/S?","49 M Units","/data/chartqa/images/chartqa_0013.png","ChartQA Research Dataset","| Category | Sales |
+| --- | --- |
+| PS5 | 42 M Units |
+| Nintendo Switch | 45.5 M Units |
+| Xbox Series X/S | 49 M Units |
+","[[""Category"",""Sales""],[""PS5"",""42 M Units""],[""Nintendo Switch"",""45.5 M Units""],[""Xbox Series X/S"",""49 M Units""]]"
+"chartqa_0014","Global Population by Age Group","chart_table","What percentage of the population is aged 55-64 yrs?","33.5 %","/data/chartqa/images/chartqa_0014.png","ChartQA Research Dataset","| Category | Share |
+| --- | --- |
+| 0-14 yrs | 23 % |
+| 15-24 yrs | 26.5 % |
+| 25-54 yrs | 30 % |
+| 55-64 yrs | 33.5 % |
+| 65+ yrs | 37 % |
+","[[""Category"",""Share""],[""0-14 yrs"",""23 %""],[""15-24 yrs"",""26.5 %""],[""25-54 yrs"",""30 %""],[""55-64 yrs"",""33.5 %""],[""65+ yrs"",""37 %""]]"
+"chartqa_0015","Solar Capacity Added by Region 2023","chart_table","How many GW of solar capacity were added in Rest of World?","49 GW","/data/chartqa/images/chartqa_0015.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| China | 35 GW |
+| Europe | 38.5 GW |
+| North America | 42 GW |
+| Asia Pacific | 45.5 GW |
+| Rest of World | 49 GW |
+","[[""Category"",""Capacity""],[""China"",""35 GW""],[""Europe"",""38.5 GW""],[""North America"",""42 GW""],[""Asia Pacific"",""45.5 GW""],[""Rest of World"",""49 GW""]]"
+"chartqa_0016","Cyber Security Breaches by Sector 2023","chart_table","What percentage of cyber security breaches targeted Healthcare?","13 %","/data/chartqa/images/chartqa_0016.png","ChartQA Research Dataset","| Category | Percentage |
+| --- | --- |
+| Healthcare | 13 % |
+| Finance | 16.5 % |
+| Government | 20 % |
+| Tech | 23.5 % |
+| Education | 27 % |
+","[[""Category"",""Percentage""],[""Healthcare"",""13 %""],[""Finance"",""16.5 %""],[""Government"",""20 %""],[""Tech"",""23.5 %""],[""Education"",""27 %""]]"
+"chartqa_0017","Remote Work Percentage by Industry","chart_table","What is the remote work adoption rate in Finance?","33.5 %","/data/chartqa/images/chartqa_0017.png","ChartQA Research Dataset","| Category | Remote Share |
+| --- | --- |
+| Software/IT | 30 % |
+| Finance | 33.5 % |
+| Professional Services | 37 % |
+| Education | 40.5 % |
+| Healthcare | 44 % |
+","[[""Category"",""Remote Share""],[""Software/IT"",""30 %""],[""Finance"",""33.5 %""],[""Professional Services"",""37 %""],[""Education"",""40.5 %""],[""Healthcare"",""44 %""]]"
+"chartqa_0018","Global Freight Shipping Container Index","chart_table","What was the container shipping index in Q4 2023?","1414 Index","/data/chartqa/images/chartqa_0018.png","ChartQA Research Dataset","| Category | Value |
+| --- | --- |
+| Q1 2023 | 1403 Index |
+| Q2 2023 | 1407 Index |
+| Q3 2023 | 1410 Index |
+| Q4 2023 | 1414 Index |
+","[[""Category"",""Value""],[""Q1 2023"",""1403 Index""],[""Q2 2023"",""1407 Index""],[""Q3 2023"",""1410 Index""],[""Q4 2023"",""1414 Index""]]"
+"chartqa_0019","Medical Imaging AI Diagnostics Accuracy","chart_table","What is the AI diagnostic accuracy for Mammography?","88 %","/data/chartqa/images/chartqa_0019.png","ChartQA Research Dataset","| Category | Accuracy |
+| --- | --- |
+| Mammography | 88 % |
+| Chest X-Ray | 91.5 % |
+| Brain MRI | 95 % |
+| CT Angiography | 98.5 % |
+","[[""Category"",""Accuracy""],[""Mammography"",""88 %""],[""Chest X-Ray"",""91.5 %""],[""Brain MRI"",""95 %""],[""CT Angiography"",""98.5 %""]]"
+"chartqa_0020","Global Coffee Production by Country (2023)","chart_table","How many million bags of coffee did Ethiopia produce?","40 M Bags","/data/chartqa/images/chartqa_0020.png","ChartQA Research Dataset","| Category | Production |
+| --- | --- |
+| Brazil | 26 M Bags |
+| Vietnam | 29.5 M Bags |
+| Colombia | 33 M Bags |
+| Indonesia | 36.5 M Bags |
+| Ethiopia | 40 M Bags |
+","[[""Category"",""Production""],[""Brazil"",""26 M Bags""],[""Vietnam"",""29.5 M Bags""],[""Colombia"",""33 M Bags""],[""Indonesia"",""36.5 M Bags""],[""Ethiopia"",""40 M Bags""]]"
+"chartqa_0021","Streaming Service Subscribers 2023","chart_table","How many subscribers does Netflix have?","112 Million","/data/chartqa/images/chartqa_0021.png","ChartQA Research Dataset","| Category | Subscribers |
+| --- | --- |
+| Netflix | 112 Million |
+| Disney+ | 115.5 Million |
+| Amazon Prime Video | 119 Million |
+| Max | 122.5 Million |
+| Paramount+ | 126 Million |
+","[[""Category"",""Subscribers""],[""Netflix"",""112 Million""],[""Disney+"",""115.5 Million""],[""Amazon Prime Video"",""119 Million""],[""Max"",""122.5 Million""],[""Paramount+"",""126 Million""]]"
+"chartqa_0022","Smart Home Device Penetration Rate","chart_table","What is the penetration rate for Thermostats?","31.5 %","/data/chartqa/images/chartqa_0022.png","ChartQA Research Dataset","| Category | Penetration |
+| --- | --- |
+| Smart Speakers | 21 % |
+| Smart Lighting | 24.5 % |
+| Security Cameras | 28 % |
+| Thermostats | 31.5 % |
+","[[""Category"",""Penetration""],[""Smart Speakers"",""21 %""],[""Smart Lighting"",""24.5 %""],[""Security Cameras"",""28 %""],[""Thermostats"",""31.5 %""]]"
+"chartqa_0023","Global Lithium Production (2018-2023)","chart_table","What was the lithium output for Australia?","85 kt","/data/chartqa/images/chartqa_0023.png","ChartQA Research Dataset","| Category | Output |
+| --- | --- |
+| Australia | 85 kt |
+| Chile | 88.5 kt |
+| China | 92 kt |
+| Argentina | 95.5 kt |
+","[[""Category"",""Output""],[""Australia"",""85 kt""],[""Chile"",""88.5 kt""],[""China"",""92 kt""],[""Argentina"",""95.5 kt""]]"
+"chartqa_0024","5G Population Coverage Share 2023","chart_table","What is the 5G population coverage in Germany?","56.5 %","/data/chartqa/images/chartqa_0024.png","ChartQA Research Dataset","| Category | Coverage |
+| --- | --- |
+| South Korea | 46 % |
+| USA | 49.5 % |
+| China | 53 % |
+| Germany | 56.5 % |
+| UK | 60 % |
+","[[""Category"",""Coverage""],[""South Korea"",""46 %""],[""USA"",""49.5 %""],[""China"",""53 %""],[""Germany"",""56.5 %""],[""UK"",""60 %""]]"
+"chartqa_0025","Mobile App Downloads by Category 2023","chart_table","How many billion downloads were logged for Finance?","28 Billion","/data/chartqa/images/chartqa_0025.png","ChartQA Research Dataset","| Category | Downloads |
+| --- | --- |
+| Games | 14 Billion |
+| Social Media | 17.5 Billion |
+| Tools/Utilities | 21 Billion |
+| Shopping | 24.5 Billion |
+| Finance | 28 Billion |
+","[[""Category"",""Downloads""],[""Games"",""14 Billion""],[""Social Media"",""17.5 Billion""],[""Tools/Utilities"",""21 Billion""],[""Shopping"",""24.5 Billion""],[""Finance"",""28 Billion""]]"
+"chartqa_0026","Venture Capital Funding by Sector (2023)","chart_table","How much VC funding went to AI & ML?","18 $ Billion","/data/chartqa/images/chartqa_0026.png","ChartQA Research Dataset","| Category | Funding |
+| --- | --- |
+| AI & ML | 18 $ Billion |
+| Fintech | 21.5 $ Billion |
+| Healthtech | 25 $ Billion |
+| Cleantech | 28.5 $ Billion |
+| Crypto/Web3 | 32 $ Billion |
+","[[""Category"",""Funding""],[""AI & ML"",""18 $ Billion""],[""Fintech"",""21.5 $ Billion""],[""Healthtech"",""25 $ Billion""],[""Cleantech"",""28.5 $ Billion""],[""Crypto/Web3"",""32 $ Billion""]]"
+"chartqa_0027","Plastic Recycling Rate by Country","chart_table","What is the plastic recycling rate in South Korea?","17.5 %","/data/chartqa/images/chartqa_0027.png","ChartQA Research Dataset","| Category | Recycled % |
+| --- | --- |
+| Germany | 14 % |
+| South Korea | 17.5 % |
+| Japan | 21 % |
+| EU Average | 24.5 % |
+| USA | 28 % |
+","[[""Category"",""Recycled %""],[""Germany"",""14 %""],[""South Korea"",""17.5 %""],[""Japan"",""21 %""],[""EU Average"",""24.5 %""],[""USA"",""28 %""]]"
+"chartqa_0028","Quantum Computing Qubit Milestone Count","chart_table","What was the qubit count milestone in 2022?","135 Qubits","/data/chartqa/images/chartqa_0028.png","ChartQA Research Dataset","| Category | Qubit Count |
+| --- | --- |
+| 2020 | 128 Qubits |
+| 2021 | 131.5 Qubits |
+| 2022 | 135 Qubits |
+| 2023 | 138.5 Qubits |
+| 2024 | 142 Qubits |
+","[[""Category"",""Qubit Count""],[""2020"",""128 Qubits""],[""2021"",""131.5 Qubits""],[""2022"",""135 Qubits""],[""2023"",""138.5 Qubits""],[""2024"",""142 Qubits""]]"
+"chartqa_0029","Orbital Space Launches by Provider (2023)","chart_table","How many orbital launches were conducted by Rocket Lab?","32.5 Launches","/data/chartqa/images/chartqa_0029.png","ChartQA Research Dataset","| Category | Launches |
+| --- | --- |
+| SpaceX | 22 Launches |
+| CASC (China) | 25.5 Launches |
+| Roscosmos | 29 Launches |
+| Rocket Lab | 32.5 Launches |
+| ISRO | 36 Launches |
+","[[""Category"",""Launches""],[""SpaceX"",""22 Launches""],[""CASC (China)"",""25.5 Launches""],[""Roscosmos"",""29 Launches""],[""Rocket Lab"",""32.5 Launches""],[""ISRO"",""36 Launches""]]"
+"chartqa_0030","Robotics Density per 10,000 Workers","chart_table","What is the robot density per 10,000 workers in USA?","317 Units","/data/chartqa/images/chartqa_0030.png","ChartQA Research Dataset","| Category | Robots/10k |
+| --- | --- |
+| South Korea | 303 Units |
+| Singapore | 306.5 Units |
+| Japan | 310 Units |
+| Germany | 313.5 Units |
+| USA | 317 Units |
+","[[""Category"",""Robots/10k""],[""South Korea"",""303 Units""],[""Singapore"",""306.5 Units""],[""Japan"",""310 Units""],[""Germany"",""313.5 Units""],[""USA"",""317 Units""]]"
+"chartqa_0031","Online Course Completion Rates","chart_table","What is the course completion rate for Computer Science?","12 %","/data/chartqa/images/chartqa_0031.png","ChartQA Research Dataset","| Category | Completion Rate |
+| --- | --- |
+| Computer Science | 12 % |
+| Business | 15.5 % |
+| Data Science | 19 % |
+| Humanities | 22.5 % |
+| Arts | 26 % |
+","[[""Category"",""Completion Rate""],[""Computer Science"",""12 %""],[""Business"",""15.5 %""],[""Data Science"",""19 %""],[""Humanities"",""22.5 %""],[""Arts"",""26 %""]]"
+"chartqa_0032","Nuclear Share in Electricity Generation","chart_table","What percentage of electricity comes from nuclear energy in Slovakia?","29.5 %","/data/chartqa/images/chartqa_0032.png","ChartQA Research Dataset","| Category | Nuclear Share |
+| --- | --- |
+| France | 26 % |
+| Slovakia | 29.5 % |
+| Hungary | 33 % |
+| USA | 36.5 % |
+| UK | 40 % |
+","[[""Category"",""Nuclear Share""],[""France"",""26 %""],[""Slovakia"",""29.5 %""],[""Hungary"",""33 %""],[""USA"",""36.5 %""],[""UK"",""40 %""]]"
+"chartqa_0033","Telemedicine Visit Volume (2020-2023)","chart_table","How many million telemedicine visits occurred in 2022?","49 Million","/data/chartqa/images/chartqa_0033.png","ChartQA Research Dataset","| Category | Visits |
+| --- | --- |
+| 2020 | 42 Million |
+| 2021 | 45.5 Million |
+| 2022 | 49 Million |
+| 2023 | 52.5 Million |
+","[[""Category"",""Visits""],[""2020"",""42 Million""],[""2021"",""45.5 Million""],[""2022"",""49 Million""],[""2023"",""52.5 Million""]]"
+"chartqa_0034","LLM Context Window Latency Benchmark","chart_table","What is the inference latency for 64k tokens?","163.5 ms","/data/chartqa/images/chartqa_0034.png","ChartQA Research Dataset","| Category | Latency |
+| --- | --- |
+| 4k tokens | 153 ms |
+| 16k tokens | 156.5 ms |
+| 32k tokens | 160 ms |
+| 64k tokens | 163.5 ms |
+| 128k tokens | 167 ms |
+","[[""Category"",""Latency""],[""4k tokens"",""153 ms""],[""16k tokens"",""156.5 ms""],[""32k tokens"",""160 ms""],[""64k tokens"",""163.5 ms""],[""128k tokens"",""167 ms""]]"
+"chartqa_0035","Fast Food Chain Global Store Count","chart_table","How many stores does Dominos operate globally?","18014 Stores","/data/chartqa/images/chartqa_0035.png","ChartQA Research Dataset","| Category | Count |
+| --- | --- |
+| McDonald's | 18000 Stores |
+| Subway | 18004 Stores |
+| Starbucks | 18007 Stores |
+| KFC | 18011 Stores |
+| Dominos | 18014 Stores |
+","[[""Category"",""Count""],[""McDonald's"",""18000 Stores""],[""Subway"",""18004 Stores""],[""Starbucks"",""18007 Stores""],[""KFC"",""18011 Stores""],[""Dominos"",""18014 Stores""]]"
+"chartqa_0036","Desalination Plant Output Capacity","chart_table","What is the desalination capacity of Saudi Arabia?","9 M m3/day","/data/chartqa/images/chartqa_0036.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| Saudi Arabia | 9 M m3/day |
+| UAE | 12.5 M m3/day |
+| USA | 16 M m3/day |
+| Spain | 19.5 M m3/day |
+| China | 23 M m3/day |
+","[[""Category"",""Capacity""],[""Saudi Arabia"",""9 M m3/day""],[""UAE"",""12.5 M m3/day""],[""USA"",""16 M m3/day""],[""Spain"",""19.5 M m3/day""],[""China"",""23 M m3/day""]]"
+"chartqa_0037","Global Wind Power Capacity (GW)","chart_table","What is the onshore wind power capacity in USA?","75.5 GW","/data/chartqa/images/chartqa_0037.png","ChartQA Research Dataset","| Category | Onshore GW |
+| --- | --- |
+| China | 72 GW |
+| USA | 75.5 GW |
+| Germany | 79 GW |
+| India | 82.5 GW |
+| Spain | 86 GW |
+","[[""Category"",""Onshore GW""],[""China"",""72 GW""],[""USA"",""75.5 GW""],[""Germany"",""79 GW""],[""India"",""82.5 GW""],[""Spain"",""86 GW""]]"
+"chartqa_0038","E-sports Championship Prize Pools (2023)","chart_table","What was the tournament prize pool for League of Legends?","15 $ Million","/data/chartqa/images/chartqa_0038.png","ChartQA Research Dataset","| Category | Prize Pool |
+| --- | --- |
+| Dota 2 (TI) | 8 $ Million |
+| Fortnite | 11.5 $ Million |
+| League of Legends | 15 $ Million |
+| PUBG Mobile | 18.5 $ Million |
+| CS:GO | 22 $ Million |
+","[[""Category"",""Prize Pool""],[""Dota 2 (TI)"",""8 $ Million""],[""Fortnite"",""11.5 $ Million""],[""League of Legends"",""15 $ Million""],[""PUBG Mobile"",""18.5 $ Million""],[""CS:GO"",""22 $ Million""]]"
+"chartqa_0039","Electric Scooter Trips Count (2023)","chart_table","How many million e-scooter trips were recorded in North America?","35 Million","/data/chartqa/images/chartqa_0039.png","ChartQA Research Dataset","| Category | Trips |
+| --- | --- |
+| North America | 35 Million |
+| Europe | 38.5 Million |
+| Asia-Pacific | 42 Million |
+| Latin America | 45.5 Million |
+","[[""Category"",""Trips""],[""North America"",""35 Million""],[""Europe"",""38.5 Million""],[""Asia-Pacific"",""42 Million""],[""Latin America"",""45.5 Million""]]"
+"chartqa_0040","Microchip Shortage Delivery Lead Time","chart_table","What was the chip delivery lead time in 2021 Q1?","18.5 Weeks","/data/chartqa/images/chartqa_0040.png","ChartQA Research Dataset","| Category | Lead Time |
+| --- | --- |
+| 2020 Q1 | 15 Weeks |
+| 2021 Q1 | 18.5 Weeks |
+| 2022 Q1 | 22 Weeks |
+| 2023 Q1 | 25.5 Weeks |
+","[[""Category"",""Lead Time""],[""2020 Q1"",""15 Weeks""],[""2021 Q1"",""18.5 Weeks""],[""2022 Q1"",""22 Weeks""],[""2023 Q1"",""25.5 Weeks""]]"
+"chartqa_0041","Global Agricultural Fertilizer Efficiency","chart_table","What is the efficiency index for Potash?","74 Index","/data/chartqa/images/chartqa_0041.png","ChartQA Research Dataset","| Category | Efficiency |
+| --- | --- |
+| Nitrogen | 67 Index |
+| Phosphate | 70.5 Index |
+| Potash | 74 Index |
+| Organic Blend | 77.5 Index |
+","[[""Category"",""Efficiency""],[""Nitrogen"",""67 Index""],[""Phosphate"",""70.5 Index""],[""Potash"",""74 Index""],[""Organic Blend"",""77.5 Index""]]"
+"chartqa_0042","Commercial Real Estate Vacancy Rate","chart_table","What is the commercial vacancy rate in New York?","17.5 %","/data/chartqa/images/chartqa_0042.png","ChartQA Research Dataset","| Category | Vacancy % |
+| --- | --- |
+| San Francisco | 14 % |
+| New York | 17.5 % |
+| London | 21 % |
+| Tokyo | 24.5 % |
+| Singapore | 28 % |
+","[[""Category"",""Vacancy %""],[""San Francisco"",""14 %""],[""New York"",""17.5 %""],[""London"",""21 %""],[""Tokyo"",""24.5 %""],[""Singapore"",""28 %""]]"
+"chartqa_0043","Airline Passenger Traffic Recovery Share","chart_table","What is the passenger recovery rate for Domestic US?","82 % vs 2019","/data/chartqa/images/chartqa_0043.png","ChartQA Research Dataset","| Category | Recovery Rate |
+| --- | --- |
+| Domestic US | 82 % vs 2019 |
+| Europe Intra | 85.5 % vs 2019 |
+| Asia Pacific | 89 % vs 2019 |
+| Transatlantic | 92.5 % vs 2019 |
+","[[""Category"",""Recovery Rate""],[""Domestic US"",""82 % vs 2019""],[""Europe Intra"",""85.5 % vs 2019""],[""Asia Pacific"",""89 % vs 2019""],[""Transatlantic"",""92.5 % vs 2019""]]"
+"chartqa_0044","Global Heat Anomaly Index (2019-2023)","chart_table","What was the global heat anomaly index in 2022?","1.09 deg C","/data/chartqa/images/chartqa_0044.png","ChartQA Research Dataset","| Category | Anomaly |
+| --- | --- |
+| 2019 | 0.85 deg C |
+| 2020 | 0.93 deg C |
+| 2021 | 1.01 deg C |
+| 2022 | 1.09 deg C |
+| 2023 | 1.17 deg C |
+","[[""Category"",""Anomaly""],[""2019"",""0.85 deg C""],[""2020"",""0.93 deg C""],[""2021"",""1.01 deg C""],[""2022"",""1.09 deg C""],[""2023"",""1.17 deg C""]]"
+"chartqa_0045","Higher Education Stem vs Arts Graduates","chart_table","How many thousand graduates were recorded in Social Sciences?","459 Thousands","/data/chartqa/images/chartqa_0045.png","ChartQA Research Dataset","| Category | Graduates |
+| --- | --- |
+| STEM Fields | 452 Thousands |
+| Business & Econ | 455.5 Thousands |
+| Social Sciences | 459 Thousands |
+| Arts & Humanities | 462.5 Thousands |
+","[[""Category"",""Graduates""],[""STEM Fields"",""452 Thousands""],[""Business & Econ"",""455.5 Thousands""],[""Social Sciences"",""459 Thousands""],[""Arts & Humanities"",""462.5 Thousands""]]"
+"chartqa_0046","Smart Grid Investment by Region (2023)","chart_table","How much was invested in smart grids in Rest of Asia?","25.5 $ Billion","/data/chartqa/images/chartqa_0046.png","ChartQA Research Dataset","| Category | Investment |
+| --- | --- |
+| North America | 15 $ Billion |
+| Europe | 18.5 $ Billion |
+| China | 22 $ Billion |
+| Rest of Asia | 25.5 $ Billion |
+","[[""Category"",""Investment""],[""North America"",""15 $ Billion""],[""Europe"",""18.5 $ Billion""],[""China"",""22 $ Billion""],[""Rest of Asia"",""25.5 $ Billion""]]"
+"chartqa_0047","AI Dataset Token Count Scale (2020-2024)","chart_table","What was the pretraining dataset size in 2021?","303.5 Billion Tokens","/data/chartqa/images/chartqa_0047.png","ChartQA Research Dataset","| Category | Tokens |
+| --- | --- |
+| 2020 | 300 Billion Tokens |
+| 2021 | 303.5 Billion Tokens |
+| 2022 | 307 Billion Tokens |
+| 2023 | 310.5 Billion Tokens |
+| 2024 | 314 Billion Tokens |
+","[[""Category"",""Tokens""],[""2020"",""300 Billion Tokens""],[""2021"",""303.5 Billion Tokens""],[""2022"",""307 Billion Tokens""],[""2023"",""310.5 Billion Tokens""],[""2024"",""314 Billion Tokens""]]"
+"chartqa_0048","Autonomous Robot Deliveries (2023)","chart_table","How many robot deliveries occurred in Suburban?","84.5 Thousands","/data/chartqa/images/chartqa_0048.png","ChartQA Research Dataset","| Category | Deliveries |
+| --- | --- |
+| Campus | 81 Thousands |
+| Suburban | 84.5 Thousands |
+| Urban Sidewalk | 88 Thousands |
+| Industrial Park | 91.5 Thousands |
+","[[""Category"",""Deliveries""],[""Campus"",""81 Thousands""],[""Suburban"",""84.5 Thousands""],[""Urban Sidewalk"",""88 Thousands""],[""Industrial Park"",""91.5 Thousands""]]"
+"chartqa_0049","Battery Recycling Capacity Growth","chart_table","What was the battery recycling capacity in 2023?","24 GWh","/data/chartqa/images/chartqa_0049.png","ChartQA Research Dataset","| Category | Capacity |
+| --- | --- |
+| 2021 | 17 GWh |
+| 2022 | 20.5 GWh |
+| 2023 | 24 GWh |
+| 2024 (Est) | 27.5 GWh |
+","[[""Category"",""Capacity""],[""2021"",""17 GWh""],[""2022"",""20.5 GWh""],[""2023"",""24 GWh""],[""2024 (Est)"",""27.5 GWh""]]"
+"chartqa_0050","Generative AI Code Assistant Acceptance Rate","chart_table","What is the AI code completion acceptance rate for Go?","44 %","/data/chartqa/images/chartqa_0050.png","ChartQA Research Dataset","| Category | Acceptance |
+| --- | --- |
+| JavaScript/TS | 30 % |
+| Python | 33.5 % |
+| Java | 37 % |
+| C++ | 40.5 % |
+| Go | 44 % |
+","[[""Category"",""Acceptance""],[""JavaScript/TS"",""30 %""],[""Python"",""33.5 %""],[""Java"",""37 %""],[""C++"",""40.5 %""],[""Go"",""44 %""]]"
