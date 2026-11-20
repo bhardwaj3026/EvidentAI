@@ -6,7 +6,7 @@ import crypto from 'crypto';
 
 import { getAllDatasets, getDatasetSamples, getSampleById, formatTableToMarkdown, formatEvidenceForPrompt, getNormalizedSampleType } from './server/dataLoader.js';
 import { retrieveEvidence } from './server/retrieval.js';
-import { generateAnswer, getBase64Image, extractEvidenceFromImage } from './server/llm/provider.js';
+import { generateAnswer, getBase64Image, extractEvidenceFromImage, hasGeminiApiKey, getGeminiApiKeys } from './server/llm/provider.js';
 import { detectHallucinations, checkNumericAccuracy, extractNumbers } from './server/detection.js';
 import { sessionTracker } from './server/quantification.js';
 import { runMitigationPass } from './server/mitigation.js';
@@ -584,7 +584,7 @@ app.post('/api/pipeline/mitigate', async (req, res) => {
       };
 
       const fullPipelineResult = {
-        provider: pipelineResult?.provider || (process.env.GEMINI_API_KEY ? 'gemini' : 'claude'),
+        provider: pipelineResult?.provider || (hasGeminiApiKey() ? 'gemini' : 'claude'),
         evidence: reconstructedEvidence,
         question: pipelineResult?.question || "What is shown in this image?",
         generation: pipelineResult?.generation,
@@ -749,8 +749,10 @@ app.post('/api/session/reset', (req, res) => {
 
 app.listen(PORT, async () => {
   await initDatabase();
+  const geminiKeys = getGeminiApiKeys();
   console.log(`\n==================================================`);
   console.log(`Multimodal AI Image Chat running at http://localhost:${PORT}`);
   console.log(`Chat Interface: http://localhost:${PORT}/`);
+  console.log(`AI Engine: Google Gemini (${geminiKeys.length} parallel key${geminiKeys.length === 1 ? '' : 's'} active in pool)`);
   console.log(`==================================================\n`);
 });

@@ -24,11 +24,124 @@ export function getBase64Image(imagePath) {
 }
 
 /**
- * Helper to call Google Gemini API directly via REST (supports single-turn and multi-turn conversations)
+ * In-memory state tracking for Gemini API keys.
+ * Tracks rate-limiting (HTTP 429), cooldowns, success/error stats.
+ */
+const geminiKeyState = new Map();
+let geminiKeyRoundRobinIndex = 0;
+
+/**
+ * Returns all configured Gemini API keys from environment variables.
+ * Supports:
+ * - GEMINI_API_KEY (single key or comma-separated list)
+ * - GEMINI_API_KEYS (comma, newline, or semicolon delimited)
+ * - GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3, etc.
+ */
+export function getGeminiApiKeys() {
+  const keys = [];
+
+  // 1. Check GEMINI_API_KEYS (comma, newline, or semicolon delimited)
+  if (process.env.GEMINI_API_KEYS) {
+    const list = process.env.GEMINI_API_KEYS.split(/[,;\r\n]+/).map(k => k.trim()).filter(Boolean);
+    keys.push(...list);
+  }
+
+  // 2. Check GEMINI_API_KEY (supports single key or comma-separated)
+  if (process.env.GEMINI_API_KEY) {
+    const list = process.env.GEMINI_API_KEY.split(/[,;\r\n]+/).map(k => k.trim()).filter(Boolean);
+    keys.push(...list);
+  }
+
+  // 3. Numbered keys like GEMINI_API_KEY_1, GEMINI_API_KEY_2, etc.
+  for (const [envVar, val] of Object.entries(process.env)) {
+    if (/^GEMINI_API_KEY_\d+$/i.test(envVar) && typeof val === 'string') {
+      const trimmed = val.trim();
+      if (trimmed) keys.push(trimmed);
+    }
+  }
+
+  // Filter placeholders & duplicates while preserving order
+  const validKeys = Array.from(new Set(keys)).filter(
+    k => k && k.length > 10 && !k.toLowerCase().includes('your_gemini_api_key')
+  );
+
+  return validKeys;
+}
+
+export function hasGeminiApiKey() {
+  return getGeminiApiKeys().length > 0;
+}
+
+function maskApiKey(key) {
+  if (!key || key.length < 8) return '****';
+  return key.slice(0, 6) + '...' + key.slice(-4);
+}
+
+/**
+ * Returns keys ordered by health and round-robin priority.
+ * Healthy keys come first, rotated evenly for parallel load distribution.
+ */
+function getOrderedGeminiKeys(pool) {
+  if (pool.length === 0) return [];
+  const now = Date.now();
+
+  const healthy = [];
+  const coolingDown = [];
+
+  for (const key of pool) {
+    const state = geminiKeyState.get(key) || { cooldownUntil: 0 };
+    if (state.cooldownUntil > now) {
+      coolingDown.push({ key, cooldownUntil: state.cooldownUntil });
+    } else {
+      healthy.push(key);
+    }
+  }
+
+  coolingDown.sort((a, b) => a.cooldownUntil - b.cooldownUntil);
+
+  if (healthy.length > 0) {
+    const startIdx = Math.abs(geminiKeyRoundRobinIndex++) % healthy.length;
+    const rotated = [
+      ...healthy.slice(startIdx),
+      ...healthy.slice(0, startIdx)
+    ];
+    return [...rotated, ...coolingDown.map(c => c.key)];
+  }
+
+  return coolingDown.map(c => c.key);
+}
+
+function markKeyRateLimited(key, cooldownMs = 60000) {
+  const state = geminiKeyState.get(key) || { totalCalls: 0, rateLimitHits: 0 };
+  state.cooldownUntil = Date.now() + cooldownMs;
+  state.rateLimitHits = (state.rateLimitHits || 0) + 1;
+  geminiKeyState.set(key, state);
+}
+
+function markKeySuccess(key) {
+  const state = geminiKeyState.get(key) || { totalCalls: 0, rateLimitHits: 0 };
+  state.cooldownUntil = 0;
+  state.totalCalls = (state.totalCalls || 0) + 1;
+  geminiKeyState.set(key, state);
+}
+
+/**
+ * Helper to call Google Gemini API with multi-key pool, round-robin load balancing,
+ * and automatic rate-limit (429/quota) failover.
  */
 export async function callGeminiApi(apiKey, model, systemPrompt, userText, mediaType, base64Data, contents = null) {
-  if (!apiKey || apiKey.trim() === '') {
-    throw new Error("Missing GEMINI_API_KEY in .env. Please add your GEMINI_API_KEY to the .env file.");
+  const pool = getGeminiApiKeys();
+
+  // If a specific key was passed and isn't already in the pool, prepend it
+  if (apiKey && typeof apiKey === 'string' && apiKey.trim()) {
+    const trimmed = apiKey.trim();
+    if (!pool.includes(trimmed) && trimmed.length > 10 && !trimmed.toLowerCase().includes('your_gemini_api_key')) {
+      pool.unshift(trimmed);
+    }
+  }
+
+  if (pool.length === 0) {
+    throw new Error("Missing GEMINI_API_KEY in .env. Please add your GEMINI_API_KEY or GEMINI_API_KEY_2 to the .env file.");
   }
 
   const primaryModel = model || process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
@@ -41,69 +154,118 @@ export async function callGeminiApi(apiKey, model, systemPrompt, userText, media
     'gemini-3.8-flash'
   ]));
 
+  const orderedKeys = getOrderedGeminiKeys(pool);
   let lastError = null;
 
-  for (const modelName of candidateModels) {
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey.trim()}`;
+  for (let keyIdx = 0; keyIdx < orderedKeys.length; keyIdx++) {
+    const activeKey = orderedKeys[keyIdx];
+    const keyMask = maskApiKey(activeKey);
 
-      let bodyContents = contents;
-      if (!bodyContents || !Array.isArray(bodyContents) || bodyContents.length === 0) {
-        const parts = [];
-        if (base64Data) {
-          parts.push({
-            inline_data: {
-              mime_type: mediaType || 'image/png',
-              data: base64Data
-            }
-          });
+    for (const modelName of candidateModels) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeKey}`;
+
+        let bodyContents = contents;
+        if (!bodyContents || !Array.isArray(bodyContents) || bodyContents.length === 0) {
+          const parts = [];
+          if (base64Data) {
+            parts.push({
+              inline_data: {
+                mime_type: mediaType || 'image/png',
+                data: base64Data
+              }
+            });
+          }
+          parts.push({ text: userText || 'Analyze this input.' });
+          bodyContents = [{ role: 'user', parts }];
         }
-        parts.push({ text: userText || 'Analyze this input.' });
-        bodyContents = [{ role: 'user', parts }];
-      }
 
-      const body = { contents: bodyContents };
-      if (systemPrompt && systemPrompt.trim()) {
-        body.system_instruction = {
-          parts: [{ text: systemPrompt.trim() }]
-        };
-      }
+        const body = { contents: bodyContents };
+        if (systemPrompt && systemPrompt.trim()) {
+          body.system_instruction = {
+            parts: [{ text: systemPrompt.trim() }]
+          };
+        }
 
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(25000)
-      });
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(25000)
+        });
 
-      const data = await res.json();
-      if (!res.ok) {
-        const errMsg = data.error?.message || `Gemini API call failed with status ${res.status}`;
-        const errLower = errMsg.toLowerCase();
-        const isRetryable = res.status === 429 || res.status === 503 || res.status === 500 || res.status === 404 ||
-          errLower.includes('high demand') ||
-          errLower.includes('capacity') ||
-          errLower.includes('unavailable') ||
-          errLower.includes('quota') ||
-          errLower.includes('rate limit');
-        lastError = new Error(`Gemini API Error: ${errMsg}`);
-        if (isRetryable && candidateModels.indexOf(modelName) < candidateModels.length - 1) {
-          console.warn(`Gemini model ${modelName} returned temporary error: ${errMsg}. Trying fallback model...`);
+        const data = await res.json();
+        if (!res.ok) {
+          const errMsg = data.error?.message || `Gemini API call failed with status ${res.status}`;
+          const errLower = errMsg.toLowerCase();
+          const isRateLimit = res.status === 429 ||
+            errLower.includes('quota') ||
+            errLower.includes('rate limit') ||
+            errLower.includes('resource_exhausted');
+
+          if (isRateLimit) {
+            markKeyRateLimited(activeKey, 60000);
+            console.warn(`[Gemini Pool] Key ${keyMask} hit rate limit / quota (${res.status}: ${errMsg}).`);
+
+            // If another key is available in the pool, switch immediately
+            if (keyIdx < orderedKeys.length - 1) {
+              const nextMask = maskApiKey(orderedKeys[keyIdx + 1]);
+              console.log(`[Gemini Pool] Automatically failing over to parallel key ${nextMask}...`);
+              lastError = new Error(`Gemini API Rate Limit on ${keyMask}: ${errMsg}`);
+              break; // breaks out of candidateModels, tries next key
+            }
+          }
+
+          const isModelRetryable = res.status === 503 || res.status === 500 || res.status === 404 ||
+            errLower.includes('high demand') ||
+            errLower.includes('capacity') ||
+            errLower.includes('unavailable');
+
+          lastError = new Error(`Gemini API Error: ${errMsg}`);
+          if (isModelRetryable && candidateModels.indexOf(modelName) < candidateModels.length - 1) {
+            console.warn(`Gemini model ${modelName} returned temporary error: ${errMsg}. Trying fallback model...`);
+            continue;
+          }
+
+          const isAuthError = res.status === 401 || res.status === 403 || errLower.includes('api key');
+          if (isAuthError && keyIdx < orderedKeys.length - 1) {
+            console.warn(`[Gemini Pool] Key ${keyMask} authentication error. Trying next key in pool...`);
+            break;
+          }
+
+          if (isModelRetryable) continue;
+          throw lastError;
+        }
+
+        markKeySuccess(activeKey);
+        return data.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
+
+      } catch (err) {
+        lastError = err;
+        const errLower = err.message.toLowerCase();
+        const isRateLimit = errLower.includes('429') || errLower.includes('quota') || errLower.includes('rate limit') || errLower.includes('resource_exhausted');
+
+        if (isRateLimit) {
+          markKeyRateLimited(activeKey, 60000);
+          if (keyIdx < orderedKeys.length - 1) {
+            const nextMask = maskApiKey(orderedKeys[keyIdx + 1]);
+            console.log(`[Gemini Pool] Automatically failing over to parallel key ${nextMask}...`);
+            break; // Try next key
+          }
+        }
+
+        const isRetryable = errLower.includes('high demand') || errLower.includes('capacity') || errLower.includes('unavailable') || errLower.includes('503') || errLower.includes('abort');
+        if (candidateModels.indexOf(modelName) < candidateModels.length - 1 && isRetryable) {
+          console.warn(`Retrying with fallback Gemini model after error: ${err.message}`);
           continue;
         }
-        throw lastError;
-      }
 
-      return data.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
-    } catch (err) {
-      lastError = err;
-      const errLower = err.message.toLowerCase();
-      const isRetryable = errLower.includes('high demand') || errLower.includes('capacity') || errLower.includes('unavailable') || errLower.includes('429') || errLower.includes('503') || errLower.includes('not_found') || errLower.includes('quota') || errLower.includes('abort');
-      if (candidateModels.indexOf(modelName) < candidateModels.length - 1 && isRetryable) {
-        console.warn(`Retrying with fallback Gemini model after error: ${err.message}`);
-        continue;
+        if (keyIdx < orderedKeys.length - 1) {
+          console.warn(`[Gemini Pool] Key ${keyMask} error (${err.message}). Trying next key in pool...`);
+          break;
+        }
+        throw err;
       }
-      throw err;
     }
   }
 
@@ -130,10 +292,10 @@ export async function extractEvidenceFromImage(provider, mediaType, base64Data, 
   const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
 
   if (provider === 'gemini') {
-    if (!process.env.GEMINI_API_KEY) {
+    if (!hasGeminiApiKey()) {
       throw new Error("Gemini provider selected but GEMINI_API_KEY is missing in .env.");
     }
-    return await callGeminiApi(process.env.GEMINI_API_KEY, GEMINI_MODEL, null, promptText, mediaType, base64Data);
+    return await callGeminiApi(null, GEMINI_MODEL, null, promptText, mediaType, base64Data);
   }
 
   if (provider === 'claude') {
@@ -209,7 +371,7 @@ export async function generateAnswer(provider, evidence, question, options = {})
 
   // Strict check for user uploads: require live API key, no heuristic fallback
   if (sampleType === 'user_upload') {
-    if (normalizedProvider === 'gemini' && !process.env.GEMINI_API_KEY) {
+    if (normalizedProvider === 'gemini' && !hasGeminiApiKey()) {
       throw new Error("Image upload requires a live GEMINI_API_KEY in .env.");
     }
     if (normalizedProvider === 'claude' && !process.env.ANTHROPIC_API_KEY) {
@@ -404,11 +566,11 @@ Answer the user's question clearly based on the provided chart table and image c
   const userContentText = `Context Evidence (${sampleType}):\n${formattedEvidence}\n\nQuestion: ${question}\n\nPlease provide a clear, factual answer.`;
 
   // 0. Check for Gemini API key & selected provider
-  if (normalizedProvider === 'gemini' && process.env.GEMINI_API_KEY) {
+  if (normalizedProvider === 'gemini' && hasGeminiApiKey()) {
     try {
       const startTime = Date.now();
       const answerText = await callGeminiApi(
-        process.env.GEMINI_API_KEY,
+        null,
         GEMINI_MODEL,
         systemPrompt,
         userContentText,

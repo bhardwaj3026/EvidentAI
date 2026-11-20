@@ -1,7 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_ROOT = path.join(process.cwd(), 'data');
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const candidates = [
+  path.join(process.cwd(), 'data'),
+  path.join(process.cwd(), 'capstone real', 'data'),
+  path.resolve(__dirname, '..', 'data')
+];
+const DATA_ROOT = candidates.find(p => fs.existsSync(p)) || candidates[0];
 
 /**
  * Converts a 2D array or key-value table into a Markdown table string.
@@ -45,6 +55,9 @@ export function formatEvidenceForPrompt(sample) {
   if (!sample) return '_No evidence provided._';
 
   const type = getNormalizedSampleType(sample);
+  const tablePart = (sample.table && Array.isArray(sample.table) && sample.table.length > 0)
+    ? `\n\nExtracted Tabular Evidence:\n${formatTableToMarkdown(sample.table)}`
+    : '';
 
   switch (type) {
     case 'science_mc': {
@@ -52,12 +65,12 @@ export function formatEvidenceForPrompt(sample) {
       const choicesText = Array.isArray(sample.choices) && sample.choices.length > 0
         ? sample.choices.map((c, idx) => `${String.fromCharCode(65 + idx)}) ${c}`).join('\n')
         : 'No choices listed.';
-      return `Lecture:\n${lecture}\n\nOptions:\n${choicesText}`;
+      return `Lecture:\n${lecture}\n\nOptions:\n${choicesText}${tablePart}`;
     }
 
     case 'paper_figure': {
       const caption = sample.figureCaption || sample.caption || 'No figure caption provided.';
-      return `Figure Caption:\n${caption}`;
+      return `Figure Caption:\n${caption}${tablePart}`;
     }
 
     case 'chart_table':

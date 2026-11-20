@@ -1,7 +1,7 @@
 import express from 'express';
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
-import { extractEvidenceFromImage, callGeminiApi } from './llm/provider.js';
+import { extractEvidenceFromImage, callGeminiApi, hasGeminiApiKey, getGeminiApiKeys } from './llm/provider.js';
 import { detectHallucinations } from './detection.js';
 import { extractAuthUser } from './auth.js';
 import {
@@ -114,11 +114,13 @@ function mapApiError(err) {
 
 // 1. GET /api/chat/status
 chatRouter.get('/status', (req, res) => {
+  const geminiKeys = getGeminiApiKeys();
   res.json({
     success: true,
     claude: !!process.env.ANTHROPIC_API_KEY,
     openai: !!process.env.OPENAI_API_KEY,
-    gemini: !!process.env.GEMINI_API_KEY
+    gemini: geminiKeys.length > 0,
+    geminiKeyCount: geminiKeys.length
   });
 });
 
@@ -354,12 +356,12 @@ chatRouter.post('/', async (req, res) => {
     // Check API Keys & Provider Fallback
     const hasClaude = !!process.env.ANTHROPIC_API_KEY;
     const hasOpenAI = !!process.env.OPENAI_API_KEY;
-    const hasGemini = !!process.env.GEMINI_API_KEY;
+    const hasGemini = hasGeminiApiKey();
 
     if (!hasClaude && !hasOpenAI && !hasGemini) {
       return res.status(400).json({
         success: false,
-        error: "No API key found. Add GEMINI_API_KEY, ANTHROPIC_API_KEY, or OPENAI_API_KEY to the .env file and restart the server."
+        error: "No API key found. Add GEMINI_API_KEY (or GEMINI_API_KEY_2), ANTHROPIC_API_KEY, or OPENAI_API_KEY to the .env file and restart the server."
       });
     }
 
@@ -458,7 +460,7 @@ Rules:
         const geminiContents = formatMessagesForGemini(processedMessages);
 
         const answerText = await callGeminiApi(
-          process.env.GEMINI_API_KEY,
+          null, // Automatically uses multi-key pool with load-balancing & failover
           GEMINI_MODEL,
           systemPrompt,
           null,
@@ -656,7 +658,7 @@ chatRouter.post('/check', async (req, res) => {
 
     const hasClaude = !!process.env.ANTHROPIC_API_KEY;
     const hasOpenAI = !!process.env.OPENAI_API_KEY;
-    const hasGemini = !!process.env.GEMINI_API_KEY;
+    const hasGemini = hasGeminiApiKey();
 
     if (!hasClaude && !hasOpenAI && !hasGemini) {
       return res.status(400).json({ success: false, error: "No API key found to run hallucination check. Add GEMINI_API_KEY to your .env file." });

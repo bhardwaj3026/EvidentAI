@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { getNormalizedSampleType } from './dataLoader.js';
-import { callGeminiApi } from './llm/provider.js';
+import { callGeminiApi, hasGeminiApiKey, getGeminiApiKeys } from './llm/provider.js';
 
 /**
  * Extracts numeric values from a string (percentages, currency, decimals, integers).
@@ -123,25 +123,53 @@ export async function detectHallucinations(answerText, evidence, provider = 'cla
       status: isChoiceMatch ? 'CORRECT_CHOICE' : 'CHOICE_MISMATCH'
     };
 
-    evidenceTextForClaims = sample?.lecture || sample?.hint || formattedEvidence || '';
+    evidenceTextForClaims = formattedEvidence || sample?.lecture || sample?.hint || '';
+    if (markdownTable && !evidenceTextForClaims.includes(markdownTable)) {
+      evidenceTextForClaims += `\n\n${markdownTable}`;
+    }
 
   } else if (sampleType === 'paper_figure') {
-    // Paper figure evidence: caption text
-    const captionText = sample?.figureCaption || sample?.caption || formattedEvidence || '';
-    evidenceTextForClaims = captionText;
+    // Paper figure evidence: caption text and extracted table
+    const captionText = sample?.figureCaption || sample?.caption || '';
+    const tableText = sample?.table && sample.table.length > 0 ? JSON.stringify(sample.table) : '';
+    evidenceTextForClaims = formattedEvidence || (captionText + (markdownTable ? `\n\n${markdownTable}` : ''));
 
     const answerNumbers = extractNumbers(answerText);
     const captionNumbers = extractNumbers(captionText);
+    const tableNumbers = extractNumbers(tableText);
+    const allEvidenceNumbers = [...captionNumbers, ...tableNumbers];
 
-    if (answerNumbers.length > 0 && captionNumbers.length > 0) {
-      // Run numeric check against caption numbers
+    if (answerNumbers.length > 0 && allEvidenceNumbers.length > 0) {
+      // Run numeric check against caption & table numbers
       const details = answerNumbers.map(item => {
-        let isSupported = captionNumbers.some(c => checkNumericAccuracy(item.value, c.value));
+        let matchedEvidence = null;
+        let isSupported = false;
+
+        // Check against gold answer number if available
+        const goldNums = goldAnswer ? extractNumbers(goldAnswer) : [];
+        for (const g of goldNums) {
+          if (checkNumericAccuracy(item.value, g.value)) {
+            isSupported = true;
+            matchedEvidence = g.raw;
+            break;
+          }
+        }
+
+        if (!isSupported) {
+          for (const ev of allEvidenceNumbers) {
+            if (checkNumericAccuracy(item.value, ev.value)) {
+              isSupported = true;
+              matchedEvidence = ev.raw;
+              break;
+            }
+          }
+        }
+
         return {
           claimedNumber: item.raw,
           value: item.value,
           isSupported,
-          matchedEvidence: isSupported ? 'Caption figure number' : null,
+          matchedEvidence,
           flag: isSupported ? 'Grounded' : 'Unsupported numeric claim'
         };
       });
@@ -158,7 +186,7 @@ export async function detectHallucinations(answerText, evidence, provider = 'cla
         totalNumbersFound: answerNumbers.length,
         unsupportedCount: 0,
         details: [],
-        reason: 'Numeric check skipped (no numbers in figure caption).'
+        reason: 'Numeric check skipped (no numbers in figure caption or table).'
       };
     }
 
@@ -256,11 +284,11 @@ function decomposeIntoClaims(text) {
 async function classifyClaimsWithTaxonomy(claims, evidenceText, sample, provider, isUserUpload = false) {
   const sampleType = isUserUpload ? 'user_upload' : getNormalizedSampleType(sample);
   const pLower = (provider || '').toLowerCase();
-  const preferredJudge = (pLower.includes('gemini') && process.env.GEMINI_API_KEY)
+  const preferredJudge = (pLower.includes('gemini') && hasGeminiApiKey())
     ? 'gemini'
     : (pLower.includes('openai') && process.env.OPENAI_API_KEY)
       ? 'openai'
-      : (process.env.GEMINI_API_KEY
+      : (hasGeminiApiKey()
         ? 'gemini'
         : (process.env.ANTHROPIC_API_KEY ? 'claude' : 'openai'));
   const judgeProvider = (process.env.JUDGE_PROVIDER || preferredJudge).toLowerCase();
@@ -278,7 +306,7 @@ async function classifyClaimsWithTaxonomy(claims, evidenceText, sample, provider
     if (judgeProvider === 'openai' && !process.env.OPENAI_API_KEY) {
       throw new Error("Hallucination detection for uploaded images requires a live API key for the judge model.");
     }
-    if (judgeProvider === 'gemini' && !process.env.GEMINI_API_KEY) {
+    if (judgeProvider === 'gemini' && !hasGeminiApiKey()) {
       throw new Error("Hallucination detection for uploaded images requires a live API key for the judge model.");
     }
   }
@@ -376,7 +404,7 @@ ${JSON.stringify(claims)}
   }
 
   // 3. Try Gemini Judge
-  if (judgeProvider === 'gemini' && process.env.GEMINI_API_KEY) {
+  if (judgeProvider === 'gemini' && hasGeminiApiKey()) {
     try {
       const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3-flash-preview';
       const prompt = `You are a factual claim verifier for Multimodal RAG benchmarking.
@@ -399,7 +427,7 @@ ${JSON.stringify(claims)}
 `;
 
       const textRes = await callGeminiApi(
-        process.env.GEMINI_API_KEY,
+        null,
         GEMINI_MODEL,
         null,
         prompt
